@@ -148,7 +148,8 @@ ALTER TABLE `namebasics`
 ALTER TABLE `principals`
   ADD KEY `principals_fk1` (`tconst`),
   ADD KEY `principals_fk2` (`nconst`),
-  ADD PRIMARY KEY(`tconst`,`nconst`);
+  ADD KEY (`ordering`),
+  ADD PRIMARY KEY(`tconst`,`ordering`);
 
 --
 -- Ευρετήρια για πίνακα `ratings`
