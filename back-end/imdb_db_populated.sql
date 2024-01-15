@@ -133,7 +133,6 @@ ALTER TABLE `crew`
 --
 ALTER TABLE `episode`
   ADD KEY `episode_fk1` (`tconst`),
-  ADD KEY `episode_fk2` (`parentTconst`),
   ADD PRIMARY KEY (`tconst`);
 
 --
@@ -188,8 +187,7 @@ ALTER TABLE `crew`
 -- Περιορισμοί για πίνακα `episodes`
 --
 ALTER TABLE `episode`
-  ADD CONSTRAINT `episode_fk1` FOREIGN KEY (`tconst`) REFERENCES `titlebasics` (`tconst`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `episode_fk2` FOREIGN KEY (`parentTconst`) REFERENCES `titlebasics` (`tconst`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `episode_fk1` FOREIGN KEY (`tconst`) REFERENCES `titlebasics` (`tconst`) ON UPDATE CASCADE;
 
 --
 -- Περιορισμοί για πίνακα `professionals_titles`
