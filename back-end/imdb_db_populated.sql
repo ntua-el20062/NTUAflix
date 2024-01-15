@@ -27,22 +27,95 @@ SET time_zone = "+00:00";
 -- Δομή πίνακα για τον πίνακα `aka`
 --
 
-CREATE TABLE `aka` (
-  `Title_id` varchar(50) NOT NULL,
+CREATE TABLE `akas` (
+  `titleid` varchar(50) NOT NULL,
   `ordering` int(10) NOT NULL,
-  `Title` varchar(500) NOT NULL,
-  `Region` varchar(100) DEFAULT NULL,
-  `Language` varchar(100) DEFAULT NULL,
-  `Type` varchar(100) DEFAULT NULL,
-  `Attributes` varchar(100) DEFAULT NULL,
+  `title` varchar(500) NOT NULL,
+  `region` varchar(100) DEFAULT NULL,
+  `language` varchar(100) DEFAULT NULL,
+  `types` varchar(100) DEFAULT NULL,
+  `attributes` varchar(100) DEFAULT NULL,
   `isOriginalTitle` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+--
+-- Δομή πίνακα για τον πίνακα `crew`
+--
+
+CREATE TABLE `crew` (
+  `tconst` varchar(50) NOT NULL,
+  `directors` varchar(1000) DEFAULT NULL,
+  `writers` varchar(10000) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Δομή πίνακα για τον πίνακα `episodes`
+--
+
+CREATE TABLE `episode` (
+  `tconst` varchar(50) NOT NULL,
+  `parentTconst` varchar(50) NOT NULL,
+  `seasonNumber` int(10) DEFAULT NULL,
+  `episodeNumber` int(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+--
+-- Δομή πίνακα για τον πίνακα `professionals`
+--
+
+CREATE TABLE `namebasics` (
+  `nconst` varchar(50) NOT NULL,
+  `primaryName` varchar(100) NOT NULL,
+  `birthYear` int(10) DEFAULT NULL,
+  `deathYear` int(10) DEFAULT NULL,
+  `primaryProfession` varchar(500) NOT NULL,
+  `knownForTitles` varchar(10000) DEFAULT NULL,
+  `img_url_asset` varchar(1000) DEFAULT NULL,
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+--
+-- Δομή πίνακα για τον πίνακα `professionals_titles`
+--
+
+CREATE TABLE `principals` (
+  `tconst` varchar(50) NOT NULL,
+  `ordering` int(10) DEFAULT NULL,
+  `nconst` varchar(50) NOT NULL,
+  `category` varchar(100) DEFAULT NULL,
+  `job` varchar(100) DEFAULT NULL,
+  `characters` varchar(100) DEFAULT NULL,
+  `img_url_asset` varchar(1000) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Δομή πίνακα για τον πίνακα `ratings`
+--
+
+CREATE TABLE `ratings` (
+  `tconst` varchar(50) NOT NULL,
+  `averageRating` double NOT NULL,
+  `NumVotes` int(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Δομή πίνακα για τον πίνακα `titles`
+--
+
+CREATE TABLE `titlebasics` (
+  `tconst` varchar(50) NOT NULL,
+  `titleType` varchar(100) NOT NULL,
+  `primaryTitle` varchar(500) NOT NULL,
+  `originalTitle` varchar(500) NOT NULL,
+  `isAdult` int(10) NOT NULL,
+  `startYear` int(10) NOT NULL,
+  `endYear` int(10) DEFAULT NULL,
+  `runtimeMinutes` int(50) DEFAULT NULL,
+  `genres` varchar(10000) DEFAULT NULL,
+  `img_url_asset` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Άδειασμα δεδομένων του πίνακα `aka`
 --
 
-INSERT INTO `aka` (`Title_id`, `ordering`, `Title`, `Region`, `Language`, `Type`, `Attributes`, `isOriginalTitle`) VALUES
+INSERT INTO `akas` (`title_id`, `ordering`, `title`, `region`, `language`, `types`, `attributes`, `isOriginalTitle`) VALUES
 ('tt0000929', 1, 'Willys Streiche: Klebolin klebt alles', 'DE', '', 'alternative', '', 0),
 ('tt0000929', 2, 'Klebolin klebt alles', '', '', 'original', '', 1),
 ('tt0000929', 3, 'Klebolin klebt alles', 'DE', '', 'imdbDisplay', '', 0),
@@ -792,7 +865,7 @@ INSERT INTO `aka` (`Title_id`, `ordering`, `Title`, `Region`, `Language`, `Type`
 ('tt0096875', 33, 'Camino de retorno', 'ES', '', '', '', 0),
 ('tt0096875', 34, 'Catchfire', 'PH', 'en', 'imdbDisplay', '', 0),
 ('tt0096875', 35, 'Στο στόχαστρο του εκτελεστή', 'GR', '', 'imdbDisplay', '', 0);
-INSERT INTO `aka` (`Title_id`, `ordering`, `Title`, `Region`, `Language`, `Type`, `Attributes`, `isOriginalTitle`) VALUES
+INSERT INTO `akas` (`title_id`, `ordering`, `title`, `region`, `language`, `types`, `attributes`, `isOriginalTitle`) VALUES
 ('tt0096875', 36, 'Testigo en la mira', 'MX', '', 'imdbDisplay', '', 0),
 ('tt0096875', 37, 'ハートに火をつけて（1989）', 'JP', 'ja', 'imdbDisplay', '', 0),
 ('tt0096875', 38, 'A szemtanú nyomában', 'HU', '', '', '', 0),
@@ -1541,8 +1614,7 @@ INSERT INTO `aka` (`Title_id`, `ordering`, `Title`, `Region`, `Language`, `Type`
 ('tt0097925', 1, 'La femme imprévisible', 'FR', '', '', '', 0),
 ('tt0097925', 2, 'Die Frau deines Lebens - Die Verrückte', 'XWG', '', '', '', 0),
 ('tt0097925', 3, 'La mujer lunática', 'ES', '', '', '', 0);
-INSERT INTO `aka` (`Title_id`, `ordering`, `Title`, `Region`, `Language`, `Type`, `Attributes`, `isOriginalTitle`) VALUES
-('tt0097925', 4, 'La mujer lunática', '', '', 'original', '', 1),
+INSERT INTO `akas` (`title_id`, `ordering`, `title`, `region`, `language`, `types`, `attributes`, `isOriginalTitle`) VALUES
 ('tt0097928', 1, 'Dead Certain', '', '', '', '', 0),
 ('tt0097928', 2, 'Blues mordercy', 'PL', '', '', '', 0),
 ('tt0097928', 3, 'Deine Zeit läuft ab', 'XWG', '', '', '', 0),
@@ -2264,7 +2336,7 @@ INSERT INTO `aka` (`Title_id`, `ordering`, `Title`, `Region`, `Language`, `Type`
 ('tt0098991', 7, 'A visszatérés', 'HU', '', 'imdbDisplay', '', 0),
 ('tt0098991', 8, 'L\'africana', 'IT', '', 'imdbDisplay', '', 0),
 ('tt0098991', 9, 'Die Rückkehr', 'XWG', '', '', '', 0);
-INSERT INTO `aka` (`Title_id`, `ordering`, `Title`, `Region`, `Language`, `Type`, `Attributes`, `isOriginalTitle`) VALUES
+INSERT INTO `akas` (`title_id`, `ordering`, `title`, `region`, `language`, `types`, `attributes`, `isOriginalTitle`) VALUES
 ('tt0098992', 1, 'Afrika um die Ecke', '', '', 'original', '', 1),
 ('tt0098992', 2, 'Afrika um die Ecke', 'DE', '', 'imdbDisplay', '', 0),
 ('tt0098993', 1, 'Time Off', 'DE', '', 'imdbDisplay', '', 0),
@@ -2855,22 +2927,11 @@ INSERT INTO `aka` (`Title_id`, `ordering`, `Title`, `Region`, `Language`, `Type`
 ('tt0103149', 1, 'Tödliche Vergangenheit', 'DE', '', '', '', 0);
 
 -- --------------------------------------------------------
-
---
--- Δομή πίνακα για τον πίνακα `crew`
---
-
-CREATE TABLE `crew` (
-  `Title_id` varchar(50) NOT NULL,
-  `Directors` varchar(1000) DEFAULT NULL,
-  `Writers` varchar(10000) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 --
 -- Άδειασμα δεδομένων του πίνακα `crew`
 --
 
-INSERT INTO `crew` (`Title_id`, `Directors`, `Writers`) VALUES
+INSERT INTO `crew` (`tconst`, `directors`, `writers`) VALUES
 ('tt0000929', 'nm0093361', ''),
 ('tt0000977', '', ''),
 ('tt0015414', 'nm0615736', ''),
@@ -3373,23 +3434,11 @@ INSERT INTO `crew` (`Title_id`, `Directors`, `Writers`) VALUES
 ('tt0103149', 'nm0530689', 'nm0530689');
 
 -- --------------------------------------------------------
-
---
--- Δομή πίνακα για τον πίνακα `episodes`
---
-
-CREATE TABLE `episodes` (
-  `Title_id` varchar(50) NOT NULL,
-  `Season_Number` int(10) DEFAULT NULL,
-  `Episode_Number` int(10) DEFAULT NULL,
-  `Parent_id` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 --
 -- Άδειασμα δεδομένων του πίνακα `episodes`
 --
 
-INSERT INTO `episodes` (`Title_id`, `Season_Number`, `Episode_Number`, `Parent_id`) VALUES
+INSERT INTO `episode` (`tconst`, `seasonNumber`, `episodeNumber`, `parentTconst`) VALUES
 ('tt0073481', 1, 4, 'tt0298685'),
 ('tt0088283', 20, 8, 'tt0806901'),
 ('tt0088656', 1, 2, 'tt0088655'),
@@ -3544,24 +3593,10 @@ INSERT INTO `episodes` (`Title_id`, `Season_Number`, `Episode_Number`, `Parent_i
 -- --------------------------------------------------------
 
 --
--- Δομή πίνακα για τον πίνακα `professionals`
---
-
-CREATE TABLE `professionals` (
-  `Professional_id` varchar(50) NOT NULL,
-  `Primary_Name` varchar(100) NOT NULL,
-  `Birth_Year` int(10) DEFAULT NULL,
-  `Death_Year` int(10) DEFAULT NULL,
-  `Primary_Profession` varchar(500) NOT NULL,
-  `img_url_asset` varchar(1000) DEFAULT NULL,
-  `known_for` varchar(10000) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
 -- Άδειασμα δεδομένων του πίνακα `professionals`
 --
 
-INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `Death_Year`, `Primary_Profession`, `img_url_asset`, `known_for`) VALUES
+INSERT INTO `namebasics` (`nconst`, `primaryName`, `birthYear`, `deathYear`, `primaryProfession`, `img_url_asset`, `knownForTitles`) VALUES
 ('nm0000019', 'Federico Fellini', 1920, 1993, 'writer,director,actor', 'https://image.tmdb.org/t/p/{width_variable}/jH2VnHAuI0UbTWsnrjMPro0fC9j.jpg', 'tt0071129,tt0047528,tt0050783,tt0056801'),
 ('nm0000030', 'Audrey Hepburn', 1929, 1993, 'actress,soundtrack', 'https://image.tmdb.org/t/p/{width_variable}/nbkNJ8dr6j5vSZ3M6SKwp0F7Q1P.jpg', 'tt0046250,tt0054698,tt0056923,tt0058385'),
 ('nm0000035', 'James Horner', 1953, 2015, 'music_department,soundtrack,composer', 'https://image.tmdb.org/t/p/{width_variable}/g2C3Fb4fHCU2gnqUcwTQCv5EZc4.jpg', 'tt0177971,tt0120338,tt0499549,tt0120746'),
@@ -3833,7 +3868,7 @@ INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `D
 ('nm0006165', 'Raúl Lavista', 1913, 1980, 'composer,music_department,soundtrack', 'https://image.tmdb.org/t/p/{width_variable}/f9HjW8Y0cI3lVZ2779wOvxUuWaU.jpg', 'tt0051090,tt0056732,tt0223777,tt0043647'),
 ('nm0006166', 'Michel Legrand', 1932, 2019, 'composer,soundtrack,music_department', 'https://image.tmdb.org/t/p/{width_variable}/nkhKfgrBjWZ7BVuI8dZztkX7bcV.jpg', 'tt0063688,tt0086619,tt0067803,tt0058450'),
 ('nm0006168', 'John Lennon', 1940, 1980, 'music_artist,soundtrack,composer', 'https://image.tmdb.org/t/p/{width_variable}/eoaFA3ekdmEhAtSZ3wb9gEm2TYh.jpg', 'tt0078239,tt0058182,tt0059260,tt0063823');
-INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `Death_Year`, `Primary_Profession`, `img_url_asset`, `known_for`) VALUES
+INSERT INTO `namebasics` (`nconst`, `primaryName`, `birthYear`, `deathYear`, `primaryProfession`, `img_url_asset`, `knownForTitles`) VALUES
 ('nm0006169', 'Sylvester Levay', NULL, NULL, 'composer,music_department,soundtrack', '', 'tt0118749,tt0090859,tt0091225,tt0106519'),
 ('nm0006179', 'Stefano Mainetti', 1957, NULL, 'music_department,composer,miscellaneous', '', 'tt0127919,tt0174430,tt16310080,tt0408410'),
 ('nm0006189', 'Brian May', 1934, 1997, 'composer,music_department,soundtrack', '', 'tt0080453,tt0082694,tt0082432,tt0079501'),
@@ -4165,7 +4200,7 @@ INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `D
 ('nm0091904', 'Larisa Bogoslavskaya', NULL, NULL, 'actress', '', 'tt0097849'),
 ('nm0092044', 'Dieter Bohlen', 1954, NULL, 'composer,soundtrack,actor', 'https://image.tmdb.org/t/p/{width_variable}/cbPXql29lDirJQZsqqXYrL6kFq1.jpg', 'tt0096690,tt0135790,tt0421051,tt0362339'),
 ('nm0092267', 'Pierre Boileau', 1906, 1989, 'writer', 'https://image.tmdb.org/t/p/{width_variable}/F6rq2v1RjgenMjNiX0zQeG5RhD.jpg', 'tt0046911,tt0052357,tt0053459,tt0050655');
-INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `Death_Year`, `Primary_Profession`, `img_url_asset`, `known_for`) VALUES
+INSERT INTO `namebasics` (`nconst`, `primaryName`, `birthYear`, `deathYear`, `primaryProfession`, `img_url_asset`, `knownForTitles`) VALUES
 ('nm0092268', 'Thomas Narcejac', 1908, 1998, 'writer', 'https://image.tmdb.org/t/p/{width_variable}/hIAgDXMOuBN9OPGT8SgAtWpBGHH.jpg', 'tt0052357,tt0050655,tt0046911,tt0053459'),
 ('nm0092290', 'Curt Bois', 1901, 1991, 'actor,soundtrack,director', 'https://image.tmdb.org/t/p/{width_variable}/4LeEAQ539JgoRcqX4Er0fGOwoZg.jpg', 'tt0042474,tt0034583,tt0093191,tt0048162'),
 ('nm0092372', 'Yves Boisset', 1939, NULL, 'director,writer,assistant_director', 'https://image.tmdb.org/t/p/{width_variable}/osH9Ke1vL3vQ0ibNBbYvIcZTAE6.jpg', 'tt0071449,tt0068233,tt0082342,tt0076242'),
@@ -4499,8 +4534,7 @@ INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `D
 ('nm0167962', 'Germán Cobos', 1927, 2015, 'actor,miscellaneous', 'https://image.tmdb.org/t/p/{width_variable}/vl9F1tSoJ2jZFGX3GxWAMErcAeq.jpg', 'tt0450532,tt1035474,tt0060080,tt0057454'),
 ('nm0169334', 'Didier Cohen', 1952, NULL, 'writer,miscellaneous', '', 'tt0809273,tt0090242,tt0261800,tt1175392'),
 ('nm0169540', 'Larry Cohen', 1936, 2019, 'writer,producer,director', 'https://image.tmdb.org/t/p/{width_variable}/5p1y0KKAVv5EK2XAfs9hsIMDiBq.jpg', 'tt0071675,tt0075930,tt0077756,tt0099026');
-INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `Death_Year`, `Primary_Profession`, `img_url_asset`, `known_for`) VALUES
-('nm0169785', 'Stanley Cohen', NULL, NULL, 'writer', '', 'tt0081145,tt0327909'),
+INSERT INTO `namebasics` (`nconst`, `primaryName`, `birthYear`, `deathYear`, `primaryProfession`, `img_url_asset`, `knownForTitles`) VALUES
 ('nm0170183', 'Victor Colani', 1895, 1957, 'actor', '', 'tt0830870,tt7417070,tt7417004,tt11272014'),
 ('nm0170407', 'Johan Colding', NULL, NULL, 'sound_department,director,writer', '', 'tt0102083,tt0316342,tt0099102'),
 ('nm0170504', 'Clifton Ko', 1958, NULL, 'actor,director,producer', 'https://image.tmdb.org/t/p/{width_variable}/viJiJss0ag4vYuyfiw46j4Yw2cj.jpg', 'tt0084775,tt0134836,tt3902214,tt9581518'),
@@ -4840,7 +4874,7 @@ INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `D
 ('nm0268286', 'Mike Farrell', 1939, NULL, 'actor,soundtrack,producer', 'https://image.tmdb.org/t/p/{width_variable}/qfbWM9PEAEAeSXvJwm399ucjgxU.jpg', 'tt0460681,tt0129290,tt0070585,tt0068098'),
 ('nm0268680', 'Clelia Fasciati', NULL, NULL, 'actress', '', 'tt0099007'),
 ('nm0268681', 'Rodolfo Fasciati', NULL, NULL, 'actor', '', 'tt0099007');
-INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `Death_Year`, `Primary_Profession`, `img_url_asset`, `known_for`) VALUES
+INSERT INTO `namebasics` (`nconst`, `primaryName`, `birthYear`, `deathYear`, `primaryProfession`, `img_url_asset`, `knownForTitles`) VALUES
 ('nm0268999', 'Philippe Faucon', 1958, NULL, 'director,writer,producer', 'https://image.tmdb.org/t/p/{width_variable}/zTVadYDYRe9NZHDWwzHZS9YIEMC.jpg', 'tt0261270,tt7434928,tt1097224,tt4466544'),
 ('nm0269197', 'Renée Faure', 1918, 2005, 'actress,soundtrack', 'https://image.tmdb.org/t/p/{width_variable}/3mACWXHZuxPtlkwkt4sfq9Bhirs.jpg', 'tt0035636,tt0044816,tt0037715,tt0040223'),
 ('nm0269267', 'Michael Faust', 1941, NULL, 'cinematographer,director,camera_department', '', 'tt0473589,tt4485928,tt0118281,tt0907694'),
@@ -5181,7 +5215,7 @@ INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `D
 ('nm0361860', 'Zsolt Haraszti', 1946, 2004, 'cinematographer,camera_department,miscellaneous', '', 'tt0104205,tt13922858,tt0104354,tt0119386'),
 ('nm0362451', 'Garry Hardman', NULL, NULL, 'music_department,composer,assistant_director', '', 'tt0108709,tt0067408,tt0246386,tt0098896'),
 ('nm0362506', 'Karin Hardt', 1910, 1992, 'actress', 'https://image.tmdb.org/t/p/{width_variable}/8rajDChXxYnIJ5GGnEDmmDhQl51.jpg', 'tt0024053,tt0028128,tt0031296,tt0451808');
-INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `Death_Year`, `Primary_Profession`, `img_url_asset`, `known_for`) VALUES
+INSERT INTO `namebasics` (`nconst`, `primaryName`, `birthYear`, `deathYear`, `primaryProfession`, `img_url_asset`, `knownForTitles`) VALUES
 ('nm0362528', 'Agnes Hardwick', NULL, NULL, 'actress', '', 'tt0097970'),
 ('nm0362570', 'Edward Hardwicke', 1932, 2011, 'actor', 'https://image.tmdb.org/t/p/{width_variable}/hR8LE66ObEsHKeFk20sHXCRjnca.jpg', 'tt0127536,tt0114279,tt0380599,tt0078037'),
 ('nm0362735', 'Robert Hardy', 1925, 2017, 'actor,miscellaneous', 'https://image.tmdb.org/t/p/{width_variable}/5FK7rDWRsbNwAMsHHpkpeGafFtu.jpg', 'tt0304141,tt0373889,tt0330373,tt0114388'),
@@ -5519,7 +5553,7 @@ INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `D
 ('nm0453993', 'Imogen Kimmel', 1957, NULL, 'director,writer,producer', '', 'tt0094688,tt0317114,tt0217788,tt15000566'),
 ('nm0454060', 'Mark Kimray', NULL, NULL, 'writer,special_effects,make_up_department', '', 'tt0123242,tt0097666,tt0141270,tt0462232'),
 ('nm0454311', 'Walter Kindler', 1940, NULL, 'cinematographer,camera_department,actor', '', 'tt1157547,tt0070699,tt0089972,tt0104063');
-INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `Death_Year`, `Primary_Profession`, `img_url_asset`, `known_for`) VALUES
+INSERT INTO `namebasics` (`nconst`, `primaryName`, `birthYear`, `deathYear`, `primaryProfession`, `img_url_asset`, `knownForTitles`) VALUES
 ('nm0454701', 'Erik King', NULL, NULL, 'actor', 'https://image.tmdb.org/t/p/{width_variable}/dhWzEMWYcQscPPiWQFc06bpz8Qq.jpg', 'tt0773262,tt0139668,tt0097027,tt0368891'),
 ('nm0455130', 'Peggy King', NULL, NULL, 'producer', '', 'tt0078006'),
 ('nm0456030', 'Heide Kipp', 1938, 2022, 'actress', 'https://image.tmdb.org/t/p/{width_variable}/5YS13I5Z0hw39OVxqMNMbtPECwN.jpg', 'tt0301666,tt0079924,tt0371704,tt0806901'),
@@ -5869,7 +5903,7 @@ INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `D
 ('nm0540977', 'Malù', 1967, NULL, 'actress,soundtrack', 'https://image.tmdb.org/t/p/{width_variable}/c9pZ28r1GMBIr3kepgUJi51tIkD.jpg', 'tt15779118,tt0092504,tt0097704,tt0135633'),
 ('nm0541078', 'Bob Mamet', NULL, NULL, 'composer,soundtrack,music_department', '', 'tt0095821,tt0095400,tt0098996,tt0095867'),
 ('nm0541094', 'Sulambek Mamilov', 1938, 2023, 'director,actor,writer', 'https://image.tmdb.org/t/p/{width_variable}/qU2WheHGxUsXrTFkouYiheBsXv3.jpg', 'tt0085395,tt0308683,tt0098004,tt0167115');
-INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `Death_Year`, `Primary_Profession`, `img_url_asset`, `known_for`) VALUES
+INSERT INTO `namebasics` (`nconst`, `primaryName`, `birthYear`, `deathYear`, `primaryProfession`, `img_url_asset`, `knownForTitles`) VALUES
 ('nm0541249', 'Said Manafi', NULL, NULL, 'director,writer,cinematographer', '', 'tt0096855,tt0113400,tt0094686,tt0098979'),
 ('nm0541406', 'Manuel F. Manchón', NULL, NULL, 'producer,miscellaneous,art_department', '', 'tt0079544,tt0071808,tt0081348,tt0808220'),
 ('nm0541576', 'Nick Mancuso', 1948, NULL, 'actor,producer,writer', 'https://image.tmdb.org/t/p/{width_variable}/sGOtCUJed5lyx4eUOFcKbIKVRDI.jpg', 'tt0114781,tt0105219,tt3865204,tt0105690'),
@@ -6208,7 +6242,7 @@ INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `D
 ('nm0650969', 'Dyana Ortelli', NULL, NULL, 'actress,miscellaneous,sound_department', 'https://image.tmdb.org/t/p/{width_variable}/5ucJJBjifV9tEiVWnTLFy8OUrzF.jpg', 'tt0103671,tt0092690,tt0093378,tt0092086'),
 ('nm0651775', 'Gabriele Osburg', NULL, NULL, 'actress', '', 'tt0217146,tt0098181,tt0089707'),
 ('nm0651860', 'Emilio Rodríguez', NULL, NULL, 'editor,editorial_department,sound_department', '', 'tt0084181,tt0091805,tt0060789,tt0085356');
-INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `Death_Year`, `Primary_Profession`, `img_url_asset`, `known_for`) VALUES
+INSERT INTO `namebasics` (`nconst`, `primaryName`, `birthYear`, `deathYear`, `primaryProfession`, `img_url_asset`, `knownForTitles`) VALUES
 ('nm0652225', 'F.J. Ossang', 1956, NULL, 'director,actor,writer', 'https://image.tmdb.org/t/p/{width_variable}/7rVEZmbwyxVj76j6KJRiSMpBlvb.jpg', 'tt6136188,tt1050261,tt1847577,tt0139000'),
 ('nm0652310', 'Jens-Peter Ostendorf', 1944, 2006, 'composer,soundtrack', '', 'tt0099767,tt0153587,tt0087232,tt0096476'),
 ('nm0653073', 'Katrin Ottarsdóttir', 1957, NULL, 'director,writer,cinematographer', 'https://image.tmdb.org/t/p/{width_variable}/x4boauEsz2YyxePXpT4MGxbRIc3.jpg', 'tt0113761,tt0096845,tt0208783,tt3707316'),
@@ -6547,7 +6581,7 @@ INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `D
 ('nm0754847', 'Carlos Saboga', 1936, NULL, 'writer,script_department,director', 'https://image.tmdb.org/t/p/{width_variable}/uuY4Kij1700smfmpUPNE8rVoqyP.jpg', 'tt1928329,tt20259142,tt7490358,tt4084168'),
 ('nm0755124', 'Adrianne Sachs', 1957, NULL, 'actress', 'https://image.tmdb.org/t/p/{width_variable}/eEzMv3nGIqoFFq4XPS7vWwAwkXT.jpg', 'tt0096913,tt0093870,tt0090094,tt0097028'),
 ('nm0755197', 'William Sachs', 1942, NULL, 'director,writer,producer', 'https://image.tmdb.org/t/p/{width_variable}/ayB3rL9nzAvoupQ26QhibBlUeFO.jpg', 'tt0160905,tt0072273,tt0080771,tt0107387');
-INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `Death_Year`, `Primary_Profession`, `img_url_asset`, `known_for`) VALUES
+INSERT INTO `namebasics` (`nconst`, `primaryName`, `birthYear`, `deathYear`, `primaryProfession`, `img_url_asset`, `knownForTitles`) VALUES
 ('nm0755409', 'Stanislav Sadalskiy', 1951, NULL, 'actor,soundtrack', 'https://image.tmdb.org/t/p/{width_variable}/I7kSSlXG8BqeXUWXu4umUysz6r.jpg', 'tt0078655,tt0086516,tt0264715,tt0172718'),
 ('nm0755652', 'Isabelle Sadoyan', 1928, 2017, 'actress', 'https://image.tmdb.org/t/p/{width_variable}/qmgepp2vRZwD5NayqHGDTnmXAYn.jpg', 'tt0075824,tt0113828,tt1654829,tt0108394'),
 ('nm0755666', 'Eduard Sadriyev', 1937, 1994, 'cinematographer,camera_department,director', 'https://image.tmdb.org/t/p/{width_variable}/jW5lZpgyyp0ZUTUjQMrRRnosZaf.jpg', 'tt0065244,tt4505004,tt0185563,tt4837880'),
@@ -6886,7 +6920,7 @@ INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `D
 ('nm0855193', 'Antonio Tentori', NULL, NULL, 'writer,actor,assistant_director', '', 'tt0419217,tt6158134,tt1852770,tt13578302'),
 ('nm0856209', 'Manuel Teran', NULL, NULL, 'cinematographer,camera_department,art_department', 'https://image.tmdb.org/t/p/{width_variable}/o4dmC9AqGeo9ZtNPbLOeMCpSHt3.jpg', 'tt0103442,tt0414852,tt0110882,tt0085526'),
 ('nm0856778', 'Anne Teyssèdre', NULL, NULL, 'actress,writer', 'https://image.tmdb.org/t/p/{width_variable}/rE8HkpeH2or6enJKrInVtDToFf3.jpg', 'tt0260521,tt0167673,tt0167653,tt0097106');
-INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `Death_Year`, `Primary_Profession`, `img_url_asset`, `known_for`) VALUES
+INSERT INTO `namebasics` (`nconst`, `primaryName`, `birthYear`, `deathYear`, `primaryProfession`, `img_url_asset`, `knownForTitles`) VALUES
 ('nm0856827', 'David Thacker', 1950, NULL, 'director,writer', '', 'tt0298685,tt0288380,tt0259733,tt0115355'),
 ('nm0856918', 'Katharina Thalbach', 1954, NULL, 'actress,director,soundtrack', 'https://image.tmdb.org/t/p/{width_variable}/anr7QnKmnG4hucA3PVmYySd8xxH.jpg', 'tt2725576,tt0440978,tt8437226,tt0078875'),
 ('nm0856946', 'Wolfgang Thaler', 1958, NULL, 'cinematographer,camera_department,director', '', 'tt3397160,tt5584852,tt0478331,tt1327628'),
@@ -7221,7 +7255,7 @@ INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `D
 ('nm0955396', 'Qianyi Zhang', NULL, NULL, 'composer,music_department', '', 'tt10168220,tt0270095,tt0354911,tt1735845'),
 ('nm0955664', 'Mikhail Zhigalov', 1942, NULL, 'actor', 'https://image.tmdb.org/t/p/{width_variable}/2K6BLImENoTPcmzrA42EODBjOYM.jpg', 'tt2156737,tt0103195,tt0251890,tt0076865'),
 ('nm0955983', 'Henning Zick', NULL, NULL, 'cinematographer', '', 'tt0132917,tt0199001,tt0122358,tt0806910');
-INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `Death_Year`, `Primary_Profession`, `img_url_asset`, `known_for`) VALUES
+INSERT INTO `namebasics` (`nconst`, `primaryName`, `birthYear`, `deathYear`, `primaryProfession`, `img_url_asset`, `knownForTitles`) VALUES
 ('nm0956268', 'Chip Zien', 1947, NULL, 'actor,soundtrack', 'https://image.tmdb.org/t/p/{width_variable}/6bExDPk8oOYWOXzx5a9IM9CwCOY.jpg', 'tt0120832,tt0475276,tt0091225,tt0133952'),
 ('nm0956288', 'Helmut Zierl', 1954, NULL, 'actor,soundtrack', 'https://image.tmdb.org/t/p/{width_variable}/guD6jnxPXPA1DDgi09jekikBv7C.jpg', 'tt0846838,tt0092389,tt0294225,tt0229611'),
 ('nm0956501', 'Hans Zillmann', 1938, NULL, 'production_designer,set_decorator,art_department', '', 'tt2325801,tt0096716,tt0118320,tt0111959'),
@@ -7611,26 +7645,11 @@ INSERT INTO `professionals` (`Professional_id`, `Primary_Name`, `Birth_Year`, `D
 ('nm9928038', 'Wong Ji Cheng', NULL, NULL, 'writer', '', 'tt0097362');
 
 -- --------------------------------------------------------
-
---
--- Δομή πίνακα για τον πίνακα `professionals_titles`
---
-
-CREATE TABLE `professionals_titles` (
-  `Title_id` varchar(50) NOT NULL,
-  `Professional_id` varchar(50) NOT NULL,
-  `Ordering` int(10) DEFAULT NULL,
-  `Category` varchar(100) DEFAULT NULL,
-  `Job` varchar(100) DEFAULT NULL,
-  `Character` varchar(100) DEFAULT NULL,
-  `img_url` varchar(1000) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 --
 -- Άδειασμα δεδομένων του πίνακα `professionals_titles`
 --
 
-INSERT INTO `professionals_titles` (`Title_id`, `Professional_id`, `Ordering`, `Category`, `Job`, `Character`, `img_url`) VALUES
+INSERT INTO `principals` (`tconst`, `nconst`, `ordering`, `category`, `job`, `characters`, `img_url_asset`) VALUES
 ('tt0000929', 'nm0066941', 1, 'actor', '', '', ''),
 ('tt0000929', 'nm0170183', 2, 'actor', '', '', ''),
 ('tt0000929', 'nm0092290', 3, 'actor', '', '', 'https://image.tmdb.org/t/p/{width_variable}/4LeEAQ539JgoRcqX4Er0fGOwoZg.jpg'),
@@ -8193,7 +8212,7 @@ INSERT INTO `professionals_titles` (`Title_id`, `Professional_id`, `Ordering`, `
 ('tt0094997', 'nm0161962', 10, 'cinematographer', '', '', ''),
 ('tt0094997', 'nm0357020', 1, 'actor', '', '[\"Professor Paul Evans\"]', 'https://image.tmdb.org/t/p/{width_variable}/mPfkWXhMJTiNEOAGVBNxngM9YW9.jpg'),
 ('tt0094997', 'nm0716657', 2, 'actress', '', '[\"Liza Harris\"]', 'https://image.tmdb.org/t/p/{width_variable}/pLtPqtoRE5JIrECW7tITtk8fTDv.jpg');
-INSERT INTO `professionals_titles` (`Title_id`, `Professional_id`, `Ordering`, `Category`, `Job`, `Character`, `img_url`) VALUES
+INSERT INTO `principals` (`tconst`, `nconst`, `ordering`, `category`, `job`, `characters`, `img_url_asset`) VALUES
 ('tt0094997', 'nm0758031', 3, 'actor', '', '[\"Turi DeSimone\"]', 'https://image.tmdb.org/t/p/{width_variable}/fyf6k9wdtXLCER2HWRw4IYcwt8u.jpg'),
 ('tt0094997', 'nm0257211', 4, 'actress', '', '[\"Susie\"]', 'https://image.tmdb.org/t/p/{width_variable}/mzURZRC32JHvhaLwnY1lYmopKWD.jpg'),
 ('tt0094997', 'nm0002086', 5, 'director', '', '', 'https://image.tmdb.org/t/p/{width_variable}/wpkbGp2A6HYpH2QZqI9WRSnzxUy.jpg'),
@@ -8749,7 +8768,7 @@ INSERT INTO `professionals_titles` (`Title_id`, `Professional_id`, `Ordering`, `
 ('tt0096830', 'nm0539770', 8, 'cinematographer', '', '', ''),
 ('tt0096830', 'nm0708101', 9, 'editor', '', '', ''),
 ('tt0096837', 'nm0005972', 10, 'composer', '', '', '');
-INSERT INTO `professionals_titles` (`Title_id`, `Professional_id`, `Ordering`, `Category`, `Job`, `Character`, `img_url`) VALUES
+INSERT INTO `principals` (`tconst`, `nconst`, `ordering`, `category`, `job`, `characters`, `img_url_asset`) VALUES
 ('tt0096837', 'nm0706883', 1, 'actor', '', '[\"Hank Knight\"]', 'https://image.tmdb.org/t/p/{width_variable}/wztkAOAQZNGLlbrUrGIhV5cr1S0.jpg'),
 ('tt0096837', 'nm0001990', 2, 'actress', '', '[\"Elena\"]', 'https://image.tmdb.org/t/p/{width_variable}/xWlHSiYShbx8Abd1XFUqZw5xZOO.jpg'),
 ('tt0096837', 'nm0346415', 3, 'actor', '', '[\"Lee Kohler\"]', 'https://image.tmdb.org/t/p/{width_variable}/dSA11Xw5JX7uJ3SSFWc1eimtoY4.jpg'),
@@ -9265,7 +9284,7 @@ INSERT INTO `professionals_titles` (`Title_id`, `Professional_id`, `Ordering`, `
 ('tt0097451', 'nm0020049', 1, 'actor', '', '[\"Géo Paquet \'Le Gorille\'\"]', 'https://image.tmdb.org/t/p/{width_variable}/tgo1z4sGPkaVNePC8jBU4zkqhQe.jpg'),
 ('tt0097451', 'nm0673749', 2, 'actor', '', '[\"Berthomieu \'Le Vieux\'\"]', 'https://image.tmdb.org/t/p/{width_variable}/ajiLZZ2TH9fg4mm1jPGAW5yXuv7.jpg'),
 ('tt0097451', 'nm0584744', 3, 'actress', '', '[\"Béatrice\"]', 'https://image.tmdb.org/t/p/{width_variable}/6q1BjsZhoP6S37kmJ5iWlJsAQ97.jpg');
-INSERT INTO `professionals_titles` (`Title_id`, `Professional_id`, `Ordering`, `Category`, `Job`, `Character`, `img_url`) VALUES
+INSERT INTO `principals` (`tconst`, `nconst`, `ordering`, `category`, `job`, `characters`, `img_url_asset`) VALUES
 ('tt0097451', 'nm0492342', 4, 'actor', '', '[\"Le Finlandais\"]', 'https://image.tmdb.org/t/p/{width_variable}/3QTz9geTTDwSt8NGJrc3JY3UGfs.jpg'),
 ('tt0097451', 'nm0666685', 5, 'director', '', '', 'https://image.tmdb.org/t/p/{width_variable}/17GZ2GZicFKSjQtsv8hBn2VSXOA.jpg'),
 ('tt0097451', 'nm0231602', 6, 'writer', 'novel', '', ''),
@@ -9801,7 +9820,7 @@ INSERT INTO `professionals_titles` (`Title_id`, `Professional_id`, `Ordering`, `
 ('tt0097919', 'nm1367290', 4, 'actor', '', '[\"Klaus\"]', ''),
 ('tt0097919', 'nm0387853', 5, 'director', '', '', ''),
 ('tt0097919', 'nm0770640', 6, 'writer', 'dramatisation', '', '');
-INSERT INTO `professionals_titles` (`Title_id`, `Professional_id`, `Ordering`, `Category`, `Job`, `Character`, `img_url`) VALUES
+INSERT INTO `principals` (`tconst`, `nconst`, `ordering`, `category`, `job`, `characters`, `img_url_asset`) VALUES
 ('tt0097919', 'nm1297788', 7, 'writer', 'scenario', '', ''),
 ('tt0097919', 'nm0157620', 8, 'cinematographer', '', '', ''),
 ('tt0097919', 'nm0772543', 9, 'editor', '', '', ''),
@@ -10334,8 +10353,7 @@ INSERT INTO `professionals_titles` (`Title_id`, `Professional_id`, `Ordering`, `
 ('tt0098576', 'nm5934338', 10, 'writer', 'english adaptation', '', ''),
 ('tt0098576', 'nm0619179', 1, 'actress', '', '[\"Miyu\"]', 'https://image.tmdb.org/t/p/{width_variable}/vawayMgXfIm2in79OQVS5WJeYp2.jpg'),
 ('tt0098576', 'nm0586528', 2, 'actor', '', '[\"Larva\"]', 'https://image.tmdb.org/t/p/{width_variable}/yL9Tx2HZgK7t5AssYl6oGE9bjdj.jpg');
-INSERT INTO `professionals_titles` (`Title_id`, `Professional_id`, `Ordering`, `Category`, `Job`, `Character`, `img_url`) VALUES
-('tt0098576', 'nm0644527', 3, 'actress', '', '[\"Reiha\",\"Matsukaze\"]', 'https://image.tmdb.org/t/p/{width_variable}/eNdfMUyZgG5P4TNIZpbTAu8gBs9.jpg'),
+INSERT INTO `principals` (`tconst`, `nconst`, `ordering`, `category`, `job`, `characters`, `img_url_asset`) VALUES('tt0098576', 'nm0644527', 3, 'actress', '', '[\"Reiha\",\"Matsukaze\"]', 'https://image.tmdb.org/t/p/{width_variable}/eNdfMUyZgG5P4TNIZpbTAu8gBs9.jpg'),
 ('tt0098576', 'nm0794211', 4, 'actress', '', '[\"Chisato Inoue\"]', ''),
 ('tt0098576', 'nm0386185', 5, 'director', '', '', ''),
 ('tt0098576', 'nm1011775', 6, 'director', '', '', 'https://image.tmdb.org/t/p/{width_variable}/sRLvJOl5OtPdprYnpUiImeWiceR.jpg'),
@@ -10861,7 +10879,7 @@ INSERT INTO `professionals_titles` (`Title_id`, `Professional_id`, `Ordering`, `
 ('tt0099024', 'nm0483945', 2, 'actor', '', '', 'https://image.tmdb.org/t/p/{width_variable}/mQO1g8rpR9QtJfjirhAMbDqOdOz.jpg'),
 ('tt0099024', 'nm0590732', 3, 'actress', '', '', 'https://image.tmdb.org/t/p/{width_variable}/2v1TLEf0NvZZ3OZL2CuYXYWa8gd.jpg'),
 ('tt0099024', 'nm0761420', 4, 'actor', '', '', 'https://image.tmdb.org/t/p/{width_variable}/oKO3ZPPFqdlBp9T3XNDla6kYWub.jpg');
-INSERT INTO `professionals_titles` (`Title_id`, `Professional_id`, `Ordering`, `Category`, `Job`, `Character`, `img_url`) VALUES
+INSERT INTO `principals` (`tconst`, `nconst`, `ordering`, `category`, `job`, `characters`, `img_url_asset`) VALUES
 ('tt0099024', 'nm0298723', 5, 'director', '', '', ''),
 ('tt0099024', 'nm0446967', 6, 'writer', '', '', ''),
 ('tt0099024', 'nm0775338', 7, 'writer', '', '', ''),
@@ -11869,7 +11887,7 @@ INSERT INTO `professionals_titles` (`Title_id`, `Professional_id`, `Ordering`, `
 ('tt0102502', 'nm0748930', 10, 'production_designer', '', '', ''),
 ('tt0102502', 'nm0226199', 1, 'actor', '', '[\"Karl Feldmann\"]', 'https://image.tmdb.org/t/p/{width_variable}/f2vu0YV1sZiIWKD8NaLB1SMUkW8.jpg'),
 ('tt0102502', 'nm0714496', 2, 'actor', '', '[\"Ecki Schöller\"]', 'https://image.tmdb.org/t/p/{width_variable}/sV7IdZfFew4CkXRfbesTnpzTsQ9.jpg');
-INSERT INTO `professionals_titles` (`Title_id`, `Professional_id`, `Ordering`, `Category`, `Job`, `Character`, `img_url`) VALUES
+INSERT INTO `principals` (`tconst`, `nconst`, `ordering`, `category`, `job`, `characters`, `img_url_asset`) VALUES
 ('tt0102502', 'nm0618343', 3, 'actor', '', '[\"Tommie Beyer\"]', 'https://image.tmdb.org/t/p/{width_variable}/nw3Z2PwZ8HcvEuopgMMb7hABt7Z.jpg'),
 ('tt0102502', 'nm0671406', 4, 'actor', '', '[\"Pepe Kirchhoff\"]', ''),
 ('tt0102502', 'nm0258917', 5, 'director', '', '', ''),
@@ -12120,22 +12138,11 @@ INSERT INTO `professionals_titles` (`Title_id`, `Professional_id`, `Ordering`, `
 ('tt0103149', 'nm0618291', 9, 'actor', '', '[\"Harry\"]', 'https://image.tmdb.org/t/p/{width_variable}/69W9VO478asbTZJrhqOfHddyunF.jpg');
 
 -- --------------------------------------------------------
-
---
--- Δομή πίνακα για τον πίνακα `ratings`
---
-
-CREATE TABLE `ratings` (
-  `Title_id` varchar(50) NOT NULL,
-  `Average_Rating` double NOT NULL,
-  `Number_of_Votes` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 --
 -- Άδειασμα δεδομένων του πίνακα `ratings`
 --
 
-INSERT INTO `ratings` (`Title_id`, `Average_Rating`, `Number_of_Votes`) VALUES
+INSERT INTO `ratings` (`tconst`, `averageRating`, `NumbVotes`) VALUES
 ('tt0000929', 5.3, 46),
 ('tt0015414', 5.2, 16),
 ('tt0015724', 6.1, 26),
@@ -12580,29 +12587,11 @@ INSERT INTO `ratings` (`Title_id`, `Average_Rating`, `Number_of_Votes`) VALUES
 ('tt0103149', 6.4, 51);
 
 -- --------------------------------------------------------
-
---
--- Δομή πίνακα για τον πίνακα `titles`
---
-
-CREATE TABLE `titles` (
-  `Title_id` varchar(50) NOT NULL,
-  `Type` varchar(100) NOT NULL,
-  `Primary_Title` varchar(500) NOT NULL,
-  `Original_Title` varchar(500) NOT NULL,
-  `Is_Adult` int(10) NOT NULL,
-  `Start_Year` int(10) NOT NULL,
-  `End_Year` int(10) DEFAULT NULL,
-  `Minutes` int(50) DEFAULT NULL,
-  `img_url` varchar(1000) DEFAULT NULL,
-  `genres` varchar(10000) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 --
 -- Άδειασμα δεδομένων του πίνακα `titles`
 --
 
-INSERT INTO `titles` (`Title_id`, `Type`, `Primary_Title`, `Original_Title`, `Is_Adult`, `Start_Year`, `End_Year`, `Minutes`, `img_url`, `genres`) VALUES
+INSERT INTO `titlebasics` (`tconst`, `titleType`, `primaryTitle`, `originalTitle`, `isAdult`, `startYear`, `endYear`, `runtimeMinutes`, `img_url_asset`, `genres`) VALUES
 ('tt0000929', 'short', 'Klebolin klebt alles', 'Klebolin klebt alles', 0, 1990, NULL, NULL, '', 'Comedy,Short'),
 ('tt0000977', 'short', 'Mutterliebe', 'Mutterliebe', 0, 1990, NULL, NULL, '', 'Short'),
 ('tt0015414', 'movie', 'La tierra de los toros', 'La tierra de los toros', 0, 2000, NULL, 60, 'https://image.tmdb.org/t/p/{width_variable}/hIPPcKfGfmr435bLWICRxPSfiDR.jpg', ''),
@@ -12919,7 +12908,7 @@ INSERT INTO `titles` (`Title_id`, `Type`, `Primary_Title`, `Original_Title`, `Is
 ('tt0098958', 'movie', 'His Nickname Is Beast', '...Po prozvishchu \'Zver\'', 0, 1990, NULL, 88, 'https://image.tmdb.org/t/p/{width_variable}/5JYxN5bMYc5wg1LPCEPy3wJfSS2.jpg', 'Action,Crime'),
 ('tt0098959', 'movie', '...Almost', 'Wendy Cracked a Walnut', 0, 1990, NULL, 84, 'https://image.tmdb.org/t/p/{width_variable}/5RVhWzvQDrApH6MqwlNFS9CJQg.jpg', 'Drama,Fantasy,Romance'),
 ('tt0098961', 'movie', 'Les 1001 nuits', 'Les 1001 nuits', 0, 1990, NULL, 98, 'https://image.tmdb.org/t/p/{width_variable}/wFubQZcMS5ZEPX3kf1XatDQPAmy.jpg', 'Adventure,Comedy,Fantasy');
-INSERT INTO `titles` (`Title_id`, `Type`, `Primary_Title`, `Original_Title`, `Is_Adult`, `Start_Year`, `End_Year`, `Minutes`, `img_url`, `genres`) VALUES
+INSERT INTO `titlebasics` (`tconst`, `titleType`, `primaryTitle`, `originalTitle`, `isAdult`, `startYear`, `endYear`, `runtimeMinutes`, `img_url_asset`, `genres`) VALUES
 ('tt0098962', 'short', '12:01 μμ', '12:01 μμ', 0, 1991, NULL, 25, 'https://image.tmdb.org/t/p/{width_variable}/sBWKO6xnzAxnXCup7JENu15ZIoV.jpg', 'Sci-Fi,Short,Thriller'),
 ('tt0098963', 'movie', '1871', '1871', 0, 1990, NULL, 100, 'https://image.tmdb.org/t/p/{width_variable}/9bL4iTdSLRw4RzNVMtyIFr2pvgd.jpg', 'Drama,History,Romance'),
 ('tt0098965', 'movie', 'Little Ninjas', 'Little Ninjas', 0, 1993, NULL, 100, 'https://image.tmdb.org/t/p/{width_variable}/kmZbIiYaTrhR3mEm5E9CgdsDFqK.jpg', 'Action,Adventure,Comedy'),
@@ -13112,52 +13101,58 @@ INSERT INTO `titles` (`Title_id`, `Type`, `Primary_Title`, `Original_Title`, `Is
 --
 -- Ευρετήρια για πίνακα `aka`
 --
-ALTER TABLE `aka`
-  ADD KEY `aka_fk1` (`Title_id`),
-  ADD KEY `Title` (`Title`),
-  ADD KEY `isOriginalTitle` (`isOriginalTitle`);
+ALTER TABLE `akas`
+  ADD KEY `akas_fk1` (`tconst`),
+  ADD KEY `title` (`title`),
+  ADD KEY `isOriginalTitle` (`isOriginalTitle`),
+  ADD PRIMARY KEY(`tconst`,`title`);
 
 --
 -- Ευρετήρια για πίνακα `crew`
 --
 ALTER TABLE `crew`
-  ADD KEY `crew_fk1` (`Title_id`);
+  ADD KEY `crew_fk1` (`tconst`),
+  ADD PRIMARY KEY (`tconst`);
 
 --
 -- Ευρετήρια για πίνακα `episodes`
 --
-ALTER TABLE `episodes`
-  ADD KEY `episode_fk1` (`Title_id`);
+ALTER TABLE `episode`
+  ADD KEY `episode_fk1` (`tconst`),
+  ADD KEY `episode_fk2` (`parentTconst`),
+  ADD PRIMARY KEY (`tconst`);
 
 --
 -- Ευρετήρια για πίνακα `professionals`
 --
-ALTER TABLE `professionals`
-  ADD PRIMARY KEY (`Professional_id`),
-  ADD KEY `professionals_fk1` (`known_for`(768));
+ALTER TABLE `namebasics`
+  ADD PRIMARY KEY (`nconst`),
+  ADD KEY `namebasics_fk1` (`knownForTitles`(768));
 
 --
 -- Ευρετήρια για πίνακα `professionals_titles`
 --
-ALTER TABLE `professionals_titles`
-  ADD KEY `professionals_titles_fk1` (`Title_id`),
-  ADD KEY `professionals_titles_fk2` (`Professional_id`);
+ALTER TABLE `principals`
+  ADD KEY `principals_fk1` (`tconst`),
+  ADD KEY `principals_fk2` (`nconst`),
+  ADD PRIMARY KEY(`tconst`,`nconst`);
 
 --
 -- Ευρετήρια για πίνακα `ratings`
 --
 ALTER TABLE `ratings`
-  ADD KEY `rating_fk1` (`Title_id`),
-  ADD KEY `Average_Rating` (`Average_Rating`);
+  ADD KEY `ratings_fk1` (`tconst`),
+  ADD PRIMARY KEY (`tconst`),
+  ADD KEY `averageRating` (`averageRating`);
 
 --
 -- Ευρετήρια για πίνακα `titles`
 --
-ALTER TABLE `titles`
-  ADD PRIMARY KEY (`Title_id`),
+ALTER TABLE `titlebasics`
+  ADD PRIMARY KEY (`tconst`),
   ADD KEY `genres` (`genres`(768)),
-  ADD KEY `Original_Title` (`Original_Title`),
-  ADD KEY `Primary_Title` (`Primary_Title`);
+  ADD KEY `originalTitle` (`originalTitle`),
+  ADD KEY `primaryTitle` (`primaryTitle`);
 
 --
 -- Περιορισμοί για άχρηστους πίνακες
@@ -13166,33 +13161,34 @@ ALTER TABLE `titles`
 --
 -- Περιορισμοί για πίνακα `aka`
 --
-ALTER TABLE `aka`
-  ADD CONSTRAINT `aka_fk1` FOREIGN KEY (`Title_id`) REFERENCES `titles` (`Title_id`) ON UPDATE CASCADE;
+ALTER TABLE `akas`
+  ADD CONSTRAINT `akas_fk1` FOREIGN KEY (`tconst`) REFERENCES `titlebasics` (`tconst`) ON UPDATE CASCADE;
 
 --
 -- Περιορισμοί για πίνακα `crew`
 --
 ALTER TABLE `crew`
-  ADD CONSTRAINT `crew_fk1` FOREIGN KEY (`Title_id`) REFERENCES `titles` (`Title_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `crew_fk1` FOREIGN KEY (`tconst`) REFERENCES `titlebasics` (`tconst`) ON UPDATE CASCADE;
 
 --
 -- Περιορισμοί για πίνακα `episodes`
 --
-ALTER TABLE `episodes`
-  ADD CONSTRAINT `episode_fk1` FOREIGN KEY (`Title_id`) REFERENCES `titles` (`Title_id`) ON UPDATE CASCADE;
+ALTER TABLE `episode`
+  ADD CONSTRAINT `episode_fk1` FOREIGN KEY (`tconst`) REFERENCES `titlebasics` (`tconst`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `episode_fk2` FOREIGN KEY (`parentTconst`) REFERENCES `titlebasics` (`tconst`) ON UPDATE CASCADE;
 
 --
 -- Περιορισμοί για πίνακα `professionals_titles`
 --
-ALTER TABLE `professionals_titles`
-  ADD CONSTRAINT `professionals_titles_fk1` FOREIGN KEY (`Title_id`) REFERENCES `titles` (`Title_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `professionals_titles_fk2` FOREIGN KEY (`Professional_id`) REFERENCES `professionals` (`Professional_id`) ON UPDATE CASCADE;
+ALTER TABLE `principals`
+  ADD CONSTRAINT `principals_fk1` FOREIGN KEY (`tconst`) REFERENCES `titlebasics` (`tconst`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `principals_fk2` FOREIGN KEY (`nconst`) REFERENCES `namebasics` (`nconst`) ON UPDATE CASCADE;
 
 --
 -- Περιορισμοί για πίνακα `ratings`
 --
 ALTER TABLE `ratings`
-  ADD CONSTRAINT `rating_fk1` FOREIGN KEY (`Title_id`) REFERENCES `titles` (`Title_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `ratings_fk1` FOREIGN KEY (`tconst`) REFERENCES `titlebasics` (`tconst`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
