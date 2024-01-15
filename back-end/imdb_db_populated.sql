@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `akas` (
-  `titleid` varchar(50) NOT NULL,
+  `tconst` varchar(50) NOT NULL,
   `ordering` int(10) NOT NULL,
   `title` varchar(500) NOT NULL,
   `region` varchar(100) DEFAULT NULL,
