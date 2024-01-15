@@ -2212,6 +2212,7 @@ INSERT INTO `akas` (`titleId`, `ordering`, `title`, `region`, `language`, `types
 ('tt0097925', 2, 'Die Frau deines Lebens - Die Verrückte', 'XWG', '', '', '', 0),
 ('tt0097925', 3, 'La mujer lunática', 'ES', '', '', '', 0);
 INSERT INTO `akas` (`titleId`, `ordering`, `title`, `region`, `language`, `types`, `attributes`, `isOriginalTitle`) VALUES
+('tt0097925', 4, 'La mujer lunática', '', '', 'original', '', 1),
 ('tt0097928', 1, 'Dead Certain', '', '', '', '', 0),
 ('tt0097928', 2, 'Blues mordercy', 'PL', '', '', '', 0),
 ('tt0097928', 3, 'Deine Zeit läuft ab', 'XWG', '', '', '', 0),
@@ -5132,6 +5133,7 @@ INSERT INTO `namebasics` (`nconst`, `primaryName`, `birthYear`, `deathYear`, `pr
 ('nm0169334', 'Didier Cohen', 1952, NULL, 'writer,miscellaneous', '', 'tt0809273,tt0090242,tt0261800,tt1175392'),
 ('nm0169540', 'Larry Cohen', 1936, 2019, 'writer,producer,director', 'https://image.tmdb.org/t/p/{width_variable}/5p1y0KKAVv5EK2XAfs9hsIMDiBq.jpg', 'tt0071675,tt0075930,tt0077756,tt0099026');
 INSERT INTO `namebasics` (`nconst`, `primaryName`, `birthYear`, `deathYear`, `primaryProfession`, `img_url_asset`, `knownForTitles`) VALUES
+('nm0169785', 'Stanley Cohen', NULL, NULL, 'writer', '', 'tt0081145,tt0327909'),
 ('nm0170183', 'Victor Colani', 1895, 1957, 'actor', '', 'tt0830870,tt7417070,tt7417004,tt11272014'),
 ('nm0170407', 'Johan Colding', NULL, NULL, 'sound_department,director,writer', '', 'tt0102083,tt0316342,tt0099102'),
 ('nm0170504', 'Clifton Ko', 1958, NULL, 'actor,director,producer', 'https://image.tmdb.org/t/p/{width_variable}/viJiJss0ag4vYuyfiw46j4Yw2cj.jpg', 'tt0084775,tt0134836,tt3902214,tt9581518'),
