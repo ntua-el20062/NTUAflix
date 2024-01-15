@@ -91,7 +91,7 @@ CREATE TABLE `principals` (
 CREATE TABLE `ratings` (
   `tconst` varchar(50) NOT NULL,
   `averageRating` double NOT NULL,
-  `NumVotes` int(100) NOT NULL
+  `numVotes` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
