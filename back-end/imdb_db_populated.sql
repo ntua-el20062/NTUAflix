@@ -147,7 +147,6 @@ ALTER TABLE `namebasics`
 --
 ALTER TABLE `principals`
   ADD KEY `principals_fk1` (`tconst`),
-  ADD KEY `principals_fk2` (`nconst`),
   ADD KEY (`ordering`),
   ADD PRIMARY KEY(`tconst`,`ordering`);
 
@@ -194,8 +193,7 @@ ALTER TABLE `episode`
 -- Περιορισμοί για πίνακα `professionals_titles`
 --
 ALTER TABLE `principals`
-  ADD CONSTRAINT `principals_fk1` FOREIGN KEY (`tconst`) REFERENCES `titlebasics` (`tconst`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `principals_fk2` FOREIGN KEY (`nconst`) REFERENCES `namebasics` (`nconst`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `principals_fk1` FOREIGN KEY (`tconst`) REFERENCES `titlebasics` (`tconst`) ON UPDATE CASCADE;
 
 --
 -- Περιορισμοί για πίνακα `ratings`
