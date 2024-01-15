@@ -117,7 +117,7 @@ CREATE TABLE `titlebasics` (
 ALTER TABLE `akas`
   ADD KEY `akas_fk1` (`titleId`),
   ADD KEY `title` (`title`),
-  ADD KEY `ordering` (`ordering`)
+  ADD KEY `ordering` (`ordering`),
   ADD KEY `isOriginalTitle` (`isOriginalTitle`),
   ADD PRIMARY KEY(`titleId`,`ordering`);
 
