@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `akas` (
-  `tconst` varchar(50) NOT NULL,
+  `titleId` varchar(50) NOT NULL,
   `ordering` int(10) NOT NULL,
   `title` varchar(500) NOT NULL,
   `region` varchar(100) DEFAULT NULL,
@@ -115,7 +115,7 @@ CREATE TABLE `titlebasics` (
 -- Άδειασμα δεδομένων του πίνακα `aka`
 --
 
-INSERT INTO `akas` (`tconst`, `ordering`, `title`, `region`, `language`, `types`, `attributes`, `isOriginalTitle`) VALUES
+INSERT INTO `akas` (`titleId`, `ordering`, `title`, `region`, `language`, `types`, `attributes`, `isOriginalTitle`) VALUES
 ('tt0000929', 1, 'Willys Streiche: Klebolin klebt alles', 'DE', '', 'alternative', '', 0),
 ('tt0000929', 2, 'Klebolin klebt alles', '', '', 'original', '', 1),
 ('tt0000929', 3, 'Klebolin klebt alles', 'DE', '', 'imdbDisplay', '', 0),
@@ -865,7 +865,7 @@ INSERT INTO `akas` (`tconst`, `ordering`, `title`, `region`, `language`, `types`
 ('tt0096875', 33, 'Camino de retorno', 'ES', '', '', '', 0),
 ('tt0096875', 34, 'Catchfire', 'PH', 'en', 'imdbDisplay', '', 0),
 ('tt0096875', 35, 'Στο στόχαστρο του εκτελεστή', 'GR', '', 'imdbDisplay', '', 0);
-INSERT INTO `akas` (`tconst`, `ordering`, `title`, `region`, `language`, `types`, `attributes`, `isOriginalTitle`) VALUES
+INSERT INTO `akas` (`titleId`, `ordering`, `title`, `region`, `language`, `types`, `attributes`, `isOriginalTitle`) VALUES
 ('tt0096875', 36, 'Testigo en la mira', 'MX', '', 'imdbDisplay', '', 0),
 ('tt0096875', 37, 'ハートに火をつけて（1989）', 'JP', 'ja', 'imdbDisplay', '', 0),
 ('tt0096875', 38, 'A szemtanú nyomában', 'HU', '', '', '', 0),
@@ -1614,7 +1614,7 @@ INSERT INTO `akas` (`tconst`, `ordering`, `title`, `region`, `language`, `types`
 ('tt0097925', 1, 'La femme imprévisible', 'FR', '', '', '', 0),
 ('tt0097925', 2, 'Die Frau deines Lebens - Die Verrückte', 'XWG', '', '', '', 0),
 ('tt0097925', 3, 'La mujer lunática', 'ES', '', '', '', 0);
-INSERT INTO `akas` (`tconst`, `ordering`, `title`, `region`, `language`, `types`, `attributes`, `isOriginalTitle`) VALUES
+INSERT INTO `akas` (`titleId`, `ordering`, `title`, `region`, `language`, `types`, `attributes`, `isOriginalTitle`) VALUES
 ('tt0097928', 1, 'Dead Certain', '', '', '', '', 0),
 ('tt0097928', 2, 'Blues mordercy', 'PL', '', '', '', 0),
 ('tt0097928', 3, 'Deine Zeit läuft ab', 'XWG', '', '', '', 0),
@@ -2336,7 +2336,7 @@ INSERT INTO `akas` (`tconst`, `ordering`, `title`, `region`, `language`, `types`
 ('tt0098991', 7, 'A visszatérés', 'HU', '', 'imdbDisplay', '', 0),
 ('tt0098991', 8, 'L\'africana', 'IT', '', 'imdbDisplay', '', 0),
 ('tt0098991', 9, 'Die Rückkehr', 'XWG', '', '', '', 0);
-INSERT INTO `akas` (`tconst`, `ordering`, `title`, `region`, `language`, `types`, `attributes`, `isOriginalTitle`) VALUES
+INSERT INTO `akas` (`titleId`, `ordering`, `title`, `region`, `language`, `types`, `attributes`, `isOriginalTitle`) VALUES
 ('tt0098992', 1, 'Afrika um die Ecke', '', '', 'original', '', 1),
 ('tt0098992', 2, 'Afrika um die Ecke', 'DE', '', 'imdbDisplay', '', 0),
 ('tt0098993', 1, 'Time Off', 'DE', '', 'imdbDisplay', '', 0),
@@ -13102,10 +13102,10 @@ INSERT INTO `titlebasics` (`tconst`, `titleType`, `primaryTitle`, `originalTitle
 -- Ευρετήρια για πίνακα `aka`
 --
 ALTER TABLE `akas`
-  ADD KEY `akas_fk1` (`tconst`),
+  ADD KEY `akas_fk1` (`titleId`),
   ADD KEY `title` (`title`),
   ADD KEY `isOriginalTitle` (`isOriginalTitle`),
-  ADD PRIMARY KEY(`tconst`,`title`);
+  ADD PRIMARY KEY(`titleId`,`title`);
 
 --
 -- Ευρετήρια για πίνακα `crew`
@@ -13162,7 +13162,7 @@ ALTER TABLE `titlebasics`
 -- Περιορισμοί για πίνακα `aka`
 --
 ALTER TABLE `akas`
-  ADD CONSTRAINT `akas_fk1` FOREIGN KEY (`tconst`) REFERENCES `titlebasics` (`tconst`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `akas_fk1` FOREIGN KEY (`titleId`) REFERENCES `titlebasics` (`tconst`) ON UPDATE CASCADE;
 
 --
 -- Περιορισμοί για πίνακα `crew`
