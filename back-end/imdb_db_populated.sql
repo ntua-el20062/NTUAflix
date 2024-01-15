@@ -68,7 +68,7 @@ CREATE TABLE `namebasics` (
   `deathYear` int(10) DEFAULT NULL,
   `primaryProfession` varchar(500) NOT NULL,
   `knownForTitles` varchar(10000) DEFAULT NULL,
-  `img_url_asset` varchar(1000) DEFAULT NULL,
+  `img_url_asset` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 --
 -- Δομή πίνακα για τον πίνακα `professionals_titles`
@@ -115,7 +115,7 @@ CREATE TABLE `titlebasics` (
 -- Άδειασμα δεδομένων του πίνακα `aka`
 --
 
-INSERT INTO `akas` (`title_id`, `ordering`, `title`, `region`, `language`, `types`, `attributes`, `isOriginalTitle`) VALUES
+INSERT INTO `akas` (`tconst`, `ordering`, `title`, `region`, `language`, `types`, `attributes`, `isOriginalTitle`) VALUES
 ('tt0000929', 1, 'Willys Streiche: Klebolin klebt alles', 'DE', '', 'alternative', '', 0),
 ('tt0000929', 2, 'Klebolin klebt alles', '', '', 'original', '', 1),
 ('tt0000929', 3, 'Klebolin klebt alles', 'DE', '', 'imdbDisplay', '', 0),
@@ -865,7 +865,7 @@ INSERT INTO `akas` (`title_id`, `ordering`, `title`, `region`, `language`, `type
 ('tt0096875', 33, 'Camino de retorno', 'ES', '', '', '', 0),
 ('tt0096875', 34, 'Catchfire', 'PH', 'en', 'imdbDisplay', '', 0),
 ('tt0096875', 35, 'Στο στόχαστρο του εκτελεστή', 'GR', '', 'imdbDisplay', '', 0);
-INSERT INTO `akas` (`title_id`, `ordering`, `title`, `region`, `language`, `types`, `attributes`, `isOriginalTitle`) VALUES
+INSERT INTO `akas` (`tconst`, `ordering`, `title`, `region`, `language`, `types`, `attributes`, `isOriginalTitle`) VALUES
 ('tt0096875', 36, 'Testigo en la mira', 'MX', '', 'imdbDisplay', '', 0),
 ('tt0096875', 37, 'ハートに火をつけて（1989）', 'JP', 'ja', 'imdbDisplay', '', 0),
 ('tt0096875', 38, 'A szemtanú nyomában', 'HU', '', '', '', 0),
@@ -1614,7 +1614,7 @@ INSERT INTO `akas` (`title_id`, `ordering`, `title`, `region`, `language`, `type
 ('tt0097925', 1, 'La femme imprévisible', 'FR', '', '', '', 0),
 ('tt0097925', 2, 'Die Frau deines Lebens - Die Verrückte', 'XWG', '', '', '', 0),
 ('tt0097925', 3, 'La mujer lunática', 'ES', '', '', '', 0);
-INSERT INTO `akas` (`title_id`, `ordering`, `title`, `region`, `language`, `types`, `attributes`, `isOriginalTitle`) VALUES
+INSERT INTO `akas` (`tconst`, `ordering`, `title`, `region`, `language`, `types`, `attributes`, `isOriginalTitle`) VALUES
 ('tt0097928', 1, 'Dead Certain', '', '', '', '', 0),
 ('tt0097928', 2, 'Blues mordercy', 'PL', '', '', '', 0),
 ('tt0097928', 3, 'Deine Zeit läuft ab', 'XWG', '', '', '', 0),
@@ -2336,7 +2336,7 @@ INSERT INTO `akas` (`title_id`, `ordering`, `title`, `region`, `language`, `type
 ('tt0098991', 7, 'A visszatérés', 'HU', '', 'imdbDisplay', '', 0),
 ('tt0098991', 8, 'L\'africana', 'IT', '', 'imdbDisplay', '', 0),
 ('tt0098991', 9, 'Die Rückkehr', 'XWG', '', '', '', 0);
-INSERT INTO `akas` (`title_id`, `ordering`, `title`, `region`, `language`, `types`, `attributes`, `isOriginalTitle`) VALUES
+INSERT INTO `akas` (`tconst`, `ordering`, `title`, `region`, `language`, `types`, `attributes`, `isOriginalTitle`) VALUES
 ('tt0098992', 1, 'Afrika um die Ecke', '', '', 'original', '', 1),
 ('tt0098992', 2, 'Afrika um die Ecke', 'DE', '', 'imdbDisplay', '', 0),
 ('tt0098993', 1, 'Time Off', 'DE', '', 'imdbDisplay', '', 0),
@@ -11385,7 +11385,7 @@ INSERT INTO `principals` (`tconst`, `nconst`, `ordering`, `category`, `job`, `ch
 ('tt0100642', 'nm0746814', 9, 'cinematographer', '', '', ''),
 ('tt0100658', 'nm0071626', 10, 'composer', '', '', 'https://image.tmdb.org/t/p/{width_variable}/GOBYyleNdgISYPcNe6Zpg5ZPqA.jpg'),
 ('tt0100658', 'nm0048468', 1, 'actor', '', '[\"Det. Chief Insp. Wexford\"]', 'https://image.tmdb.org/t/p/{width_variable}/zMubzCZPcpfeTJpc7QjgEwAg5gd.jpg');
-INSERT INTO `professionals_titles` (`Title_id`, `Professional_id`, `Ordering`, `Category`, `Job`, `Character`, `img_url`) VALUES
+INSERT INTO `principals` (`tconst`, `nconst`, `ordering`, `category`, `job`, `characters`, `img_url_asset`) VALUES
 ('tt0100658', 'nm0712385', 2, 'actor', '', '[\"Det. Insp. Burden\"]', ''),
 ('tt0100658', 'nm0708902', 3, 'actress', '', '[\"Dora Wexford\"]', ''),
 ('tt0100658', 'nm0444580', 4, 'actress', '', '[\"Jenny Ireland\"]', 'https://image.tmdb.org/t/p/{width_variable}/sOcLEOYaGn59oI0X8SXVp260qrj.jpg'),
@@ -12142,7 +12142,7 @@ INSERT INTO `principals` (`tconst`, `nconst`, `ordering`, `category`, `job`, `ch
 -- Άδειασμα δεδομένων του πίνακα `ratings`
 --
 
-INSERT INTO `ratings` (`tconst`, `averageRating`, `NumbVotes`) VALUES
+INSERT INTO `ratings` (`tconst`, `averageRating`, `numVotes`) VALUES
 ('tt0000929', 5.3, 46),
 ('tt0015414', 5.2, 16),
 ('tt0015724', 6.1, 26),
