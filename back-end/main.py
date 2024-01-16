@@ -285,33 +285,32 @@ class search_name(Resource):
         name_objects = search_names_by_name_part(name_part)
         return name_objects, 200 if name_objects else 404
 
-def get_top_10_titles_by_genre(genre):
-    print("hii")
-    search_query = """
-    SELECT t.tconst
-    FROM titlebasics t
-    JOIN ratings r ON t.tconst = r.tconst
-    WHERE FIND_IN_SET(%s, t.genres)
-    ORDER BY r.averageRating DESC
-    LIMIT 10
-    """
-    title_ids = execute_query(search_query, (genre,), fetch_data_flag=True, fetch_all_flag=True)
+def get_top_10_titles_by_genre():
+    genres_query = "SELECT DISTINCT genres FROM titlebasics"
+    all_genres = execute_query(genres_query, None, fetch_data_flag=True, fetch_all_flag=True)
+    if not all_genres:
+        return {}
 
-    if not title_ids:
-        return []
-
-    title_objects = [create_title_object(title_id['tconst']) for title_id in title_ids]
-    return title_objects
+    # Split genres field and get unique genres
+    unique_genres = set(genre.strip() for genres_field in all_genres for genre in genres_field['genres'].split(',') if genre.strip())
+    top_titles_by_genre = {}
+    for genre in unique_genres:
+        search_query = """
+        SELECT t.tconst
+        FROM titlebasics t
+        JOIN ratings r ON t.tconst = r.tconst
+        WHERE FIND_IN_SET(%s, t.genres)
+        ORDER BY r.averageRating DESC
+        LIMIT 10
+        """
+        title_ids = execute_query(search_query, (genre,), fetch_data_flag=True, fetch_all_flag=True)
+        if title_ids:
+            top_titles_by_genre[genre] = [create_title_object(title_id['tconst']) for title_id in title_ids]
+    return top_titles_by_genre
 
 class top10_by_genre(Resource):
-    def __init__(self):
-        self.reqparse = reqparse.RequestParser()
-        self.reqparse.add_argument('genre', type=str, required=True, location='json')
-
     def get(self):
-        args = self.reqparse.parse_args()
-        genre = args['genre']
-        top_titles = get_top_10_titles_by_genre(genre)
+        top_titles = get_top_10_titles_by_genre()
         return top_titles, 200 if top_titles else 404
 
 api = Api(app, prefix='/ntuaflix_api')
