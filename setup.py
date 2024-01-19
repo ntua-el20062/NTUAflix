@@ -1,0 +1,1 @@
+# needs to install packages, setup database, run the API server, run the webserver
