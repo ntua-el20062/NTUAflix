@@ -387,10 +387,11 @@ def create_title_object(titleID):
 def create_name_object(nameID):
     contributor_query = "SELECT * FROM namebasics WHERE nconst = %s"
     contributor_rows = execute_query(contributor_query, (nameID,), fetch_data_flag=True, fetch_all_flag=True)
-    contributor_row = contributor_rows[0]
-    if not contributor_row:
+    
+    if not contributor_rows:
         return None
-
+        
+    contributor_row = contributor_rows[0]
     nameObject = {
         "nameID": contributor_row["nconst"],
         "name": contributor_row["primaryName"],
