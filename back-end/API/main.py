@@ -30,5 +30,5 @@ api.add_resource(get_name, '/name/<string:nameID>')
 api.add_resource(search_name, '/searchname')
 api.add_resource(top10_by_genre, '/top10bygenre')
 
-if __name__ == "__main__":  
-    app.run(debug=True, port=9876)
+# if __name__ == "__main__":  
+#     app.run(debug=True, port=9876)
