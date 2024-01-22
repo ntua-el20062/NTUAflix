@@ -3,7 +3,7 @@ from functools import wraps
 from flask_restful import Api, Resource, reqparse
 import json, jwt, datetime
 from flask_mysqldb import MySQL
-from API import db
+from back_end.API import db
 import csv
 import pymysql
 import os

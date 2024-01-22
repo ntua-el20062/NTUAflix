@@ -1,12 +1,9 @@
-import util.install_package
-
-
 from flask import Flask
 from flaskext.mysql import MySQL
 import pymysql
 from flask_restful import Api
-from API import app
-from .classes import *
+from back_end.API import app
+from back_end.API.classes import *
 
 api = Api(app, prefix='/ntuaflix_api')
 
