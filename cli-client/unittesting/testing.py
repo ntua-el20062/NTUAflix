@@ -240,10 +240,10 @@ class TestYourCLI(unittest.TestCase):
         result = top10genre()
         self.assertEqual(result.status_code,200)
 
-    # def test_boresetall(self):
-    #     result = resetall()
-    #     self.assertEqual(result.status_code,200)
-    #     self.assertIn('"Database repopulated successfully"',result.text)
+    def test_boresetall(self):
+        result = resetall()
+        self.assertEqual(result.status_code,200)
+        self.assertIn('"Database repopulated successfully"',result.text)
     
     
      
