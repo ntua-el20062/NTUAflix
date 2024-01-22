@@ -387,11 +387,10 @@ def create_title_object(titleID):
 def create_name_object(nameID):
     contributor_query = "SELECT * FROM namebasics WHERE nconst = %s"
     contributor_rows = execute_query(contributor_query, (nameID,), fetch_data_flag=True, fetch_all_flag=True)
-    
-    if not contributor_rows:
-        return None
-        
     contributor_row = contributor_rows[0]
+    if not contributor_row:
+        return None
+
     nameObject = {
         "nameID": contributor_row["nconst"],
         "name": contributor_row["primaryName"],
@@ -438,7 +437,7 @@ def search_titles_by_title_part(titlePart):
 class search_title(Resource):
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
-        self.reqparse.add_argument('titlePart', type=str, required=True, location='args')
+        self.reqparse.add_argument('titlePart', type=str, required=True, location='json')
 
     def get(self):
         args = self.reqparse.parse_args()
@@ -471,10 +470,10 @@ def search_titles_by_genre(qgenre, minrating, yrFrom=None, yrTo=None):
 class by_genre(Resource):
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
-        self.reqparse.add_argument('qgenre', type=str, required=True, location='args')
-        self.reqparse.add_argument('minrating', type=str, required=True, location='args')
-        self.reqparse.add_argument('yrFrom', type=str, location='args')
-        self.reqparse.add_argument('yrTo', type=str, location='args')
+        self.reqparse.add_argument('qgenre', type=str, required=True, location='json')
+        self.reqparse.add_argument('minrating', type=str, required=True, location='json')
+        self.reqparse.add_argument('yrFrom', type=str, location='json')
+        self.reqparse.add_argument('yrTo', type=str, location='json')
 
     def get(self):
         args = self.reqparse.parse_args()
@@ -506,7 +505,7 @@ def search_names_by_name_part(namePart):
 class search_name(Resource):
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
-        self.reqparse.add_argument('namePart', type=str, required=True, location='args')
+        self.reqparse.add_argument('namePart', type=str, required=True, location='json')
 
     def get(self):
         args = self.reqparse.parse_args()
