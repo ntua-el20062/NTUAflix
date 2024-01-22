@@ -1,12 +1,26 @@
-genre page
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{{ genre_name }} Movies - NTUAFlix</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+
 </head>
 <body>
+    <div class="top-header">
+        <div class="header-title">
+            <a href="/">NTUAFlix</a>
+        </div>
+        <div class="header-search">
+            <form action="/search" method="get">
+                <input type="text" name="query" placeholder="Search for movies, actors...">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    
     <header>
         <h1>Movies in {{ genre_name }}</h1>
     </header>

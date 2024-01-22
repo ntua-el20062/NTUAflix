@@ -4,15 +4,22 @@
     <meta charset="UTF-8">
     <title>NTUAFlix</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+
 </head>
 <body>
-    <header>
-        <h1>Welcome to NTUAFlix</h1>
-        <form action="/search" method="get">
-            <input type="text" name="query" placeholder="Search for movies, actors...">
-            <button type="submit">Search</button>
-        </form>
-    </header>
+    <div class="top-header">
+        <div class="header-title">
+            <a href="/">NTUAFlix</a>
+        </div>
+        <div class="header-search">
+            <form action="/search" method="get">
+                <input type="text" name="query" placeholder="Search for movies, actors...">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    
 
     <main>
         {% for genre, movies in genres_data.items() %}

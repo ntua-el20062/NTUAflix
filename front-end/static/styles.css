@@ -1,41 +1,74 @@
 /* General styles */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Outfit', sans-serif;
     background-color: black;
-    color: teal;
+    color: turquoise;
     margin: 0;
     padding: 0;
 }
 
-header {
-    background-color: #333;
+/* Top Header Bar */
+.top-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #111;
+    color: white;
     padding: 10px 0;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.7);
+    z-index: 1000;
 }
 
-header h1 {
-    margin: 0;
+.top-header .header-title {
+    margin-left: 20px; /* Add some space from the left edge */
+    font-size: 24px;
+}
+
+.top-header .header-title a {
+    color: turquoise;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.top-header .header-search {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center; /* Centered alignment */
+}
+
+.top-header .header-search form {
+    display: flex;
+    justify-content: center; /* Centered alignment */
+}
+
+.top-header .header-search input[type="text"], .top-header .header-search button {
+    font-family: 'Outfit', sans-serif; /* Consistent font */
+    padding: 8px;
+    border-radius: 10px; /* More rounded corners */
+    border: 1px solid #ddd;
+    background-color: #222;
     color: white;
 }
 
-header form {
-    margin-top: 10px;
+.top-header .header-search input[type="text"] {
+    margin-right: 15px; /* More distance between search button and bar */
 }
 
-input[type="text"] {
-    padding: 5px;
-}
-
-button {
-    padding: 5px 15px;
-    background-color: teal;
-    color: white;
-    border: none;
+.top-header .header-search button {
     cursor: pointer;
+    line-height: normal; /* Adjust line height to match search bar height */
 }
 
-button:hover {
-    background-color: #006666;
+.top-header .header-search button:hover {
+    background-color: #007070;
+}
+
+/* Adjusting main content position */
+body {
+    padding-top: 60px; /* Adjust this value based on the height of your header */
 }
 
 /* Main content styles */
@@ -52,6 +85,7 @@ main {
     background-color: #222;
     padding: 10px;
     margin-bottom: 10px;
+    border-radius: 5px; /* Rounder corners */
 }
 
 .movie img, .person img {
@@ -65,7 +99,7 @@ main {
 }
 
 .movie p, .person p, .season p, .episodes li {
-    color: rgb(171, 188, 188);
+    color: #ccc;
 }
 
 /* Responsive design */

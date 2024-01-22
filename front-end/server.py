@@ -7,48 +7,76 @@ app.template_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), '
 
 API_BASE_URL = 'http://localhost:9876/ntuaflix_api'
 
+# Dummy data for fallback
+DUMMY_GENRES_DATA = {
+    'Action': [{'title': 'Dummy Movie 1', 'rating': {'avRating': '7.8'}, 'titlePoster': 'path/to/poster1.jpg'}],
+    'Drama': [{'title': 'Dummy Movie 2', 'rating': {'avRating': '8.2'}, 'titlePoster': 'path/to/poster2.jpg'}]
+}
+DUMMY_MOVIES = [{'title': 'Dummy Movie', 'rating': {'avRating': '7.5'}, 'titlePoster': 'path/to/poster.jpg'}]
+DUMMY_ACTOR = {'name': 'Dummy Actor', 'bio': 'This is a dummy bio', 'img_url_asset': 'path/to/actor.jpg'}
+DUMMY_MOVIE_DETAILS = {'title': 'Dummy Movie', 'rating': {'avRating': '8.1'}, 'genres': ['Action', 'Drama']}
+DUMMY_SERIES_DETAILS = {'title': 'Dummy Series', 'summary': 'This is a dummy series'}
+
 @app.route('/')
 def homepage():
-    response = requests.get(f"{API_BASE_URL}/top10bygenre")
-    if response.status_code == 200:
-        genres_data = response.json()
-    else:
-        genres_data = {}
+    try:
+        response = requests.get(f"{API_BASE_URL}/top10bygenre")
+        genres_data = response.json() if response.status_code == 200 else {}
+    except requests.RequestException:
+        genres_data = DUMMY_GENRES_DATA
     return render_template('homepage.html', genres_data=genres_data)
 
 @app.route('/search')
 def searchpage():
     query = request.args.get('query', '')
-    response = requests.get(f"{API_BASE_URL}/searchtitle", json={'titlePart': query})
-    movies = response.json() if response.status_code == 200 else []
+    try:
+        response = requests.get(f"{API_BASE_URL}/searchtitle", json={'titlePart': query})
+        movies = response.json() if response.status_code == 200 else []
+    except requests.RequestException:
+        movies = DUMMY_MOVIES
     return render_template('searchpage.html', movies=movies)
 
 @app.route('/actor/<actor_name>')
 def actor_page(actor_name):
-    response = requests.get(f"{API_BASE_URL}/name/{actor_name}")
-    actor_details = response.json() if response.status_code == 200 else {}
+    try:
+        response = requests.get(f"{API_BASE_URL}/name/{actor_name}")
+        actor_details = response.json() if response.status_code == 200 else {}
+    except requests.RequestException:
+        actor_details = DUMMY_ACTOR
     return render_template('actor_page.html', actor=actor_details)
 
 @app.route('/movie/<movie_title>')
 def movie_page(movie_title):
-    response = requests.get(f"{API_BASE_URL}/title/{movie_title}")
-    movie_details = response.json() if response.status_code == 200 else {}
+    try:
+        response = requests.get(f"{API_BASE_URL}/title/{movie_title}")
+        movie_details = response.json() if response.status_code == 200 else {}
+    except requests.RequestException:
+        movie_details = DUMMY_MOVIE_DETAILS
     return render_template('movie_page.html', movie=movie_details)
 
 @app.route('/series/<series_title>')
 def series_page(series_title):
-    response = requests.get(f"{API_BASE_URL}/title/{series_title}")
-    series_details = response.json() if response.status_code == 200 else {}
+    try:
+        response = requests.get(f"{API_BASE_URL}/title/{series_title}")
+        series_details = response.json() if response.status_code == 200 else {}
+    except requests.RequestException:
+        series_details = DUMMY_SERIES_DETAILS
     return render_template('series_page.html', series=series_details)
 
 @app.route('/genre/<genre_name>')
 def genre_page(genre_name):
-    response = requests.get(f"{API_BASE_URL}/bygenre", json={'qgenre': genre_name, 'minrating': '0'})
-    movies = response.json() if response.status_code == 200 else []
+    try:
+        response = requests.get(f"{API_BASE_URL}/bygenre", json={'qgenre': genre_name, 'minrating': '0'})
+        movies = response.json() if response.status_code == 200 else []
+    except requests.RequestException:
+        # Fallback to dummy data for the genre
+        movies = DUMMY_GENRES_DATA.get(genre_name, [])
     return render_template('genre_page.html', genre_name=genre_name, movies=movies)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
