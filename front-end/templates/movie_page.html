@@ -1,1 +1,41 @@
 movie page
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ movie.originalTitle }} - NTUAFlix</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>{{ movie.originalTitle }}</h1>
+    </header>
+
+    <main>
+        <section class="movie-details">
+            <img src="{{ movie.titlePoster }}" alt="{{ movie.originalTitle }}" class="movie-poster">
+            <div class="movie-info">
+                <p><strong>Rating:</strong> {{ movie.rating.avRating }}</p>
+                <p><strong>Duration:</strong> {{ movie.runtimeMinutes }} minutes</p>
+                <p><strong>Genres:</strong> {{ ', '.join(movie.genres) }}</p>
+                <p><strong>Summary:</strong> {{ movie.summary }}</p>
+            </div>
+        </section>
+
+        <section class="movie-cast">
+            <h2>Cast</h2>
+            <ul>
+                {% for cast_member in movie.cast %}
+                    <li>{{ cast_member }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section class="movie-crew">
+            <h2>Crew</h2>
+            <p><strong>Director:</strong> {{ movie.director }}</p>
+            <p><strong>Writer:</strong> {{ movie.writer }}</p>
+        </section>
+    </main>
+</body>
+</html>

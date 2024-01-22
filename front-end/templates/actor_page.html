@@ -1,1 +1,33 @@
 actor page
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ actor.name }} - NTUAFlix</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>{{ actor.name }}</h1>
+    </header>
+
+    <main>
+        <section class="actor-bio">
+            <img src="{{ actor.namePoster }}" alt="{{ actor.name }}" class="actor-image">
+            <p>{{ actor.bio }}</p>
+        </section>
+
+        <section class="actor-movies">
+            <h2>Movies Featuring {{ actor.name }}</h2>
+            <div class="movie-list">
+                {% for movie in actor.nameTitles %}
+                    <div class="movie">
+                        <h3>{{ movie.titleID }}</h3>
+                        <p>Role: {{ movie.category }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,77 @@
+/* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: black;
+    color: teal;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    padding: 10px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    color: white;
+}
+
+header form {
+    margin-top: 10px;
+}
+
+input[type="text"] {
+    padding: 5px;
+}
+
+button {
+    padding: 5px 15px;
+    background-color: teal;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #006666;
+}
+
+/* Main content styles */
+main {
+    padding: 20px;
+}
+
+.movie-list, .people-list, .episodes {
+    list-style-type: none;
+    padding: 0;
+}
+
+.movie, .person, .season {
+    background-color: #222;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.movie img, .person img {
+    max-width: 100px;
+    max-height: 100px;
+    margin-right: 10px;
+}
+
+.movie h3, .person h3, .season h3 {
+    margin-top: 0;
+}
+
+.movie p, .person p, .season p, .episodes li {
+    color: rgb(171, 188, 188);
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .movie img, .person img {
+        max-width: 50px;
+        max-height: 50px;
+    }
+}
