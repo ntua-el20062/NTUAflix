@@ -21,28 +21,34 @@
         </div>
     </div>
     
-    
-    <header>
-        <h1>{{ actor.name }}</h1>
-    </header>
 
-    <main>
-        <section class="actor-bio">
-            <img src="{{ actor.namePoster }}" alt="{{ actor.name }}" class="actor-image">
-            <p>{{ actor.bio }}</p>
-        </section>
+    <main class="content">
+        <div class="actor-container">
+            <section class="actor-details">
+                <img src="{{ actor.namePoster }}" alt="{{ actor.name }}" class="actor-image">
+                <div class="actor-info">
+                    <h1>{{ actor.name }}</h1>
+                    <p>Profession: <span class="info-detail">{{ actor.profession }}</span></p>
+                    <p>Birth Year: <span class="info-detail">{{ actor.birthYr }}</span></p>
+                    {% if actor.deathYr %}
+                        <p>Death Year: <span class="info-detail">{{ actor.deathYr }}</span></p>
+                    {% endif %}
+                </div>
+            </section>
 
-        <section class="actor-movies">
-            <h2>Movies Featuring {{ actor.name }}</h2>
-            <div class="movie-list">
-                {% for movie in actor.nameTitles %}
-                    <div class="movie">
-                        <h3>{{ movie.titleID }}</h3>
-                        <p>Role: {{ movie.category }}</p>
-                    </div>
-                {% endfor %}
-            </div>
-        </section>
+            <section class="actor-movies">
+                <h2>Movies Featuring {{ actor.name }}</h2>
+                <div class="movie-list">
+                    {% for title in titles %}
+                        <div class="movie">
+                            <!-- Display the title instead of titleID -->
+                            <h3>{{ title.title }}</h3>
+                            <p>Role: {{ title.category }}</p>
+                         </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
     </main>
 </body>
 </html>
