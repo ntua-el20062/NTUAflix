@@ -2,7 +2,7 @@
 from util.dependencies import install_dependencies
 
 # Install all dependencies
-install_dependencies()
+#install_dependencies()
 
 import pymysql
 import sys
@@ -21,7 +21,7 @@ def execute_sql_create_file(cursor, file_path):
         commands = split_sql_statements(sql_script)
         for command in commands:
             if command.strip():
-                print(f"Executing SQL command: {command}")  # Debug print
+                #print(f"Executing SQL command: {command}")  # Debug print
                 cursor.execute(command)
     except FileNotFoundError:
         print(f"SQL file not found: {file_path}")
@@ -66,12 +66,12 @@ def create_and_initialize_database(host, user, password, db_name):
         conn.select_db(db_name)
 
         # Execute SQL files
-        response = execute_sql_create_file(cursor, './API/ntuaflix_schema.sql')
+        response = execute_sql_create_file(cursor, './back_end/ntuaflix_schema.sql')
         if "error" in response:
             print(response["error"])
             sys.exit(1)
             
-        response = execute_sql_create_file(cursor, './API/ntuaflix_insert.sql')
+        response = execute_sql_create_file(cursor, './back_end/ntuaflix_insert.sql')
         if "error" in response:
             print(response["error"])
             sys.exit(1)
