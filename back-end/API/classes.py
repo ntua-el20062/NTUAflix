@@ -521,7 +521,12 @@ def get_top_10_titles_by_genre():
         return {}
 
     # Split genres field and get unique genres
-    unique_genres = set(genre.strip() for genres_field in all_genres for genre in genres_field['genres'].split(',') if genre.strip())
+    unique_genres = set(
+    genre.strip()
+    for genres_field in all_genres
+    if genres_field['genres'] is not None  # Add this check
+    for genre in genres_field['genres'].split(',') if genre.strip()
+)
     top_titles_by_genre = {}
     for genre in unique_genres:
         search_query = """
