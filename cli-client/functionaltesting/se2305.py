@@ -21,6 +21,7 @@ def resetall():
         print(f"Response Status Code: {response.status_code}")
         print(f"Response Content: {response.text}")
         return response 
+
 def top10genre():
     print("Fetching the top 10 titles in ratings for each genre.")
     response = requests.get(f"{BASE_URL}/top10bygenre")
@@ -164,6 +165,7 @@ def newakas(args):
     print(f"Response Status Code: {response.status_code}")
     print(f"Response Content: {response.text}")
     return response
+
 def newtitles(args):
     print(f"Adding new titlebasics with filename: {args.filename}")
 
@@ -286,7 +288,7 @@ def main():
     elif args.scope == 'searchname':
         searchname(args)
     elif args.scope == 'top10genre':
-        top10genre(args)
+        top10genre()
     elif args.scope == 'healthcheck':
         result = healthcheck()
     elif args.scope == 'resetall':
