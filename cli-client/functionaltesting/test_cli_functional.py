@@ -435,6 +435,7 @@ def test_newprincipals_invalid_input2():
             f'}}\n\n'
         )        
         assert expected_text in stdout
+
         
 def run_help_command():
     result = subprocess.run(['python', 'se2305.py', '--help'], capture_output=True, text=True)
@@ -518,6 +519,21 @@ def test_top10genre():
         expected_text = 'nVotes'
         assert expected_text in stdout
 
+
+def test_rating_topgenres():
+        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\newtitle.tsv']
+        stdout, _ = run_cli_command('newtitles', args)
+        expected_text = "status\": \"titlebasics data added"
+        assert expected_text in stdout
+        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\test_rating_top10genres.tsv']
+        stdout, _ = run_cli_command('newratings', args)
+        expected_text = "status\": \"ratings data added"
+        assert expected_text in stdout
+        stdout, _, = run_cli_command('top10genre', [])
+        expected_text = 'Fetching the top 10 titles in ratings for each genre'
+        assert expected_text in stdout
+        expected_text = "titleID\": \"tt0000001"
+        assert expected_text in stdout
 
 def test_resetall():
     stdout, _ = run_cli_command('resetall', [])
