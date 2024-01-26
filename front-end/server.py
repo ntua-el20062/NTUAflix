@@ -41,6 +41,13 @@ def actor_page(actor_name):
     try:
         response = requests.get(f"{API_BASE_URL}/name/{actor_name}")
         actor_details = response.json() if response.status_code == 200 else {}
+        movies = []
+        for title in actor_details["nameTitles"]:
+            titleID = title["titleID"]
+            title_response = requests.get(f"{API_BASE_URL}/title/{titleID}")
+            if title_response.status_code == 200:
+                movies.append(title_response.json())
+        actor_details["movies"] = movies
     except requests.RequestException:
         actor_details = DUMMY_ACTOR
     return render_template('actor_page.html', actor=actor_details)
@@ -50,6 +57,14 @@ def movie_page(movie_title):
     try:
         response = requests.get(f"{API_BASE_URL}/title/{movie_title}")
         movie_details = response.json() if response.status_code == 200 else {}
+        names = []
+        for principal in movie_details["principals"]:
+            nameID = principal["nameID"]
+            name_response = requests.get(f"{API_BASE_URL}/name/{nameID}")
+            if name_response.status_code == 200:
+                names.append(name_response.json())
+        movie_details["names"] = names
+
     except requests.RequestException:
         movie_details = DUMMY_MOVIE_DETAILS
     return render_template('movie_page.html', movie=movie_details)

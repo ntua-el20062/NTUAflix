@@ -39,8 +39,12 @@
         <section class="movie-cast">
             <h2>Cast</h2>
             <ul>
-                {% for cast_member in movie.cast %}
-                    <li>{{ cast_member }}</li>
+                {% for name in movie.names %}
+                    <li>
+                      <img src="{{ name.namePoster }}" alt="" srcset="">
+                      <p>{{ name.name }}</p>
+                      
+                    </li>
                 {% endfor %}
             </ul>
         </section>

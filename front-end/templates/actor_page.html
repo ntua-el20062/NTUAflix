@@ -35,12 +35,12 @@
         <section class="actor-movies">
             <h2>Movies Featuring {{ actor.name }}</h2>
             <div class="movie-list">
-                {% for movie in actor.nameTitles %}
-                    <div class="movie">
-                        <h3>{{ movie.titleID }}</h3>
-                        <p>Role: {{ movie.category }}</p>
-                    </div>
-                {% endfor %}
+              {% for movie in actor.movies %}                      
+                <div class="movie">
+                  <img src="{{ movie.titlePoster }}" alt="" srcset="">
+                  <p>{{ movie.name }}</p>
+                </div>
+              {% endfor %}
             </div>
         </section>
     </main>
