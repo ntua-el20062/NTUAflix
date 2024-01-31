@@ -36,19 +36,17 @@
                 </div>
             </section>
 
-            <section class="actor-movies">
-                <h2>Movies Featuring {{ actor.name }}</h2>
-                <div class="movie-list">
-                    {% for title in titles %}
-                        <div class="movie">
-                            <!-- Display the title instead of titleID -->
-                            <h3>{{ title.title }}</h3>
-                            <p>Role: {{ title.category }}</p>
-                         </div>
-                    {% endfor %}
+        <section class="actor-movies">
+            <h2>Movies Featuring {{ actor.name }}</h2>
+            <div class="movie-list">
+              {% for movie in actor.movies %}                      
+                <div class="movie">
+                  <img src="{{ movie.titlePoster }}" alt="" srcset="">
+                  <p>{{ movie.name }}</p>
                 </div>
-            </section>
-        </div>
+              {% endfor %}
+            </div>
+        </section>
     </main>
 </body>
 </html>

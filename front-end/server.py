@@ -78,13 +78,6 @@ def actor_page(actor_name):
     try:
         response = requests.get(f"{API_BASE_URL}/name/{actor_name}")
         actor_details = response.json() if response.status_code == 200 else {}
-        process_image_urls(actor_details)
-
-        # Extract the actor's titles from the response
-        actor_titles = actor_details.get('nameTitles', [])
-        
-        # Pass actor_details and actor_titles to the HTML template
-        return render_template('actor_page.html', actor=actor_details, titles=actor_titles)    
     except requests.RequestException:
         actor_details = DUMMY_ACTOR
     return render_template('actor_page.html', actor=actor_details)
@@ -94,7 +87,14 @@ def movie_page(movie_title):
     try:
         response = requests.get(f"{API_BASE_URL}/title/{movie_title}")
         movie_details = response.json() if response.status_code == 200 else {}
-        process_image_urls(movie_details)
+        names = []
+        for principal in movie_details["principals"]:
+            nameID = principal["nameID"]
+            name_response = requests.get(f"{API_BASE_URL}/name/{nameID}")
+            if name_response.status_code == 200:
+                names.append(name_response.json())
+        movie_details["names"] = names
+
     except requests.RequestException:
         movie_details = DUMMY_MOVIE_DETAILS
     return render_template('movie_page.html', movie=movie_details)
