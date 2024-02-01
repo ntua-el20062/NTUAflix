@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results - NTUAFlix</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+</head>
+<body onload="openTab(event, 'Movies')">
+    <div class="top-header">
+        <div class="header-title">
+            <a href="/">NTUAFlix</a>
+        </div>
+        <div class="header-search">
+            <form action="/search" method="get">
+                <input type="text" name="query" placeholder="Search for movies, actors...">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    
+    <main>
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'Movies')">Movies</button>
+            <button class="tablinks" onclick="openTab(event, 'People')">People</button>
+        </div>
+
+        <section id="Movies" class="tabcontent">
+            <h2>Movies</h2>
+            <div class="movie-list">
+                {% for movie in movies %}
+                    <a href="{{ url_for('movie_page', movie_title=movie.titleID) }}" class="movie">
+                        <img src="{{ movie.titlePoster }}" alt="{{ movie.originalTitle }}" class="movie-image">
+                        <h3>{{ movie.originalTitle }}</h3>
+                        <p>Rating: {{ movie.rating.avRating }}</p>
+                    </a>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section id="People" class="tabcontent">
+            <h2>People</h2>
+            <div class="people-list">
+                {% for person in actors %}
+                    <a href="{{ url_for('actor_page', actor_name=person.nameID) }}" class="person">
+                        <img src="{{ person.namePoster }}" alt="{{ person.name }}" class="person-image">
+                        <h3>{{ person.name }}</h3>
+                        <p>{{ person.bio }}</p>
+                    </a>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,289 @@
+/* General styles */
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: black;
+    color: turquoise;
+    margin: 0;
+    padding: 0;
+}
+
+/* Styles for tabs */
+.tab {
+    overflow: hidden;
+    background-color: black; /* Removing white background */
+}
+
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    color: turquoise; /* Tab titles color */
+    position: relative; /* For the animated line */
+}
+
+.tab button:hover {
+    background-color: #222; /* Darker background on hover */
+}
+
+.tab button.active {
+    background-color: black;
+    color: turquoise;
+}
+
+.tab button.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: turquoise; /* Horizontal line color */
+    transition: left 0.3s; /* Animated movement */
+}
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    background-color: black; /* Removing white border */
+    color: white;
+}
+
+/* Top Header Bar */
+.top-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #111;
+    color: white;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+.top-header .header-title {
+    margin-left: 20px; /* Add some space from the left edge */
+    font-size: 24px;
+}
+
+.top-header .header-title a {
+    color: turquoise;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.top-header .header-search {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center; /* Centered alignment */
+}
+
+.top-header .header-search form {
+    display: flex;
+    justify-content: center; /* Centered alignment */
+}
+
+.top-header .header-search input[type="text"], .top-header .header-search button {
+    font-family: 'Outfit', sans-serif; /* Consistent font */
+    padding: 8px;
+    border-radius: 10px; /* More rounded corners */
+    border: 1px solid #ddd;
+    background-color: #222;
+    color: white;
+}
+
+.top-header .header-search input[type="text"] {
+    margin-right: 15px; /* More distance between search button and bar */
+}
+
+.top-header .header-search button {
+    cursor: pointer;
+    line-height: normal; /* Adjust line height to match search bar height */
+}
+
+.top-header .header-search button:hover {
+    background-color: #007070;
+}
+
+/* Adjusting main content position */
+body {
+    padding-top: 60px; /* Adjust this value based on the height of your header */
+}
+
+/* Main content styles */
+main {
+    padding: 20px 10%;
+}
+
+/* Add these styles to your existing styles.css file */
+
+.movie-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.movie {
+    flex-basis: 20%; /* Adjust as needed */
+    margin-right: 20px; /* Space between movies */
+    margin-bottom: 20px;
+}
+
+.movie img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Style modifications for movie links */
+.movie {
+    text-decoration: none; /* Removes underlining */
+    color: inherit; /* Inherits the color from the parent element */
+    flex-basis: 20%; /* Adjust as needed */
+    margin-right: 20px; /* Space between movies */
+    margin-bottom: 20px;
+    transition: transform 0.3s ease; /* Optional: Adds a subtle animation effect */
+}
+
+.movie:hover {
+    transform: scale(1.05); /* Optional: Slightly enlarges the movie on hover */
+}
+
+.movie img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px; /* Optional: Adds rounder corners to images */
+}
+
+@media (max-width: 768px) {
+    .movie {
+        flex-basis: 50%; /* Larger item on smaller screens */
+    }
+}
+
+
+.movie-list, .people-list, .episodes {
+    list-style-type: none;
+    padding: 0;
+}
+
+.movie, .person, .season {
+    background-color: #222;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px; /* Rounder corners */
+}
+
+.movie img, .person img {
+    max-width: 100px;
+    max-height: 100px;
+    margin-right: 10px;
+}
+
+.movie h3, .person h3, .season h3 {
+    margin-top: 0;
+}
+
+.movie p, .person p, .season p, .episodes li {
+    color: #ccc;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .movie img, .person img {
+        max-width: 50px;
+        max-height: 50px;
+    }
+}
+
+/* Styles for movie and person lists */
+.movie-list, .people-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.movie, .person {
+    text-decoration: none; /* Removes underlining */
+    color: inherit; /* Inherits the color from the parent element */
+    flex-basis: 20%; /* Adjust as needed */
+    margin-right: 20px; /* Space between items */
+    margin-bottom: 20px;
+    transition: transform 0.3s ease; /* Optional: Adds a subtle animation effect */
+}
+
+.movie:hover, .person:hover {
+    transform: scale(1.05); /* Optional: Slightly enlarges the item on hover */
+}
+
+.movie img, .person img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px; /* Optional: Adds rounder corners to images */
+}
+
+.movie h3, .person h3 {
+    margin-top: 0;
+}
+
+.movie p, .person p {
+    color: #ccc;
+}
+
+/* ... Rest of your styles ... */
+
+@media (max-width: 768px) {
+    .movie, .person {
+        flex-basis: 50%; /* Larger item on smaller screens */
+    }
+}
+
+/* Existing styles... */
+
+/* Styling for the main content area */
+.content {
+    padding: 20px 10%; /* Consistent padding with the homepage */
+}
+
+.actor-container {
+    color: turquoise; /* Default text color */
+}
+
+/* Actor details section */
+.actor-details {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.actor-image {
+    max-width: 150px; /* Smaller image size */
+    margin-right: 20px;
+}
+
+.actor-info h1 {
+    margin-top: 0;
+    color: white; /* Actor name in white */
+}
+
+.info-detail {
+    color: white; /* Specific information in white */
+}
+
+/* ... Rest of your styles ... */
+
+@media (max-width: 768px) {
+    .actor-details {
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .actor-image {
+        max-width: 100%;
+        margin-bottom: 10px;
+    }
+}

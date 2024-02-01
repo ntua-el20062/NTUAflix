@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ movie.originalTitle }} - NTUAFlix</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            max-width: px; /* Adjust the max-width to your preference */
+        }
+
+        .movie-poster {
+            display: block;
+            margin: 0 auto; /* Center the image within its container */
+            max-width: 50%; /* Make sure the image is responsive */
+        }
+
+        .cast-crew-image {
+            max-width: 30%; /* Adjust the max-width to your preference for cast and crew images */
+            display: block;
+            margin: 0 auto; /* Center the image within its container */
+        }
+
+        .cast-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            list-style: none;
+            padding: 0;
+        }
+
+        .cast-item {
+            text-align: center;
+            margin: 10px;
+            width: 30%; /* Each item takes up 30% of the container */
+        }
+
+        /* Center headers in the middle of the line */
+        .header-centered {
+            text-align: center;
+            width: 100%; /* Full width for centering */
+        }
+
+        /* Add any additional styles here */
+    </style>
+</head>
+<body>
+    <div class="top-header">
+        <div class="header-title">
+            <a href="/">NTUAFlix</a>
+        </div>
+        <div class="header-search">
+            <form action="/search" method="get">
+                <input type="text" name="query" placeholder="Search for movies, actors...">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    
+    <header>
+        <h1>{{ movie.originalTitle }}</h1>
+    </header>
+
+    <main>
+        <section class="movie-details">
+            {% if movie.titlePoster %}
+
+            <img src="{{ movie.titlePoster }}" alt="{{ movie.originalTitle }}" class="movie-poster">
+            {% endif %}
+
+            <div class="movie-info">
+                <p><strong>Rating:</strong> {{ movie.rating.avRating }}</p>
+                <p><strong>Duration:</strong> {{ movie.runtimeMinutes }} minutes</p>
+                <p><strong>Genres:</strong> {{ ', '.join(movie.genres) }}</p>
+                <p><strong>Summary:</strong> {{ movie.summary }}</p>
+            </div>
+        </section>
+
+        <section class="movie-cast">
+            <h2>Cast</h2>
+            <ul class="cast-list">
+                {% for actor in movie.cast %}
+                    <li class="cast-item">
+                        <p><a href="{{ url_for('actor_page', actor_name=actor.nameID) }}">{{ actor.name }}</a></p>
+                        {% if actor.namePoster %}
+                            <img src="{{ actor.namePoster }}" alt="{{ actor.name }}" class="cast-crew-image">
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+        
+        <section class="movie-crew">
+            <h2>Crew</h2>
+        
+            {% if movie.crew.director %}
+                <h2 class="header-centered">Directors</h2>
+                {% if movie.crew.director.namePoster %}
+                    <div class="cast-item">
+                        <p><a href="{{ url_for('actor_page', actor_name=movie.crew.director.nameID) }}">{{ movie.crew.director.name }}</a></p>
+                        <img src="{{ movie.crew.director.namePoster }}" alt="{{ movie.crew.director.name }}" class="cast-crew-image">
+                    </div>
+                {% else %}
+                    <div class="cast-item">
+                        <p><a href="{{ url_for('actor_page', actor_name=movie.crew.director.nameID) }}">{{ movie.crew.director.name }}</a></p>
+                    </div>
+                {% endif %}
+            {% endif %}
+        
+            {% if movie.crew.writer %}
+                <h2 class="header-centered">Writers</h2>
+                {% if movie.crew.writer.namePoster %}
+                    <div class="cast-item">
+                        <p><a href="{{ url_for('actor_page', actor_name=movie.crew.writer.nameID) }}">{{ movie.crew.writer.name }}</a></p>
+                        <img src="{{ movie.crew.writer.namePoster }}" alt="{{ movie.crew.writer.nameID }}" class="cast-crew-image">
+                    </div>
+                {% else %}
+                    <div class="cast-item">
+                        <p><a href="{{ url_for('actor_page', actor_name=movie.crew.writer.name) }}">{{ movie.crew.writer.name }}</a></p>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </section>
+        
+    </main>
+</body>
+</html>
