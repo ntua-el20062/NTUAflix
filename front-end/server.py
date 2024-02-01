@@ -29,12 +29,28 @@ def homepage():
 @app.route('/search')
 def searchpage():
     query = request.args.get('query', '')
+    # Initialize empty lists for movies and actors
+    movies = []
+    actors = []
+
+    # Search for movies
     try:
         response = requests.get(f"{API_BASE_URL}/searchtitle", json={'titlePart': query})
-        movies = response.json() if response.status_code == 200 else []
+        movies = response.json() if response.status_code == 200 else DUMMY_MOVIES
     except requests.RequestException:
         movies = DUMMY_MOVIES
-    return render_template('searchpage.html', movies=movies)
+
+    # Search for actors
+    try:
+        response = requests.get(f"{API_BASE_URL}/searchname", json={'namePart': query})
+        actors = response.json() if response.status_code == 200 else []
+    except requests.RequestException:
+        # If there's no specific dummy data for actors, you could define some or use an empty list as a fallback
+        actors = []
+
+    # Pass both movies and actors to the template
+    return render_template('searchpage.html', movies=movies, actors=actors)
+
 
 @app.route('/actor/<actor_name>')
 def actor_page(actor_name):
