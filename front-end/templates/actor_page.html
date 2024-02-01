@@ -43,7 +43,8 @@
               {% for movie in actor.movies %}                      
                 <a href="{{ url_for('movie_page', movie_title=movie.titleID) }}" class="movie"> <!-- Update 'movie_page' with the correct route name and 'movie_title' with the correct variable -->
                     <img src="{{ movie.titlePoster }}" alt="{{ movie.name }}" class="movie-image">
-                    <p>{{ movie.name }}</p>
+                    <h3>{{ movie.originalTitle }}</h3>
+                    <p>Rating: {{ movie.rating.avRating }}</p>
                 </a>
               {% endfor %}
             </div>
