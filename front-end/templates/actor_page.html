@@ -33,6 +33,7 @@
                     {% if actor.deathYr %}
                         <p>Death Year: <span class="info-detail">{{ actor.deathYr }}</span></p>
                     {% endif %}
+
                 </div>
             </section>
 
@@ -40,10 +41,10 @@
             <h2>Movies Featuring {{ actor.name }}</h2>
             <div class="movie-list">
               {% for movie in actor.movies %}                      
-                <div class="movie">
-                  <img src="{{ movie.titlePoster }}" alt="" srcset="">
-                  <p>{{ movie.name }}</p>
-                </div>
+                <a href="{{ url_for('movie_page', movie_title=movie.titleID) }}" class="movie"> <!-- Update 'movie_page' with the correct route name and 'movie_title' with the correct variable -->
+                    <img src="{{ movie.titlePoster }}" alt="{{ movie.name }}" class="movie-image">
+                    <p>{{ movie.name }}</p>
+                </a>
               {% endfor %}
             </div>
         </section>

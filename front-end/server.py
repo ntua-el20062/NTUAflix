@@ -2,6 +2,19 @@ from flask import Flask, render_template, request
 import requests
 import os
 
+def process_image_urls(data, width='w500'):
+    if isinstance(data, list):
+        for item in data:
+            process_image_urls(item, width)
+    elif isinstance(data, dict):
+        for key, value in data.items():
+            if isinstance(value, (dict, list)):
+                process_image_urls(value, width)
+            elif 'namePoster' in key and '{width_variable}' in value:
+                data[key] = value.replace('{width_variable}', width) if value else DEFAULT_PERSON_IMAGE_URL
+            elif 'titlePoster' in key and '{width_variable}' in value:
+                data[key] = value.replace('{width_variable}', width) if value else DEFAULT_MOVIE_IMAGE_URL
+
 app = Flask(__name__)
 app.template_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 
@@ -22,6 +35,7 @@ def homepage():
     try:
         response = requests.get(f"{API_BASE_URL}/top10bygenre")
         genres_data = response.json() if response.status_code == 200 else {}
+        process_image_urls(genres_data)
     except requests.RequestException:
         genres_data = DUMMY_GENRES_DATA
     return render_template('homepage.html', genres_data=genres_data)
@@ -37,6 +51,7 @@ def searchpage():
     try:
         response = requests.get(f"{API_BASE_URL}/searchtitle", json={'titlePart': query})
         movies = response.json() if response.status_code == 200 else DUMMY_MOVIES
+        process_image_urls(movies)
     except requests.RequestException:
         movies = DUMMY_MOVIES
 
@@ -44,6 +59,7 @@ def searchpage():
     try:
         response = requests.get(f"{API_BASE_URL}/searchname", json={'namePart': query})
         actors = response.json() if response.status_code == 200 else []
+        process_image_urls(actors)
     except requests.RequestException:
         # If there's no specific dummy data for actors, you could define some or use an empty list as a fallback
         actors = []
@@ -57,12 +73,15 @@ def actor_page(actor_name):
     try:
         response = requests.get(f"{API_BASE_URL}/name/{actor_name}")
         actor_details = response.json() if response.status_code == 200 else {}
+        process_image_urls(actor_details)
         movies = []
         for title in actor_details["nameTitles"]:
             titleID = title["titleID"]
             title_response = requests.get(f"{API_BASE_URL}/title/{titleID}")
             if title_response.status_code == 200:
-                movies.append(title_response.json())
+                title_details = title_response.json()
+                process_image_urls(title_details, 'w500')
+                movies.append(title_details)
         actor_details["movies"] = movies
     except requests.RequestException:
         actor_details = DUMMY_ACTOR
@@ -73,6 +92,7 @@ def movie_page(movie_title):
     try:
         response = requests.get(f"{API_BASE_URL}/title/{movie_title}")
         movie_details = response.json() if response.status_code == 200 else {}
+        process_image_urls(movie_details)
         names = []
         for principal in movie_details["principals"]:
             nameID = principal["nameID"]
@@ -99,6 +119,7 @@ def genre_page(genre_name):
     try:
         response = requests.get(f"{API_BASE_URL}/bygenre", json={'qgenre': genre_name, 'minrating': '0'})
         movies = response.json() if response.status_code == 200 else []
+        process_image_urls(movies)
     except requests.RequestException:
         # Fallback to dummy data for the genre
         movies = DUMMY_GENRES_DATA.get(genre_name, [])
