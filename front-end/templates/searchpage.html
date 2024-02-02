@@ -58,7 +58,7 @@
             <div class="people-list">
                 {% for person in actors %}
                     <a href="{{ url_for('actor_page', actor_name=person.nameID) }}" class="person">
-                        <img src="{{ person.namePoster }}" alt="{{ person.name }}" class="person-image">
+                        <img src="{{ person.namePoster }}" alt="{{ person.name }}">
                         <h3>{{ person.name }}</h3>
                         <p>{{ person.bio }}</p>
                     </a>

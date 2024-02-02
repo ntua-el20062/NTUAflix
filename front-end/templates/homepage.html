@@ -5,6 +5,7 @@
     <title>NTUAFlix</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+    
 </head>
 <body>
     <div class="top-header">
@@ -23,10 +24,10 @@
         {% for genre in genres_data.keys() | sort %}
             <section>
                 <h2>{{ genre }}</h2>
-                <div class="movie-list">
+                <div class="homepage-movie-list">
                     {% for movie in genres_data[genre] %}
                         <a href="{{ url_for('movie_page', movie_title=movie.titleID) }}" class="movie">
-                            <img src="{{ movie.titlePoster }}" alt="{{ movie.originalTitle }}">
+                            <img src="{{ movie.titlePoster }}" alt="">
                             <h3>{{ movie.originalTitle }}</h3>
                             <p>Rating: {{ movie.rating.avRating }}</p>
                         </a>

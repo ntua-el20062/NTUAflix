@@ -124,35 +124,41 @@ main {
 
 /* Add these styles to your existing styles.css file */
 
-.movie-list {
+.homepage-movie-list { /*!important*/
+    display: flex;
+    white-space: nowrap;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    margin-top: 10px;
+    height: 360px;
+}
+
+.movie-list, .people-list { /*!important*/
     display: flex;
     white-space: nowrap;
     overflow-x: hidden;
     scroll-behavior: smooth;
-    height: 250px;
+    height: auto;
 }
 
 /* Add this new class to your CSS for the scroll buttons */
-.scroll-button {
-    background-color: #333; /* Button background color */
-    color: white; /* Button text color */
-    border: none;
-    cursor: pointer;
-}
 
-.movie {
-    display: inline-block; /* Align movies horizontally */
-    flex: 0 0 300px; /* Each movie has a fixed width */
-    margin: 5px; /* Add some space around each movie */
+.movie { /*!important*/
+    display: flex; /* Align movies horizontally */
+    flex: 0 0 250px; /* Each movie has a fixed width */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0;
+    margin: 0; /* Add some space around each movie */ 
+    width: 170px;
+    height: 340px;
     white-space: normal; /* Allow text to wrap within each movie */
     vertical-align: top; /* Align items to the top of the container */
-}
-
-.movie img {
-    flex-basis: 200px; /* Reduce the default width of the movie blocks */
-    margin: 5px; /* Adjust margin to control spacing between movie blocks */
-    max-width: 100%;
-    height: auto;
+    text-decoration: none; /* Removes underlining */
+    color: inherit; /* Inherits the color from the parent element */
+    transition: transform 0.3s ease; /* Optional: Adds a subtle animation effect */
 }
 
 /* Style modifications for movie links */
@@ -161,11 +167,6 @@ main {
     transform: scale(1.05); /* Optional: Slightly enlarges the movie on hover */
 }
 
-.movie img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px; /* Optional: Adds rounder corners to images */
-}
 
 @media (max-width: 768px) {
     .movie {
@@ -173,71 +174,68 @@ main {
     }
 }
 
-
-.movie-list, .people-list, .episodes {
-    list-style-type: none;
+.person { /*!important*/
+    display: flex; /* Align movies horizontally */
+    flex: 0 0 250px; /* Each movie has a fixed width */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     padding: 0;
+    margin: 0; /* Add some space around each movie */ 
+    width: 170px;
+    height: 340px;
+    white-space: normal; /* Allow text to wrap within each movie */
+    vertical-align: top; /* Align items to the top of the container */
+    text-decoration: none; /* Removes underlining */
+    color: inherit; /* Inherits the color from the parent element */
+    transition: transform 0.3s ease; /* Optional: Adds a subtle animation effect */
 }
 
-.movie, .person, .season {
-    background-color: #222;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px; /* Rounder corners */
+.movie img, .person img { /* important*/
+    text-align: center;
+    max-width: 100%;
+    max-height: 250px;
+    margin-top: 10px;
+    margin-right: 5px;
+    border-radius: 10px;/* Optional: Adds rounder corners to images */
+    height: auto;
 }
 
-.movie img, .person img {
-    max-width: 100px;
-    max-height: 100px;
-    margin-right: 10px;
-}
-
-.movie h3, .person h3, .season h3 {
+.movie h3, .person h3, .season h3 { /*important*/
+    text-align: center;
     margin-top: 0;
 }
 
-.movie p, .person p, .season p, .episodes li {
+.movie p, .person p, .season p, .episodes li { /*important*/
+    text-align: center;
     color: #ccc;
 }
 
 /* Responsive design */
 @media (max-width: 600px) {
     .movie img, .person img {
+        text-align: center;
         max-width: 50px;
         max-height: 50px;
     }
 }
 
 /* Styles for movie and person lists */
-.movie-list, .people-list {
-    display: flex;
-    flex-wrap: wrap;
-}
 
-.movie, .person {
-    text-decoration: none; /* Removes underlining */
-    color: inherit; /* Inherits the color from the parent element */
-    flex-basis: 20%; /* Adjust as needed */
-    margin-right: 20px; /* Space between items */
-    margin-bottom: 20px;
-    transition: transform 0.3s ease; /* Optional: Adds a subtle animation effect */
-}
-
-.movie:hover, .person:hover {
+.movie:hover, .person:hover { /*important*/
     transform: scale(1.05); /* Optional: Slightly enlarges the item on hover */
 }
 
-.movie img, .person img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px; /* Optional: Adds rounder corners to images */
-}
+
 
 .movie h3, .person h3 {
     margin-top: 0;
+    margin-bottom:0;
 }
 
 .movie p, .person p {
+    margin-top: 0;
     color: #ccc;
 }
 
@@ -245,6 +243,7 @@ main {
 
 @media (max-width: 768px) {
     .movie, .person {
+        text-align: center;
         flex-basis: 50%; /* Larger item on smaller screens */
     }
 }

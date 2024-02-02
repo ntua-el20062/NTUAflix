@@ -50,16 +50,24 @@ def searchpage():
     # Search for movies
     try:
         response = requests.get(f"{API_BASE_URL}/searchtitle", json={'titlePart': query})
-        movies = response.json() if response.status_code == 200 else DUMMY_MOVIES
-        process_image_urls(movies)
+        movies = response.json() if response.status_code == 200 else []
     except requests.RequestException:
-        movies = DUMMY_MOVIES
+        movies = []
 
     # Search for actors
     try:
         response = requests.get(f"{API_BASE_URL}/searchname", json={'namePart': query})
         actors = response.json() if response.status_code == 200 else []
+        for actor in actors:
+            for title in actor["nameTitles"]:
+                titleID = title["titleID"]
+                title_response = requests.get(f"{API_BASE_URL}/title/{titleID}")
+                if title_response.status_code == 200:
+                    title_details = title_response.json()
+                    process_image_urls(title_details, 'w500')
+                    movies.append(title_details)
         process_image_urls(actors)
+        process_image_urls(movies)
     except requests.RequestException:
         # If there's no specific dummy data for actors, you could define some or use an empty list as a fallback
         actors = []
