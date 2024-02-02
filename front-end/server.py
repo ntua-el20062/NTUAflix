@@ -75,7 +75,6 @@ def searchpage():
     # Pass both movies and actors to the template
     return render_template('searchpage.html', movies=movies, actors=actors)
 
-
 @app.route('/actor/<actor_name>')
 def actor_page(actor_name):
     try:
@@ -100,18 +99,31 @@ def movie_page(movie_title):
     try:
         response = requests.get(f"{API_BASE_URL}/title/{movie_title}")
         movie_details = response.json() if response.status_code == 200 else {}
-        process_image_urls(movie_details)
-        names = []
-        for principal in movie_details["principals"]:
-            nameID = principal["nameID"]
+
+        cast = []
+        crew = {"director": None, "writer": None}
+        for principal in movie_details.get("principals", []):
+            nameID = principal.get("nameID", "")
+            category = principal.get("category", "")
             name_response = requests.get(f"{API_BASE_URL}/name/{nameID}")
             if name_response.status_code == 200:
-                names.append(name_response.json())
-        movie_details["names"] = names
+                name_info = name_response.json()
 
+                if category in ["actor", "actress"]:
+                    cast.append(name_info)
+                elif category == "director":
+                    crew["director"] = name_info
+                elif category == "writer":
+                    crew["writer"] = name_info
+
+        movie_details["cast"] = cast
+        movie_details["crew"] = crew
+        process_image_urls(movie_details)
     except requests.RequestException:
         movie_details = DUMMY_MOVIE_DETAILS
+
     return render_template('movie_page.html', movie=movie_details)
+
 
 @app.route('/series/<series_title>')
 def series_page(series_title):
