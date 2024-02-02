@@ -29,7 +29,11 @@
             <div class="homepage-movie-list">
                 {% for movie in genres_data[genre] %}
                     <a href="{{ url_for('movie_page', movie_title=movie.titleID) }}" class="movie">
-                        <img src="{{ movie.titlePoster }}" alt="{{ movie.originalTitle }}">
+                        {% if movie.titlePoster %}
+                                <img src="{{ movie.titlePoster }}" alt="{{ movie.originalTitle }}">
+                            {% else %}
+                                <img src="{{ url_for('static', filename='images/default_poster.png') }}" alt="Default Image">
+                        {% endif %}
                         <h3>{{ movie.originalTitle }}</h3>
                         <p>Rating: {{ movie.rating.avRating }}</p>
                     </a>

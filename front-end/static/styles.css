@@ -291,7 +291,7 @@ body:not(.with-sub-header) main {
 }
 
 .actor-container {
-    color: turquoise; /* Default text color */
+    color: #40e0d0; /* Default text color */
 }
 
 /* Actor details section */
