@@ -79,29 +79,35 @@
             </div>
         </section>
 
-        <section class="movie-cast">
+        <section class="people-list">
             <h2>Cast</h2>
-            <ul class="cast-list">
+            <ul class="people-list">
                 {% for actor in movie.cast %}
                     <li class="cast-item">
                         <p><a href="{{ url_for('actor_page', actor_name=actor.nameID) }}">{{ actor.name }}</a></p>
                         {% if actor.namePoster %}
-                            <img src="{{ actor.namePoster }}" alt="{{ actor.name }}" class="cast-crew-image">
+                                <img src="{{ actor.namePoster }}" alt="{{ actor.name }}">
+                            {% else %}
+                                <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
                         {% endif %}
                     </li>
                 {% endfor %}
             </ul>
         </section>
         
-        <section class="movie-crew">
+        <section class="people-list">
             <h2>Crew</h2>
         
             {% if movie.crew.director %}
                 <h2 class="header-centered">Directors</h2>
                 {% if movie.crew.director.namePoster %}
-                    <div class="cast-item">
+                    <div class="people-list">
                         <p><a href="{{ url_for('actor_page', actor_name=movie.crew.director.nameID) }}">{{ movie.crew.director.name }}</a></p>
-                        <img src="{{ movie.crew.director.namePoster }}" alt="{{ movie.crew.director.name }}" class="cast-crew-image">
+                        {% if movie.crew.director.namePoster %}
+                                <img src="{{ movie.crew.director.namePoster }}" alt="{{ movie.crew.director.name }}">
+                            {% else %}
+                                <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                        {% endif %}
                     </div>
                 {% else %}
                     <div class="cast-item">
@@ -113,12 +119,15 @@
             {% if movie.crew.writer %}
                 <h2 class="header-centered">Writers</h2>
                 {% if movie.crew.writer.namePoster %}
-                    <div class="cast-item">
+                    <div class="people-list">
                         <p><a href="{{ url_for('actor_page', actor_name=movie.crew.writer.nameID) }}">{{ movie.crew.writer.name }}</a></p>
-                        <img src="{{ movie.crew.writer.namePoster }}" alt="{{ movie.crew.writer.nameID }}" class="cast-crew-image">
-                    </div>
+                        {% if movie.crew.writer.namePoster %}
+                            <img src="{{ movie.crew.writer.namePoster }}" alt="{{ movie.crew.writer.name }}">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                        {% endif %}                    </div>
                 {% else %}
-                    <div class="cast-item">
+                    <div class="people-list">
                         <p><a href="{{ url_for('actor_page', actor_name=movie.crew.writer.name) }}">{{ movie.crew.writer.name }}</a></p>
                     </div>
                 {% endif %}

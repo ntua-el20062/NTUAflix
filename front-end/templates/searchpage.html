@@ -62,9 +62,13 @@
             <div class="people-list">
                 {% for person in actors %}
                     <a href="{{ url_for('actor_page', actor_name=person.nameID) }}" class="person">
-                        <img src="{{ person.namePoster }}" alt="">
-                        <h3>{{ person.name }}</h3>
-                        <p>{{ person.bio }}</p>
+                        {% if person.namePoster %}
+                        <img src="{{ person.namePoster }}" alt="{{ person.name }}">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                    {% endif %}                        
+                    <h3>{{ person.name }}</h3>
+                    <p>{{ person.bio }}</p>
                     </a>
                 {% endfor %}
             </div>

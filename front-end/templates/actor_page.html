@@ -25,7 +25,11 @@
     <main class="content">
         <div class="actor-container">
             <section class="actor-details">
-                <img src="{{ actor.namePoster }}" alt="{{ actor.name }}" class="actor-image">
+                {% if actor.namePoster %}
+                                <img src="{{ actor.namePoster }}" alt="{{ actor.name }}">
+                            {% else %}
+                                <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                {% endif %}
                 <div class="actor-info">
                     <h1>{{ actor.name }}</h1>
                     <p>Profession: <span class="info-detail"> {{ actor.profession.replace('_', ' ') }}</span></p>
