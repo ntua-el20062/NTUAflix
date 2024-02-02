@@ -7,7 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
     
 </head>
-<body>
+<body class="{{ '' }}">
+
     <div class="top-header">
         <div class="header-title">
             <a href="/">NTUAFlix</a>
@@ -22,18 +23,19 @@
 
     <main>
         {% for genre in genres_data.keys() | sort %}
-            <section>
-                <h2>{{ genre }}</h2>
-                <div class="homepage-movie-list">
-                    {% for movie in genres_data[genre] %}
-                        <a href="{{ url_for('movie_page', movie_title=movie.titleID) }}" class="movie">
-                            <img src="{{ movie.titlePoster }}" alt="">
-                            <h3>{{ movie.originalTitle }}</h3>
-                            <p>Rating: {{ movie.rating.avRating }}</p>
-                        </a>
-                    {% endfor %}
-                </div>
-            </section>
+        <section>
+            <!-- Make the genre name a link -->
+            <h1><a href="{{ url_for('genre_page', genre_name=genre) }}" class="genre-link">{{ genre }}</a></h1>
+            <div class="homepage-movie-list">
+                {% for movie in genres_data[genre] %}
+                    <a href="{{ url_for('movie_page', movie_title=movie.titleID) }}" class="movie">
+                        <img src="{{ movie.titlePoster }}" alt="{{ movie.originalTitle }}">
+                        <h3>{{ movie.originalTitle }}</h3>
+                        <p>Rating: {{ movie.rating.avRating }}</p>
+                    </a>
+                {% endfor %}
+            </div>
+        </section>
         {% else %}
             <p>No genres or movies available.</p>
         {% endfor %}

@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
 
 </head>
-<body>
+<body class="{{ 'with-sub-header' }}">
     <div class="top-header">
         <div class="header-title">
             <a href="/">NTUAFlix</a>
@@ -21,22 +21,24 @@
         </div>
     </div>
     
-    <header>
-        <h1>Movies in {{ genre_name }}</h1>
-    </header>
-
     <main>
-        <section class="genre-movies">
-            <div class="movie-list">
-                {% for movie in movies %}
-                    <div class="movie">
+    <header class="sub-header">
+        <h1>Movies in: {{ genre_name }}</h1>
+    </header>
+    <section>
+        <div class="movie-list">
+            {% for movie in movies %}
+                <div class="movie">
+                    <a href="{{ url_for('movie_page', movie_title=movie.titleID) }}">
                         <img src="{{ movie.titlePoster }}" alt="{{ movie.originalTitle }}" class="movie-image">
                         <h3>{{ movie.originalTitle }}</h3>
                         <p>Rating: {{ movie.rating.avRating }}</p>
-                    </div>
-                {% endfor %}
-            </div>
-        </section>
-    </main>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+</main>
+
 </body>
 </html>

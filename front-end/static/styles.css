@@ -107,19 +107,44 @@ body {
     cursor: pointer;
     line-height: normal; /* Adjust line height to match search bar height */
 }
+.movie a {
+    text-decoration: none; /* Removes underlining */
+    color: inherit; /* Inherits the color from the parent element */
+}
 
 .top-header .header-search button:hover {
     background-color: #007070;
 }
-
+.sub-header {
+    position: fixed; /* Make it fixed position */
+    top: 50px; /* Adjust this value based on the height of your .top-header */
+    left: 0;
+    width: 100%; /* Full width */
+    text-align: left; /* Center the text */
+    padding: 10px 30px; /* Add some padding */
+    background-color: black; /* Set a background color */
+    color: #007070; /* Set the text color */
+    text-decoration: none; /* Removes underlining */
+    color: inherit; /* Inherits the color from the parent element */
+    z-index: 999; /* Ensure it's above other content but below the top-header */
+}
 /* Adjusting main content position */
 body {
     padding-top: 60px; /* Adjust this value based on the height of your header */
+    padding-left: 10px 30px;
 }
 
-/* Main content styles */
-main {
-    padding: 20px 10%;
+/* Adjust the top padding of the main content to accommodate the new sub-header */
+/* When sub-header is present */
+body.with-sub-header main {
+    top: 120px; 
+    padding: 120px 30px;/* Combined height of headers */
+}
+
+/* When sub-header is absent */
+body:not(.with-sub-header) main {
+    top: 60px; /* Height of the top header only */
+    padding: 10px 30px;
 }
 
 /* Add these styles to your existing styles.css file */
@@ -133,13 +158,16 @@ main {
     height: 360px;
 }
 
-.movie-list, .people-list { /*!important*/
+.movie-list, .people-list {
     display: flex;
-    white-space: nowrap;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-    height: auto;
+    flex-wrap: wrap;
+    width: 100%; /* Use full width of the container */
+    margin-top: 0;
+    text-decoration: none; /* Removes underlining */
+    color: inherit; /* Inherits the color from the parent element */
+    /* Remove overflow-x and overflow-y if you don't want scrolling */
 }
+
 
 /* Add this new class to your CSS for the scroll buttons */
 
@@ -203,8 +231,11 @@ main {
 }
 
 .movie h3, .person h3, .season h3 { /*important*/
+    text-decoration: none; /* Removes underlining */
+    color: inherit; /* Inherits the color from the parent element */
     text-align: center;
     margin-top: 0;
+    margin-bottom:0;
 }
 
 .movie p, .person p, .season p, .episodes li { /*important*/
@@ -231,7 +262,7 @@ main {
 
 .movie h3, .person h3 {
     margin-top: 0;
-    margin-bottom:0;
+    
 }
 
 .movie p, .person p {
@@ -246,6 +277,10 @@ main {
         text-align: center;
         flex-basis: 50%; /* Larger item on smaller screens */
     }
+}
+.genre-link {
+    text-decoration: none; /* Removes underlining */
+    color: inherit; 
 }
 
 /* Existing styles... */
