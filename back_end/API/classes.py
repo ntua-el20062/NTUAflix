@@ -540,3 +540,29 @@ class top10_by_genre(Resource):
     def get(self):
         top_titles = get_top_10_titles_by_genre()
         return top_titles, 200 if top_titles else 404
+
+def get_all_titles_by_genre(genre):
+    search_query = """
+    SELECT tconst
+    FROM titlebasics
+    WHERE FIND_IN_SET(%s, genres)
+    """
+    title_ids = execute_query(search_query, (genre,), fetch_data_flag=True, fetch_all_flag=True)
+
+    if not title_ids:
+        return []
+
+    title_objects = [create_title_object(title_id['tconst']) for title_id in title_ids]
+    return title_objects
+
+
+class all_by_genre(Resource):
+    def __init__(self):
+        self.reqparse = reqparse.RequestParser()
+        self.reqparse.add_argument('genre', type=str, required=True, location='json')
+
+    def get(self):
+        args = self.reqparse.parse_args()
+        genre = args['genre']
+        all_titles = get_all_titles_by_genre(genre)
+        return all_titles, 200 if all_titles else 404
