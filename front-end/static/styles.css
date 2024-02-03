@@ -144,7 +144,7 @@ body.with-sub-header main {
 /* When sub-header is absent */
 body:not(.with-sub-header) main {
     top: 60px; /* Height of the top header only */
-    padding: 10px 30px;
+    padding: 10px 25px;
 }
 
 /* Add these styles to your existing styles.css file */
@@ -158,11 +158,21 @@ body:not(.with-sub-header) main {
     height: 360px;
 }
 
+.aka-movie-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%; /* Use full width of the container */
+    margin-top: 0;
+    text-decoration: none; /* Removes underlining */
+    color: inherit; /* Inherits the color from the parent element */
+    /* Remove overflow-x and overflow-y if you don't want scrolling */
+}
 .movie-list, .people-list {
     display: flex;
     flex-wrap: wrap;
     width: 100%; /* Use full width of the container */
     margin-top: 0;
+    padding: 0 50px;
     text-decoration: none; /* Removes underlining */
     color: inherit; /* Inherits the color from the parent element */
     /* Remove overflow-x and overflow-y if you don't want scrolling */

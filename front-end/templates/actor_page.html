@@ -44,7 +44,7 @@
 
         <section class="actor-movies">
             <h2>Movies Featuring {{ actor.name }}</h2>
-            <div class="movie-list">
+            <div class="aka-movie-list">
               {% for movie in actor.movies %}                      
                 <a href="{{ url_for('movie_page', movie_title=movie.titleID) }}" class="movie"> <!-- Update 'movie_page' with the correct route name and 'movie_title' with the correct variable -->
                     {% if movie.titlePoster %}
