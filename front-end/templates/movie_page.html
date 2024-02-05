@@ -139,7 +139,7 @@
                 <p><strong>Genres:</strong> {{ ', '.join(movie.genres) }}</p>
             </div>
         </section>
-
+<!-- 
         <section class="cast-list">
             <h1>Cast</h1>
             <ul class="cast-list">
@@ -183,27 +183,6 @@
                 </div>
             {% endif %}
 
-            <!-- {% if movie.crew.directors %}
-            <h2 class="header-centered">Directors</h2>
-            <div class="cast-list">
-                {% for director in movie.crew.directors %}
-                    <div class="cast-item">
-                        {% if director.namePoster %}
-                            <a href="{{ url_for('actor_page', actor_name=director.nameID) }}">
-                                <img src="{{ director.namePoster }}" alt="{{ director.name }}">
-                            </a>
-                        {% else %}
-                            <a href="{{ url_for('actor_page', actor_name=director.nameID) }}">
-                                <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
-                            </a>
-                        {% endif %}
-                        <p><a href="{{ url_for('actor_page', actor_name=director.nameID) }}">{{ director.name }}</a></p>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-        </section> -->
-
         {% if movie.crew.directors %}
         <h2 class="header-centered">Directors</h2>
         <div class="cast-list">
@@ -235,7 +214,110 @@
             {% endfor %}
             {% endif %}
         </div>
-        {% endif %}
+        {% endif %} -->
+
+        <section class="cast-list">
+            <h1>Cast</h1>
+            <ul class="cast-list">
+                {% if movie.cast|length == 1 %}
+                <div class="single-person">
+                    {% for actor in movie.cast %}
+                    <a href="{{ url_for('actor_page', actor_name=actor.nameID) }}">
+                        {% if actor.namePoster %}
+                        <img src="{{ actor.namePoster }}" alt="{{ actor.name }}">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                        {% endif %}
+                        <p><a href="{{ url_for('actor_page', actor_name=actor.nameID) }}">{{ actor.name }}</a></p>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {% for actor in movie.cast %}
+                <li class="cast-item">
+                    <a href="{{ url_for('actor_page', actor_name=actor.nameID) }}">
+                        {% if actor.namePoster %}
+                        <img src="{{ actor.namePoster }}" alt="{{ actor.name }}">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                        {% endif %}
+                        <p><a href="{{ url_for('actor_page', actor_name=actor.nameID) }}">{{ actor.name }}</a></p>
+                    </a>
+                </li>
+                {% endfor %}
+                {% endif %}
+            </ul>
+        </section>
+
+        <section class="cast-list">
+            <h1>Crew</h1>
+
+            {% if movie.crew.writers %}
+            <h2 class="header-centered">Writers</h2>
+            <div class="cast-list">
+                {% if movie.crew.writers|length == 1 %}
+                <div class="single-person">
+                    {% for writer in movie.crew.writers %}
+                    <a href="{{ url_for('actor_page', actor_name=writer.nameID) }}">
+                        {% if writer.namePoster %}
+                        <img src="{{ writer.namePoster }}" alt="{{ writer.name }}">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                        {% endif %}
+                        <p><a href="{{ url_for('actor_page', actor_name=writer.nameID) }}">{{ writer.name }}</a></p>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {% for writer in movie.crew.writers %}
+                <div class="cast-item">
+                    <a href="{{ url_for('actor_page', actor_name=writer.nameID) }}">
+                        {% if writer.namePoster %}
+                        <img src="{{ writer.namePoster }}" alt="{{ writer.name }}">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                        {% endif %}
+                        <p><a href="{{ url_for('actor_page', actor_name=writer.nameID) }}">{{ writer.name }}</a></p>
+                    </a>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {% if movie.crew.directors %}
+            <h2 class="header-centered">Directors</h2>
+            <div class="cast-list">
+                {% if movie.crew.directors|length == 1 %}
+                <div class="single-person">
+                    {% for director in movie.crew.directors %}
+                    <a href="{{ url_for('actor_page', actor_name=director.nameID) }}">
+                        {% if director.namePoster %}
+                        <img src="{{ director.namePoster }}" alt="{{ director.name }}">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                        {% endif %}
+                        <p><a href="{{ url_for('actor_page', actor_name=director.nameID) }}">{{ director.name }}</a></p>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {% for director in movie.crew.directors %}
+                <div class="cast-item">
+                    <a href="{{ url_for('actor_page', actor_name=director.nameID) }}">
+                        {% if director.namePoster %}
+                        <img src="{{ director.namePoster }}" alt="{{ director.name }}">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                        {% endif %}
+                        <p><a href="{{ url_for('actor_page', actor_name=director.nameID) }}">{{ director.name }}</a></p>
+                    </a>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+            {% endif %}
+        </section>
 
 
     </main>
