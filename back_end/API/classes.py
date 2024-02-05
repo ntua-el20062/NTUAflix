@@ -349,6 +349,8 @@ def create_title_object(titleID):
         "originalTitle": title_row["originalTitle"],
         "titlePoster": title_row["img_url_asset"],
         "startYear": str(title_row["startYear"]),
+        "runtimeMinutes": str(title_row["runtimeMinutes"]),
+
         "endYear": str(title_row["endYear"]) if title_row["endYear"] else None,
         "genres": title_row["genres"].split(",") if title_row["genres"] else []
     }

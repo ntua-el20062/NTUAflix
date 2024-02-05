@@ -94,6 +94,7 @@ def actor_page(actor_name):
         actor_details = DUMMY_ACTOR
     return render_template('actor_page.html', actor=actor_details)
 
+
 @app.route('/movie/<movie_title>')
 def movie_page(movie_title):
     try:
@@ -101,7 +102,7 @@ def movie_page(movie_title):
         movie_details = response.json() if response.status_code == 200 else {}
 
         cast = []
-        crew = {"director": None, "writer": None}
+        crew = {"directors": [], "writers": []}
         for principal in movie_details.get("principals", []):
             nameID = principal.get("nameID", "")
             category = principal.get("category", "")
@@ -112,17 +113,19 @@ def movie_page(movie_title):
                 if category in ["actor", "actress"]:
                     cast.append(name_info)
                 elif category == "director":
-                    crew["director"] = name_info
+                    crew["directors"].append(name_info)
                 elif category == "writer":
-                    crew["writer"] = name_info
+                    crew["writers"].append(name_info)
 
         movie_details["cast"] = cast
         movie_details["crew"] = crew
+        print(movie_details)
         process_image_urls(movie_details)
     except requests.RequestException:
         movie_details = DUMMY_MOVIE_DETAILS
 
     return render_template('movie_page.html', movie=movie_details)
+
 
 
 @app.route('/series/<series_title>')
