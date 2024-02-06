@@ -13,15 +13,13 @@ def healthcheck():
         print(f"Response Status Code: {response.status_code}")
         print(f"Response Content: {response.text}")
         return response
-
- def resetall():
+def resetall():
         response = requests.post(f"{BASE_URL}/admin/resetall")
     
         # Print the response status code and content
         print(f"Response Status Code: {response.status_code}")
         print(f"Response Content: {response.text}")
         return response 
-
 def top10genre():
     print("Fetching the top 10 titles in ratings for each genre.")
     response = requests.get(f"{BASE_URL}/top10bygenre")
@@ -29,9 +27,7 @@ def top10genre():
     # Print the response status code and content
     print(f"Response Status Code: {response.status_code}")
     print(f"Response Content: {response.text}")
-   
     return response
-
 
 
 def searchname(args):
@@ -53,7 +49,6 @@ def name(args):
         # Print the response status code and content
     print(f"Response Status Code: {response.status_code}")
     print(f"Response Content: {response.text}")
-
     return response
 
    
@@ -73,7 +68,6 @@ def bygenre(args):
     # Print the response status code and content
     print(f"Response Status Code: {response.status_code}")
     print(f"Response Content: {response.text}")
-
     return response
    
 def searchtitle(args):
@@ -83,7 +77,6 @@ def searchtitle(args):
         # Print the response status code and content
     print(f"Response Status Code: {response.status_code}")
     print(f"Response Content: {response.text}")
-
     return response
     
 
@@ -94,7 +87,6 @@ def title(args):
         # Print the response status code and content
     print(f"Response Status Code: {response.status_code}")
     print(f"Response Content: {response.text}")
-
     return response
 
     
@@ -111,7 +103,6 @@ def newratings(args):
     # Print the response status code and content
     print(f"Response Status Code: {response.status_code}")
     print(f"Response Content: {response.text}")
-
     return response
 
 def newprincipals(args):
@@ -127,7 +118,6 @@ def newprincipals(args):
     # Print the response status code and content
     print(f"Response Status Code: {response.status_code}")
     print(f"Response Content: {response.text}")
-
     return response
 
 def newepisode(args):
@@ -143,7 +133,6 @@ def newepisode(args):
     # Print the response status code and content
     print(f"Response Status Code: {response.status_code}")
     print(f"Response Content: {response.text}")
-
     return response
 
 def newcrew(args):
@@ -159,7 +148,6 @@ def newcrew(args):
     # Print the response status code and content
     print(f"Response Status Code: {response.status_code}")
     print(f"Response Content: {response.text}")
-
     return response
 def newakas(args):
     print(f"Adding new akas with filename: {args.filename}")
@@ -174,7 +162,6 @@ def newakas(args):
     # Print the response status code and content
     print(f"Response Status Code: {response.status_code}")
     print(f"Response Content: {response.text}")
-
     return response
 def newtitles(args):
     print(f"Adding new titlebasics with filename: {args.filename}")
@@ -189,7 +176,6 @@ def newtitles(args):
     # Print the response status code and content
     print(f"Response Status Code: {response.status_code}")
     print(f"Response Content: {response.text}")
-
     return response
 
 def newnames(args):
@@ -205,7 +191,6 @@ def newnames(args):
     # Print the response status code and content
     print(f"Response Status Code: {response.status_code}")
     print(f"Response Content: {response.text}")
-
     return response
 def main():
     parser = argparse.ArgumentParser(description='CLI for Your Application')
