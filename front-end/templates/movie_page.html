@@ -1,0 +1,591 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ movie.originalTitle }} - NTUAFlix</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <style>
+        body {
+            max-width: px;
+        }
+
+        .logo {
+            transition: transform 0.2s ease-in-out; /* Add smooth transition */
+        }
+
+        .logo:hover {
+            transform: scale(1.1); /* Scale up by 10% on hover */
+        }
+
+        .movie-poster {
+            display: block;
+            margin: 0 auto;
+            max-width: 30%;
+            border-radius: 5%; 
+            transition: transform 0.2s ease-in-out; /* Add smooth transition */
+        }
+
+        .movie-poster:hover {
+            transform: scale(1.05); /* Scale up by 10% on hover */
+        }
+
+        .default-movie-poster {
+            display: block;
+            margin: 0 auto;
+            max-width: 20%;
+            border-radius: 5%; 
+        }
+
+        .cast-crew-image {
+            max-width: 40%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .cast-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            list-style: none;
+            padding: 0;
+        }
+
+        .cast-item {
+            text-align: center;
+            margin: 10px;
+            width: 30%;
+        }
+
+        .cast-item img {
+            max-width: 50%; 
+            border-radius: 20%; 
+            margin-bottom: 2px; /* Add spacing between image and link */
+            transition: transform 0.2s ease-in-out; /* Add smooth transition */
+        }
+
+        .cast-item img:hover {
+            transform: scale(1.1); /* Scale up by 10% on hover */
+        }
+
+        .cast-item a {
+            color: turquoise;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .header-centered {
+            text-align: center;
+            width: 100%;
+        }
+
+        h1 {
+            text-decoration: underline;
+        }
+
+        .single-person {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .single-person img {
+            max-width: 50%;
+            border-radius: 20%;
+            margin-bottom: 10px;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .single-person img:hover {
+            transform: scale(1.1);
+        }
+
+        .single-person a {
+            color: turquoise;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-header">
+        <div class="header-title">
+            <a href="/" class="logo">NTUAFlix</a>
+        </div>
+        <div class="header-search">
+            <form action="/search" method="get">
+                <input type="text" name="query" placeholder="Search for movies, actors...">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <header>
+        <h1 class="header-centered">{{ movie.originalTitle }}</h1>
+    </header>
+
+    <main>
+        <section class="movie-details">
+            <div class="movie-image" onclick="openModal();">
+            {% if movie.titlePoster %}
+            <a href="{{ movie.titlePoster }}" target="_blank">
+                <img src="{{ movie.titlePoster }}" alt="{{ movie.originalTitle }}" class="movie-poster">
+            </a>
+            {% else %}
+            <img src="{{ url_for('static', filename='images/default_poster.png') }}" alt="Default Image" class="default-movie-poster">
+            {% endif %}
+            </div>
+
+            <div class="movie-info">
+                <p><strong>Rating:</strong> {{ movie.rating.avRating }} (Out of {{ movie.rating.nVotes }} votes)</p>
+                <p><strong>Duration:</strong> {{ movie.runtimeMinutes }} minutes</p>
+                <p><strong>Genres:</strong> {{ ', '.join(movie.genres) }}</p>
+            </div>
+        </section>
+
+        <section class="cast-list">
+            <h1>Cast</h1>
+            <ul class="cast-list">
+                {% if movie.cast|length == 1 %}
+                <div class="single-person">
+                    {% for actor in movie.cast %}
+                    <a href="{{ url_for('actor_page', actor_name=actor.nameID) }}">
+                        {% if actor.namePoster %}
+                        <img src="{{ actor.namePoster }}" alt="{{ actor.name }}">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                        {% endif %}
+                        <p><a href="{{ url_for('actor_page', actor_name=actor.nameID) }}">{{ actor.name }}</a></p>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {% for actor in movie.cast %}
+                <li class="cast-item">
+                    <a href="{{ url_for('actor_page', actor_name=actor.nameID) }}">
+                        {% if actor.namePoster %}
+                        <img src="{{ actor.namePoster }}" alt="{{ actor.name }}">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                        {% endif %}
+                        <p><a href="{{ url_for('actor_page', actor_name=actor.nameID) }}">{{ actor.name }}</a></p>
+                    </a>
+                </li>
+                {% endfor %}
+                {% endif %}
+            </ul>
+        </section>
+
+        <section class="cast-list">
+            <h1>Crew</h1>
+
+            {% if movie.crew.writers %}
+            <h2 class="header-centered">Writers</h2>
+            <div class="cast-list">
+                {% if movie.crew.writers|length == 1 %}
+                <div class="single-person">
+                    {% for writer in movie.crew.writers %}
+                    <a href="{{ url_for('actor_page', actor_name=writer.nameID) }}">
+                        {% if writer.namePoster %}
+                        <img src="{{ writer.namePoster }}" alt="{{ writer.name }}">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                        {% endif %}
+                        <p><a href="{{ url_for('actor_page', actor_name=writer.nameID) }}">{{ writer.name }}</a></p>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {% for writer in movie.crew.writers %}
+                <div class="cast-item">
+                    <a href="{{ url_for('actor_page', actor_name=writer.nameID) }}">
+                        {% if writer.namePoster %}
+                        <img src="{{ writer.namePoster }}" alt="{{ writer.name }}">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                        {% endif %}
+                        <p><a href="{{ url_for('actor_page', actor_name=writer.nameID) }}">{{ writer.name }}</a></p>
+                    </a>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {% if movie.crew.directors %}
+            <h2 class="header-centered">Directors</h2>
+            <div class="cast-list">
+                {% if movie.crew.directors|length == 1 %}
+                <div class="single-person">
+                    {% for director in movie.crew.directors %}
+                    <a href="{{ url_for('actor_page', actor_name=director.nameID) }}">
+                        {% if director.namePoster %}
+                        <img src="{{ director.namePoster }}" alt="{{ director.name }}">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                        {% endif %}
+                        <p><a href="{{ url_for('actor_page', actor_name=director.nameID) }}">{{ director.name }}</a></p>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {% for director in movie.crew.directors %}
+                <div class="cast-item">
+                    <a href="{{ url_for('actor_page', actor_name=director.nameID) }}">
+                        {% if director.namePoster %}
+                        <img src="{{ director.namePoster }}" alt="{{ director.name }}">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                        {% endif %}
+                        <p><a href="{{ url_for('actor_page', actor_name=director.nameID) }}">{{ director.name }}</a></p>
+                    </a>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+            {% endif %}
+        </section>
+
+    </main>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- The Close Button -->
+        <span class="close" onclick="closeModal();">&times;</span>
+
+        <!-- Modal Content (The Image) -->
+        <img class="modal-content" id="img01">
+
+        <!-- Modal Caption (Image Text) -->
+        <div id="caption"></div>
+    </div>
+    <script>
+    function openModal() {
+        // Get the modal
+        var modal = document.getElementById("myModal");
+        
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
+        var img = document.querySelector(".movie-image img");
+        var modalImg = document.getElementById("img01");
+        var captionText = document.getElementById("caption");
+        modal.style.display = "block";
+        modalImg.src = img.src;
+        captionText.innerHTML = img.alt;
+    
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+    
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() { 
+          modal.style.display = "none";
+        }
+    }
+    
+    function closeModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "none";
+    }
+</script>
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ movie.originalTitle }} - NTUAFlix</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <style>
+        body {
+            max-width: px;
+        }
+
+        .logo {
+            transition: transform 0.2s ease-in-out; /* Add smooth transition */
+        }
+
+        .logo:hover {
+            transform: scale(1.1); /* Scale up by 10% on hover */
+        }
+
+        .movie-poster {
+            display: block;
+            margin: 0 auto;
+            max-width: 30%;
+            border-radius: 5%; 
+            transition: transform 0.2s ease-in-out; /* Add smooth transition */
+        }
+
+        .movie-poster:hover {
+            transform: scale(1.05); /* Scale up by 5% on hover */
+        }
+
+        .default-movie-poster {
+            display: block;
+            margin: 0 auto;
+            max-width: 20%;
+            border-radius: 5%; 
+        }
+
+        .cast-crew-image {
+            max-width: 40%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .cast-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            list-style: none;
+            padding: 0;
+        }
+
+        .cast-item {
+            text-align: center;
+            margin: 10px;
+            width: 30%;
+            text-decoration: none; 
+
+        }
+
+        .cast-item img {
+            max-width: 50%; 
+            border-radius: 20%; 
+            margin-bottom: 2px; /* Add spacing between image and link */
+            transition: transform 0.2s ease-in-out; /* Add smooth transition */
+        }
+
+        .cast-item img:hover {
+            transform: scale(1.1); /* Scale up by 10% on hover */
+        }
+
+        .cast-item a {
+            color: turquoise;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .header-centered {
+            text-align: center;
+            width: 100%;
+        }
+
+        h1 {
+            text-decoration: underline;
+        }
+
+        .single-person {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .single-person img {
+            max-width: 40%;
+            border-radius: 20%;
+            margin-bottom: 10px;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .single-person img:hover {
+            transform: scale(1.1);
+        }
+
+        .single-person a {
+            color: turquoise;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-header">
+        <div class="header-title">
+            <a href="/" class="logo">NTUAFlix</a>
+        </div>
+        <div class="header-search">
+            <form action="/search" method="get">
+                <input type="text" name="query" placeholder="Search for movies, actors...">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <header>
+        <h1 class="header-centered">{{ movie.originalTitle }}</h1>
+    </header>
+
+    <main>
+        <section class="movie-details">
+            {% if movie.titlePoster %}
+            <div onclick="openModal('{{ movie.titlePoster }}');" style="cursor: pointer;">
+                <img src="{{ movie.titlePoster }}" alt="{{ movie.originalTitle }}" class="movie-poster">
+            </div>
+            {% else %}
+            <img src="{{ url_for('static', filename='images/default_poster.png') }}" alt="Default Image" class="default-movie-poster">
+            {% endif %}
+
+            <div class="movie-info">
+                <p><strong>Rating:</strong> {{ movie.rating.avRating }} (Out of {{ movie.rating.nVotes }} votes)</p>
+                <p><strong>Duration:</strong> {{ movie.runtimeMinutes }} minutes</p>
+                <p><strong>Genres:</strong> {{ ', '.join(movie.genres) }}</p>
+            </div>
+        </section>
+
+        <section class="cast-list">
+            <h1>Cast</h1>
+            <ul class="cast-list">
+                {% if movie.cast|length == 1 %}
+                <div class="single-person">
+                    {% for actor in movie.cast %}
+                    <a href="{{ url_for('actor_page', actor_name=actor.nameID) }}">
+                        {% if actor.namePoster %}
+                        <img src="{{ actor.namePoster }}" alt="{{ actor.name }}">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                        {% endif %}
+                        <p><a href="{{ url_for('actor_page', actor_name=actor.nameID) }}">{{ actor.name }}</a></p>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {% for actor in movie.cast %}
+                <li class="cast-item">
+                    <a href="{{ url_for('actor_page', actor_name=actor.nameID) }}">
+                        {% if actor.namePoster %}
+                        <img src="{{ actor.namePoster }}" alt="{{ actor.name }}">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                        {% endif %}
+                        <p><a href="{{ url_for('actor_page', actor_name=actor.nameID) }}">{{ actor.name }}</a></p>
+                    </a>
+                </li>
+                {% endfor %}
+                {% endif %}
+            </ul>
+        </section>
+
+        <section class="cast-list">
+            <h1>Crew</h1>
+
+            {% if movie.crew.writers %}
+            <h2 class="header-centered">Writers</h2>
+            <div class="cast-list">
+                {% if movie.crew.writers|length == 1 %}
+                <div class="single-person">
+                    {% for writer in movie.crew.writers %}
+                    <a href="{{ url_for('actor_page', actor_name=writer.nameID) }}">
+                        {% if writer.namePoster %}
+                        <img src="{{ writer.namePoster }}" alt="{{ writer.name }}">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                        {% endif %}
+                        <p><a href="{{ url_for('actor_page', actor_name=writer.nameID) }}">{{ writer.name }}</a></p>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {% for writer in movie.crew.writers %}
+                <div class="cast-item">
+                    <a href="{{ url_for('actor_page', actor_name=writer.nameID) }}">
+                        {% if writer.namePoster %}
+                        <img src="{{ writer.namePoster }}" alt="{{ writer.name }}">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                        {% endif %}
+                        <p><a href="{{ url_for('actor_page', actor_name=writer.nameID) }}">{{ writer.name }}</a></p>
+                    </a>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {% if movie.crew.directors %}
+            <h2 class="header-centered">Directors</h2>
+            <div class="cast-list">
+                {% if movie.crew.directors|length == 1 %}
+                <div class="single-person">
+                    {% for director in movie.crew.directors %}
+                    <a href="{{ url_for('actor_page', actor_name=director.nameID) }}">
+                        {% if director.namePoster %}
+                        <img src="{{ director.namePoster }}" alt="{{ director.name }}">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                        {% endif %}
+                        <p><a href="{{ url_for('actor_page', actor_name=director.nameID) }}">{{ director.name }}</a></p>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {% for director in movie.crew.directors %}
+                <div class="cast-item">
+                    <a href="{{ url_for('actor_page', actor_name=director.nameID) }}">
+                        {% if director.namePoster %}
+                        <img src="{{ director.namePoster }}" alt="{{ director.name }}">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                        {% endif %}
+                        <p><a href="{{ url_for('actor_page', actor_name=director.nameID) }}">{{ director.name }}</a></p>
+                    </a>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+            {% endif %}
+        </section>
+
+    </main>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- The Close Button -->
+        <span class="close" onclick="closeModal();">&times;</span>
+
+        <!-- Modal Content (The Image) -->
+        <div class="modal-content">
+            <img id="modal-img" src="" alt="">
+        </div>
+
+        <!-- Modal Caption (Image Text) -->
+        <div id="caption"></div>
+    </div>
+
+    <script>
+        function openModal(imgSrc) {
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var modalImg = document.getElementById("modal-img");
+            modalImg.src = imgSrc;
+
+            // Display the modal
+            modal.style.display = "block";
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+        }
+
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+    </script>
+</body>
+
+</html>

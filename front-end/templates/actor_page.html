@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ actor.name }} - NTUAFlix</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+</head>
+<body>
+    <div class="top-header">
+        <div class="header-title">
+            <a href="/">NTUAFlix</a>
+        </div>
+        <div class="header-search">
+            <form action="/search" method="get">
+                <input type="text" name="query" placeholder="Search for movies, actors...">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+    </div>
+    
+
+    <main class="content">
+        <div class="actor-container">
+            <section class="actor-details">
+                <div class="actor-image" onclick="openModal();">
+                    {% if actor.namePoster %}
+                        <img src="{{ actor.namePoster }}" alt="{{ actor.name }}">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                    {% endif %}
+                </div>
+                <div class="actor-info">
+                    <h1>{{ actor.name }}</h1>
+                    <p>Profession: <span class="info-detail"> {{ actor.profession.replace('_', ' ') }}</span></p>
+                    <p>Birth Year: <span class="info-detail">{{ actor.birthYr }}</span></p>
+                    {% if actor.deathYr %}
+                        <p>Death Year: <span class="info-detail">{{ actor.deathYr }}</span></p>
+                    {% endif %}
+                </div>
+            </section>
+
+        <section class="actor-movies">
+            <h2>Movies Featuring {{ actor.name }}</h2>
+            <div class="aka-movie-list">
+              {% for movie in actor.movies %}                      
+                <a href="{{ url_for('movie_page', movie_title=movie.titleID) }}" class="movie"> <!-- Update 'movie_page' with the correct route name and 'movie_title' with the correct variable -->
+                    {% if movie.titlePoster %}
+                    <img src="{{ movie.titlePoster }}" alt="{{ movie.originalTitle }}">
+                {% else %}
+                    <img src="{{ url_for('static', filename='images/default_poster.png') }}" alt="Default Image">
+            {% endif %}                    <h3>{{ movie.originalTitle }}</h3>
+                    <p>Rating: {{ movie.rating.avRating }}</p>
+                </a>
+              {% endfor %}
+            </div>
+        </section>
+    </main>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- The Close Button -->
+        <span class="close" onclick="closeModal();">&times;</span>
+
+        <!-- Modal Content (The Image) -->
+        <img class="modal-content" id="img01">
+
+        <!-- Modal Caption (Image Text) -->
+        <div id="caption"></div>
+    </div>
+    <script>
+    function openModal() {
+        // Get the modal
+        var modal = document.getElementById("myModal");
+        
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
+        var img = document.querySelector(".actor-image img");
+        var modalImg = document.getElementById("img01");
+        var captionText = document.getElementById("caption");
+        modal.style.display = "block";
+        modalImg.src = img.src;
+        captionText.innerHTML = img.alt;
+    
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+    
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() { 
+          modal.style.display = "none";
+        }
+    }
+    
+    function closeModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "none";
+    }
+</script>
+</body>
+</html>
+
