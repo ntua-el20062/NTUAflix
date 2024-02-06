@@ -129,6 +129,7 @@
 
     <main>
         <section class="movie-details">
+            <div class="movie-image" onclick="openModal();">
             {% if movie.titlePoster %}
             <a href="{{ movie.titlePoster }}" target="_blank">
                 <img src="{{ movie.titlePoster }}" alt="{{ movie.originalTitle }}" class="movie-poster">
@@ -136,6 +137,7 @@
             {% else %}
             <img src="{{ url_for('static', filename='images/default_poster.png') }}" alt="Default Image" class="default-movie-poster">
             {% endif %}
+            </div>
 
             <div class="movie-info">
                 <p><strong>Rating:</strong> {{ movie.rating.avRating }} (Out of {{ movie.rating.nVotes }} votes)</p>
@@ -248,6 +250,45 @@
         </section>
 
     </main>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- The Close Button -->
+        <span class="close" onclick="closeModal();">&times;</span>
+
+        <!-- Modal Content (The Image) -->
+        <img class="modal-content" id="img01">
+
+        <!-- Modal Caption (Image Text) -->
+        <div id="caption"></div>
+    </div>
+    <script>
+    function openModal() {
+        // Get the modal
+        var modal = document.getElementById("myModal");
+        
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
+        var img = document.querySelector(".movie-image img");
+        var modalImg = document.getElementById("img01");
+        var captionText = document.getElementById("caption");
+        modal.style.display = "block";
+        modalImg.src = img.src;
+        captionText.innerHTML = img.alt;
+    
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+    
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() { 
+          modal.style.display = "none";
+        }
+    }
+    
+    function closeModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "none";
+    }
+</script>
 </body>
 
 </html> -->

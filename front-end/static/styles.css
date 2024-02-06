@@ -365,7 +365,7 @@ body:not(.with-sub-header) main {
     display: flex;
     align-items: center; /* Adjust as needed */
     margin-bottom: 20px;
-}
+}y
 
 .actor-info {
     margin-left: 20px; /* Add some space between the image and the details */
