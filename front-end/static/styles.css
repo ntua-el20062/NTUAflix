@@ -68,16 +68,28 @@ body {
     z-index: 1000;
 }
 
-.top-header .header-title {
-    margin-left: 20px; /* Add some space from the left edge */
+.top-header {
+    /*margin-left: 20px; Add some space from the left edge */
     font-size: 24px;
 }
 
-.top-header .header-title a {
+.top-header a {
     color: turquoise;
     text-decoration: none;
     font-weight: bold;
 }
+
+.header-title {
+    margin-left: 20px; /*Add some space from the left edge */
+    font-size: 24px;
+    transition: transform 0.3s; /* Add transition for smooth effect */
+    display: inline-block; /* Ensure inline-block display to work with transform */
+}
+
+.header-title:hover {
+    transform: scale(1.1); /* Scale the header title on hover */
+}
+
 
 .top-header .header-search {
     flex-grow: 1;
@@ -100,13 +112,14 @@ body {
 }
 
 .top-header .header-search input[type="text"] {
-    margin-right: 15px; /* More distance between search button and bar */
+    margin-right: 10px; /* More distance between search button and bar */
 }
 
 .top-header .header-search button {
     cursor: pointer;
     line-height: normal; /* Adjust line height to match search bar height */
 }
+
 .movie a {
     text-decoration: none; /* Removes underlining */
     color: inherit; /* Inherits the color from the parent element */
@@ -288,9 +301,19 @@ body:not(.with-sub-header) main {
         flex-basis: 50%; /* Larger item on smaller screens */
     }
 }
+
 .genre-link {
-    text-decoration: none; /* Removes underlining */
-    color: inherit; 
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s;
+    /* Add transition for smooth effect */
+    display: inline-block;
+    /* Ensure inline-block display to work with transform */
+}
+
+.genre-link:hover {
+    transform: scale(1.1);
+    /* Scale the genre link on hover */
 }
 
 /* Existing styles... */

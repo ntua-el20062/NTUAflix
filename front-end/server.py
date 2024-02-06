@@ -119,7 +119,6 @@ def movie_page(movie_title):
 
         movie_details["cast"] = cast
         movie_details["crew"] = crew
-        print(movie_details)
         process_image_urls(movie_details)
     except requests.RequestException:
         movie_details = DUMMY_MOVIE_DETAILS
