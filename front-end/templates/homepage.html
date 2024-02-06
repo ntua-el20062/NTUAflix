@@ -1,0 +1,354 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NTUAFlix</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    
+</head>
+<body class="{{ '' }}">
+
+    <div class="top-header">
+        <div class="header-title">
+            <a href="/">NTUAFlix</a>
+        </div>
+        <div class="header-search">
+            <form action="/search" method="get">
+                <input type="text" name="query" placeholder="Search for movies, actors...">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <main>
+        {% for genre in genres_data.keys() | sort %}
+        <section>
+            <h1><a href="{{ url_for('genre_page', genre_name=genre) }}" class="genre-link">{{ genre }}</a></h1>
+            <div class="homepage-movie-list">
+                {% for movie in genres_data[genre] %}
+                    <a href="{{ url_for('movie_page', movie_title=movie.titleID) }}" class="movie">
+                        {% if movie.titlePoster %}
+                                <img src="{{ movie.titlePoster }}" alt="{{ movie.originalTitle }}">
+                            {% else %}
+                                <img src="{{ url_for('static', filename='images/default_poster.png') }}" alt="Default Image">
+                        {% endif %}
+                        <h3>{{ movie.originalTitle }}</h3>
+                        <p>Rating: {{ movie.rating.avRating }}</p>
+                    </a>
+                {% endfor %}
+            </div>
+        </section>
+        {% else %}
+            <p>No genres or movies available.</p>
+        {% endfor %}
+    </main>
+</body>
+</html> -->
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>NTUAFlix</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <style>
+        /* Popup container */
+        .popup {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding: 15px;
+            border: 1px solid turquoise;
+            background-color: #2a2929; /* Gray background */
+            width: 400px; /* Adjust width as needed */
+            max-height: calc(100vh - 100px); /* Maximum height */
+            overflow-y: auto; /* Enable vertical scrolling if needed */
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Popup content */
+        .popup-content {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Movie info */
+        .movie-info {
+            margin-left: 15px;
+            color: black; /* White text */
+        }
+
+        /* Show popup on hover */
+        .movie:hover .popup {
+            display: block;
+        }
+
+        /* Fade in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .more-info-btn {
+            display: block;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: turquoise;
+            color: black;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .more-info-btn:hover {
+            background-color: turquoise;
+        }
+    </style>
+</head>
+
+<body class="{{ '' }}">
+
+    <div class="top-header">
+        <div class="header-title">
+            <a href="/">NTUAFlix</a>
+        </div>
+        <div class="header-search">
+            <form action="/search" method="get">
+                <input type="text" name="query" placeholder="Search for movies, actors...">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <main>
+        {% for genre in genres_data.keys() | sort %}
+        <section>
+            <h1><a href="{{ url_for('genre_page', genre_name=genre) }}" class="genre-link">{{ genre }}</a></h1>
+            <div class="homepage-movie-list">
+                {% for movie in genres_data[genre] %}
+                <div class="movie">
+                    {% if movie.titlePoster %}
+                    <img src="{{ movie.titlePoster }}" alt="{{ movie.originalTitle }}">
+                    {% else %}
+                    <img src="{{ url_for('static', filename='images/default_poster.png') }}" alt="Default Image">
+                    {% endif %}
+                    <div class="popup">
+                        <div class="popup-content">
+                            {% if movie.titlePoster %}
+                            <img src="{{ movie.titlePoster }}" alt="{{ movie.originalTitle }}">
+                            {% else %}
+                            <img src="{{ url_for('static', filename='images/default_poster.png') }}" alt="Default Poster">
+                            {% endif %}
+                            <div class="movie-info">
+                                <p><strong>Rating:</strong> {{ movie.rating.avRating }}</p>
+                                <p><strong>Duration:</strong> {{ movie.runtimeMinutes }} minutes</p>
+                                <p><strong>Genres:</strong> {{ ', '.join(movie.genres) }}</p>
+                                <a href="{{ url_for('movie_page', movie_title=movie.titleID) }}" class="more-info-btn">More Info</a>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{ movie.originalTitle }}</h3>
+                    <p>Rating: {{ movie.rating.avRating }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% else %}
+        <p>No genres or movies available.</p>
+        {% endfor %}
+    </main>
+
+    <script>
+        // Close popup when clicking outside of it
+        window.onclick = function(event) {
+            var popups = document.querySelectorAll('.popup');
+            popups.forEach(function(popup) {
+                if (event.target !== popup && !popup.contains(event.target)) {
+                    popup.style.display = 'none';
+                }
+            });
+        };
+    </script>
+</body>
+
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>NTUAFlix</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <style>
+        .popup {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding: 15px;
+            border: 1px solid turquoise;
+            background-color: #2a2929;
+            /* Gray background */
+            width: 400px;
+            /* Adjust width as needed */
+            max-height: calc(100vh - 100px);
+            /* Maximum height */
+            overflow-y: auto;
+            /* Enable vertical scrolling if needed */
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Popup content */
+        .popup-content {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Movie info */
+        .movie-info {
+            margin-left: 15px;
+            color: black;
+            /* White text */
+        }
+
+        /* Show popup on hover */
+        .movie:hover .popup {
+            display: block;
+        }
+
+        /* Fade in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .first-movie .popup {
+            left: 90%;
+            /* Adjust the value as needed to position it more to the right */
+        }
+
+        /* Add custom styles for the last movie popup */
+        .last-movie .popup {
+            right: 200%;
+            /* Adjust the value as needed to position it more to the left */
+        }
+
+        .more-info-btn {
+            display: block;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: turquoise;
+            color: black;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            transition: transform 0.3s;
+            /* Add transition for smooth effect */
+        }
+
+        .more-info-btn:hover {
+            background-color: turquoise;
+            transform: scale(1.1);
+            /* Scale the button on hover */
+        }
+
+        
+    </style>
+</head>
+
+<body class="{{ '' }}">
+
+    <div class="top-header">
+        <div class="header-title">
+            <a href="/">NTUAFlix</a>
+        </div>
+        <div class="header-search">
+            <form action="/search" method="get">
+                <input type="text" name="query" placeholder="Search for movies, actors...">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <main>
+        {% for genre in genres_data.keys() | sort %}
+        <section>
+            <h1><a href="{{ url_for('genre_page', genre_name=genre) }}" class="genre-link">{{ genre }}</a></h1>
+            <div class="homepage-movie-list">
+                {% for movie in genres_data[genre] %}
+                <div class="movie {% if loop.first %}first-movie{% elif loop.last %}last-movie{% endif %}">
+                    {% if movie.titlePoster %}
+                    <img src="{{ movie.titlePoster }}" alt="{{ movie.originalTitle }}">
+                    {% else %}
+                    <img src="{{ url_for('static', filename='images/default_poster.png') }}" alt="Default Image">
+                    {% endif %}
+                    <div class="popup">
+                        <div class="popup-content">
+                            {% if movie.titlePoster %}
+                            <img src="{{ movie.titlePoster }}" alt="{{ movie.originalTitle }}">
+                            {% else %}
+                            <img src="{{ url_for('static', filename='images/default_poster.png') }}"
+                                alt="Default Poster">
+                            {% endif %}
+                            <div class="movie-info">
+                                <p><strong>Rating:</strong> {{ movie.rating.avRating }}</p>
+                                <p><strong>Duration:</strong> {{ movie.runtimeMinutes }} minutes</p>
+                                <p><strong>Genres:</strong> {{ ', '.join(movie.genres) }}</p>
+                                <a href="{{ url_for('movie_page', movie_title=movie.titleID) }}"
+                                    class="more-info-btn">More Info</a>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{ movie.originalTitle }}</h3>
+                    <p>Rating: {{ movie.rating.avRating }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% else %}
+        <p>No genres or movies available.</p>
+        {% endfor %}
+    </main>
+
+    <script>
+        // Close popup when clicking outside of it
+        window.onclick = function (event) {
+            var popups = document.querySelectorAll('.popup');
+            popups.forEach(function (popup) {
+                if (event.target !== popup && !popup.contains(event.target)) {
+                    popup.style.display = 'none';
+                }
+            });
+        };
+    </script>
+</body>
+
+</html>

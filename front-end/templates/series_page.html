@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ series.title }} - NTUAFlix</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+</head>
+<body>
+    <div class="top-header">
+        <div class="header-title">
+            <a href="/">NTUAFlix</a>
+        </div>
+        <div class="header-search">
+            <form action="/search" method="get">
+                <input type="text" name="query" placeholder="Search for movies, actors...">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+    </div>
+    
+    <header>
+        <h1>{{ series.title }}</h1>
+    </header>
+
+    <main>
+        <section class="series-details">
+            <h2>Overview</h2>
+            <p>{{ series.summary }}</p>
+        </section>
+
+        <section class="seasons">
+            {% for season in series.seasons %}
+                <div class="season">
+                    <h3>Season {{ season.seasonNumber }}</h3>
+                    <p>{{ season.summary }}</p>
+                    <ul class="episodes">
+                        {% for episode in season.episodes %}
+                            <li>
+                                <strong>Episode {{ episode.episodeNumber }}:</strong> {{ episode.title }}
+                                <p>{{ episode.summary }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </section>
+    </main>
+</body>
+</html>
