@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results - NTUAFlix</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+
+    <style>
+        body {
+            max-width: px;
+        }
+
+        .no-results-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .back-to-home-button {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: black;
+            color: turquoise;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .back-to-home-button:hover {
+            background-color: #222;
+        }
+
+        .header-centered {
+            text-align: center;
+            width: 100%;
+        }
+
+        h1 {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body onload="openTab(event, 'Movies')">
+    <div class="top-header">
+        <div class="header-title">
+            <a href="/">NTUAFlix</a>
+        </div>
+        <div class="header-search">
+            <form action="/search" method="get">
+                <input type="text" name="query" placeholder="Search for movies, actors...">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+    </div>
+    
+    <main>
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'Movies')">Movies</button>
+            <button class="tablinks" onclick="openTab(event, 'People')">People</button>
+        </div>
+
+        <section id="Movies" class="tabcontent">
+            {% if movies %}
+                <h2>Movies</h2>
+                <div class="movie-list">
+                    {% for movie in movies %}
+                        <a href="{{ url_for('movie_page', movie_title=movie.titleID) }}" class="movie">
+                            {% if movie.titlePoster %}
+                                <img src="{{ movie.titlePoster }}" alt="{{ movie.originalTitle }}">
+                            {% else %}
+                                <img src="{{ url_for('static', filename='images/default_poster.png') }}" alt="Default Image">
+                            {% endif %}
+                            <h3>{{ movie.originalTitle }}</h3>
+                            <p>Rating: {{ movie.rating.avRating }}</p>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-results-container">
+                    <p>No results for your search in Movies.</p>
+                    <a href="/" class="back-to-home-button"><i class="fas fa-home"></i> Go back to home page</a>
+                </div>
+            {% endif %}
+        </section>
+
+        <section id="People" class="tabcontent">
+            {% if actors %}
+                <h2>People</h2>
+                <div class="people-list">
+                    {% for person in actors %}
+                        <a href="{{ url_for('actor_page', actor_name=person.nameID) }}" class="person">
+                            {% if person.namePoster %}
+                                <img src="{{ person.namePoster }}" alt="{{ person.name }}">
+                            {% else %}
+                                <img src="{{ url_for('static', filename='images/default_person.png') }}" alt="Default Image">
+                            {% endif %}                        
+                            <h3>{{ person.name }}</h3>
+                            <p>{{ person.bio }}</p>
+                        </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="no-results-container">
+                    <p>No results for your search in People.</p>
+                    <a href="/" class="back-to-home-button"><i class="fas fa-home"></i> Go back to home page</a>
+                </div>
+            {% endif %}
+        </section>
+    </main>
+</body>
+
+</html>
+

@@ -1,0 +1,425 @@
+/* General styles */
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: black;
+    color: turquoise;
+    margin: 0;
+    padding: 0;
+}
+
+/* Styles for tabs */
+.tab {
+    overflow: hidden;
+    background-color: black; /* Removing white background */
+}
+
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    color: turquoise; /* Tab titles color */
+    position: relative; /* For the animated line */
+}
+
+.tab button:hover {
+    background-color: #222; /* Darker background on hover */
+}
+
+.tab button.active {
+    background-color: black;
+    color: turquoise;
+}
+
+.tab button.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: turquoise; /* Horizontal line color */
+    transition: left 0.3s; /* Animated movement */
+}
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    background-color: black; /* Removing white border */
+    color: white;
+}
+
+/* Top Header Bar */
+.top-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #111;
+    color: white;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+.top-header {
+    /*margin-left: 20px; Add some space from the left edge */
+    font-size: 24px;
+}
+
+.top-header a {
+    color: turquoise;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.header-title {
+    margin-left: 20px; /*Add some space from the left edge */
+    font-size: 24px;
+    transition: transform 0.3s; /* Add transition for smooth effect */
+    display: inline-block; /* Ensure inline-block display to work with transform */
+}
+
+.header-title:hover {
+    transform: scale(1.1); /* Scale the header title on hover */
+}
+
+
+.top-header .header-search {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center; /* Centered alignment */
+}
+
+.top-header .header-search form {
+    display: flex;
+    justify-content: center; /* Centered alignment */
+}
+
+.top-header .header-search input[type="text"], .top-header .header-search button {
+    font-family: 'Outfit', sans-serif; /* Consistent font */
+    padding: 8px;
+    border-radius: 10px; /* More rounded corners */
+    border: 1px solid #ddd;
+    background-color: #222;
+    color: white;
+}
+
+.top-header .header-search input[type="text"] {
+    margin-right: 10px; /* More distance between search button and bar */
+}
+
+.top-header .header-search button {
+    cursor: pointer;
+    line-height: normal; /* Adjust line height to match search bar height */
+}
+
+.movie a {
+    text-decoration: none; /* Removes underlining */
+    color: inherit; /* Inherits the color from the parent element */
+}
+
+.top-header .header-search button:hover {
+    background-color: #007070;
+}
+.sub-header {
+    position: fixed; /* Make it fixed position */
+    top: 50px; /* Adjust this value based on the height of your .top-header */
+    left: 0;
+    width: 100%; /* Full width */
+    text-align: left; /* Center the text */
+    padding: 10px 30px; /* Add some padding */
+    background-color: black; /* Set a background color */
+    color: #007070; /* Set the text color */
+    text-decoration: none; /* Removes underlining */
+    color: inherit; /* Inherits the color from the parent element */
+    z-index: 999; /* Ensure it's above other content but below the top-header */
+}
+/* Adjusting main content position */
+body {
+    padding-top: 60px; /* Adjust this value based on the height of your header */
+    padding-left: 10px 30px;
+}
+
+/* Adjust the top padding of the main content to accommodate the new sub-header */
+/* When sub-header is present */
+body.with-sub-header main {
+    top: 120px; 
+    padding: 120px 30px;/* Combined height of headers */
+}
+
+/* When sub-header is absent */
+body:not(.with-sub-header) main {
+    top: 60px; /* Height of the top header only */
+    padding: 10px 25px;
+}
+
+/* Add these styles to your existing styles.css file */
+
+.homepage-movie-list { /*!important*/
+    display: flex;
+    white-space: nowrap;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    margin-top: 10px;
+    height: 360px;
+}
+
+.aka-movie-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%; /* Use full width of the container */
+    margin-top: 0;
+    text-decoration: none; /* Removes underlining */
+    color: inherit; /* Inherits the color from the parent element */
+    /* Remove overflow-x and overflow-y if you don't want scrolling */
+}
+.movie-list, .people-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%; /* Use full width of the container */
+    margin-top: 0;
+    padding: 0 50px;
+    text-decoration: none; /* Removes underlining */
+    color: inherit; /* Inherits the color from the parent element */
+    /* Remove overflow-x and overflow-y if you don't want scrolling */
+}
+
+
+/* Add this new class to your CSS for the scroll buttons */
+
+.movie { /*!important*/
+    display: flex; /* Align movies horizontally */
+    flex: 0 0 250px; /* Each movie has a fixed width */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0;
+    margin: 0; /* Add some space around each movie */ 
+    width: 170px;
+    height: 340px;
+    white-space: normal; /* Allow text to wrap within each movie */
+    vertical-align: top; /* Align items to the top of the container */
+    text-decoration: none; /* Removes underlining */
+    color: inherit; /* Inherits the color from the parent element */
+    transition: transform 0.3s ease; /* Optional: Adds a subtle animation effect */
+}
+
+/* Style modifications for movie links */
+
+.movie:hover {
+    transform: scale(1.05); /* Optional: Slightly enlarges the movie on hover */
+}
+
+
+@media (max-width: 768px) {
+    .movie {
+        flex-basis: 50%; /* Larger item on smaller screens */
+    }
+}
+
+.person { /*!important*/
+    display: flex; /* Align movies horizontally */
+    flex: 0 0 250px; /* Each movie has a fixed width */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0;
+    margin: 0; /* Add some space around each movie */ 
+    width: 170px;
+    height: 340px;
+    white-space: normal; /* Allow text to wrap within each movie */
+    vertical-align: top; /* Align items to the top of the container */
+    text-decoration: none; /* Removes underlining */
+    color: inherit; /* Inherits the color from the parent element */
+    transition: transform 0.3s ease; /* Optional: Adds a subtle animation effect */
+}
+
+.movie img, .person img { /* important*/
+    text-align: center;
+    max-width: 100%;
+    max-height: 250px;
+    margin-top: 10px;
+    margin-right: 5px;
+    border-radius: 10px;/* Optional: Adds rounder corners to images */
+    height: auto;
+}
+
+.movie h3, .person h3, .season h3 { /*important*/
+    text-decoration: none; /* Removes underlining */
+    color: inherit; /* Inherits the color from the parent element */
+    text-align: center;
+    margin-top: 0;
+    margin-bottom:0;
+}
+
+.movie p, .person p, .season p, .episodes li { /*important*/
+    text-align: center;
+    color: #ccc;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .movie img, .person img {
+        text-align: center;
+        max-width: 50px;
+        max-height: 50px;
+    }
+}
+
+/* Styles for movie and person lists */
+
+.movie:hover, .person:hover { /*important*/
+    transform: scale(1.05); /* Optional: Slightly enlarges the item on hover */
+}
+
+
+
+.movie h3, .person h3 {
+    margin-top: 0;
+    
+}
+
+.movie p, .person p {
+    margin-top: 0;
+    color: #ccc;
+}
+
+/* ... Rest of your styles ... */
+
+@media (max-width: 768px) {
+    .movie, .person {
+        text-align: center;
+        flex-basis: 50%; /* Larger item on smaller screens */
+    }
+}
+
+.genre-link {
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s;
+    /* Add transition for smooth effect */
+    display: inline-block;
+    /* Ensure inline-block display to work with transform */
+}
+
+.genre-link:hover {
+    transform: scale(1.1);
+    /* Scale the genre link on hover */
+}
+
+/* Existing styles... */
+
+/* Styling for the main content area */
+.content {
+    padding: 20px 10%; /* Consistent padding with the homepage */
+}
+
+.actor-container {
+    color: #40e0d0; /* Default text color */
+}
+
+/* Actor details section */
+.actor-details {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.actor-image {
+    max-width: 150px; /* Smaller image size */
+    margin-right: 20px;
+}
+
+.actor-image img {
+    transition: transform 0.3s ease; /* Smooth transition for scaling */
+    border-radius: 10px; /* Optional: Adds rounder corners to images */
+    max-width: 100%; /* Ensure the image is responsive */
+    max-height: 250px; /* Adjust based on your preference */
+}
+
+.actor-image img:hover {
+    transform: scale(1.05); /* Slightly enlarges the image on hover */
+}
+
+.actor-info h1 {
+    margin-top: 0;
+    color: white; /* Actor name in white */
+}
+
+.info-detail {
+    color: white; /* Specific information in white */
+}
+
+/* ... Rest of your styles ... */
+
+.actor-details {
+    display: flex;
+    align-items: center; /* Adjust as needed */
+    margin-bottom: 20px;
+}y
+
+.actor-info {
+    margin-left: 20px; /* Add some space between the image and the details */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .actor-details {
+        flex-direction: column;
+        align-items: center; /* Center align items for smaller screens */
+    }
+
+    .actor-info {
+        margin-left: 0; /* Reset margin for smaller screens */
+        text-align: center; /* Center-align the text for smaller screens */
+    }
+}
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    padding-top: 0; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
