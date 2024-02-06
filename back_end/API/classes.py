@@ -168,8 +168,11 @@ class health_check(Resource):
             db_status = "Connected"
         except Exception as e:
             db_status = f"Error: {e}"
+            # Raise an exception to trigger a 500 Internal Server Error
+            raise Exception("Database connection failed")
 
         return {"status": "OK", "database": db_status}, 200
+
 
 #κάτι τέτοιο πρέπει να κάνετε για όλα τα insertions
 class title_basics(Resource):
