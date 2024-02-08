@@ -12,54 +12,47 @@ import mysql.connector
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ functions @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 def edit_file(table, tsv_data, data_types):
-    try:    # Parse the TSV data
-        rows = csv.reader(tsv_data.splitlines(), delimiter='\t')
-        headers = next(rows)
-            
-        data = []
-        for row in rows:
-            entry = {}
-            for header, value in zip(headers, row):
-                if value == r'\N' or not value:
-                    entry[header] = None
-                else:
-                    try:
-                        data_type = data_types.get(header, str)
-                        if data_type == int:
-                            entry[header] = int(value)
-                        elif data_type == float:
-                            entry[header] = float(value)
-                        else:
-                            entry[header] = value.strip()
-                    except ValueError as e:
-                        # Log the error and skip this row or handle it as needed
-                        print(f"Error converting value '{value}' in column '{header}': {e}")
-                        continue  # Skip this row
-            data.append(entry)
+    # Parse the TSV data
+    rows = csv.reader(tsv_data.splitlines(), delimiter='\t')
+    headers = next(rows)
+        
+    data = []
+    for row in rows:
+        entry = {}
+        for header, value in zip(headers, row):
+            if value == r'\N' or not value:
+                entry[header] = None
+            else:
+                try:
+                    data_type = data_types.get(header, str)
+                    if data_type == int:
+                        entry[header] = int(value)
+                    elif data_type == float:
+                        entry[header] = float(value)
+                    else:
+                        entry[header] = value.strip()
+                except ValueError as e:
+                    # Log the error and skip this row or handle it as needed
+                    print(f"Error converting value '{value}' in column '{header}': {e}")
+                    continue  # Skip this row
+        data.append(entry)
 
-        if not data:
-            return {"status": "No data to insert"}, 204
+    if not data:
+        return {"status": "No data to insert"}, 204
 
-        # Insert data into database
-        keys = data[0].keys()
-        columns = ', '.join(keys)
-        placeholders = ', '.join(['%s'] * len(keys))
-        query = f"INSERT INTO {table} ({columns}) VALUES ({placeholders})"
-        values = [tuple(row[key] for key in keys) for row in data]
+    # Insert data into database
+    keys = data[0].keys()
+    columns = ', '.join(keys)
+    placeholders = ', '.join(['%s'] * len(keys))
+    query = f"INSERT INTO {table} ({columns}) VALUES ({placeholders})"
+    values = [tuple(row[key] for key in keys) for row in data]
 
-        cur = db.get_db().cursor()
-        cur.executemany(query, values)
-        db.get_db().commit()
-        cur.close()
+    cur = db.get_db().cursor()
+    cur.executemany(query, values)
+    db.get_db().commit()
+    cur.close()
 
-        return {"status": f"{table} data added"}, 200
-
-    except pymysql.MySQLError as e:
-            # Handle MySQL errors
-            return {"this error": str(e)}, 500
-    except Exception as e:
-            # Handle any other exceptions
-            return {"that error": str(e)}, 500
+    return {"status": f"{table} data added"}, 200
 
 def clear_database():
     try:
@@ -158,6 +151,7 @@ def execute_query(query: str, values=None, fetch_data_flag=False, fetch_all_flag
 
 ########################## Διαχειριστικές Απαιτήσεις ##################################
 #######################################################################################
+
 class health_check(Resource):
     def get(self):
         # Example database check (modify as per your setup)
@@ -168,11 +162,8 @@ class health_check(Resource):
             db_status = "Connected"
         except Exception as e:
             db_status = f"Error: {e}"
-            # Raise an exception to trigger a 500 Internal Server Error
-            raise Exception("Database connection failed")
 
         return {"status": "OK", "database": db_status}, 200
-
 
 #κάτι τέτοιο πρέπει να κάνετε για όλα τα insertions
 class title_basics(Resource):
@@ -189,17 +180,23 @@ class title_basics(Resource):
             "runtimeMinutes": int,
             "genres": str,
             "img_url_asset": str
-        }
-
+        }              
+        
         file = request.files.get("tsv_title_basics")
-        tsv_title_basics = file.read().decode('utf-8')        
-        print(tsv_title_basics)
+        tsv_title_basics = file.read().decode('utf-8')      
+        try:
+            # Attempt to edit the file
+            result = edit_file("titlebasics", tsv_title_basics, title_basics_types)
+            return(result)
+        except Exception as e:
+            # Check if the error is related to an unknown column
+            if "Unknown column" in str(e):
+                # Return a custom response with a 400 status code
+                return {"error": "Unknown column in database"}, 400
+            else:
+                # For other errors, return a generic 500 error
+                return {"error": "Internal server error"}, 500
 
-        # Check if tsv_data is provided
-        if not tsv_title_basics:
-          return {"error": "No tsv_data provided"}, 400
-
-        return(edit_file("titlebasics", tsv_title_basics, title_basics_types))
 
 class title_akas(Resource):
     def post(self):
@@ -217,13 +214,19 @@ class title_akas(Resource):
 
         file = request.files.get("tsv_aka")
         tsv_aka = file.read().decode('utf-8')        
-        print(tsv_aka)
 
         # Check if tsv_data is provided
-        if not tsv_aka:
-            return {"error": "No tsv_data provided"}, 400
-        return(edit_file("akas", tsv_aka, aka_types))
-
+        try:
+            result = edit_file("akas", tsv_aka, aka_types)
+            return(result)
+        except Exception as e:
+            # Check if the error is related to an unknown column
+            if "Unknown column" in str(e):
+                # Return a custom response with a 400 status code
+                return {"error": "Unknown column in database"}, 400
+            else:
+                # For other errors, return a generic 500 error
+                return {"error": "Internal server error"}, 500
 
 class name_basics(Resource):
     def post(self):
@@ -237,15 +240,20 @@ class name_basics(Resource):
             "knownForTitles": str,
             "img_url_asset": str
             }
-
+        
         file = request.files.get("tsv_name_basics")
         tsv_name_basics= file.read().decode('utf-8')        
-        print(tsv_name_basics)
-        # Check if tsv_data is provided
-        if not tsv_name_basics:
-            return {"error": "No tsv_data provided"}, 400
-        return(edit_file("namebasics", tsv_name_basics, professionals_types))
-        
+        try:
+            result = edit_file("namebasics", tsv_name_basics, professionals_types)
+            return(result)
+        except Exception as e:
+            # Check if the error is related to an unknown column
+            if "Unknown column" in str(e):
+                # Return a custom response with a 400 status code
+                return {"error": "Unknown column in database"}, 400
+            else:
+                # For other errors, return a generic 500 error
+                return {"error": "Internal server error"}, 500
 
 class title_crew(Resource):
     def post(self):
@@ -259,11 +267,18 @@ class title_crew(Resource):
         file = request.files.get("tsv_title_crew")
         tsv_title_crew= file.read().decode('utf-8')        
 
-        # Check if tsv_data is provided
-        if not tsv_title_crew:
-            return {"error": "No tsv_data provided"}, 400
+        try:
+            result = edit_file("crew", tsv_title_crew, title_crew_types)
+            return(result)
+        except Exception as e:
+            # Check if the error is related to an unknown column
+            if "Unknown column" in str(e):
+                # Return a custom response with a 400 status code
+                return {"error": "Unknown column in database"}, 400
+            else:
+                # For other errors, return a generic 500 error
+                return {"error": "Internal server error"}, 500
 
-        return(edit_file("crew", tsv_title_crew, title_crew_types))
         
 class title_episode(Resource):
     def post(self):
@@ -279,10 +294,17 @@ class title_episode(Resource):
         tsv_title_episode= file.read().decode('utf-8')        
 
         # Check if tsv_data is provided
-        if not tsv_title_episode:
-            return {"error": "No tsv_data provided"}, 400
-
-        return(edit_file("episode", tsv_title_episode, title_episode_types))
+        try: 
+            result = edit_file("episode", tsv_title_episode, title_episode_types)
+            return(result)
+        except Exception as e:
+            # Check if the error is related to an unknown column
+            if "Unknown column" in str(e):
+                # Return a custom response with a 400 status code
+                return {"error": "Unknown column in database"}, 400
+            else:
+                # For other errors, return a generic 500 error
+                return {"error": "Internal server error"}, 500
 
 class title_principal(Resource):
     def post(self):
@@ -299,38 +321,48 @@ class title_principal(Resource):
         file = request.files.get("tsv_title_principal")
         tsv_title_principal= file.read().decode('utf-8')        
 
-        # Check if tsv_data is provided
-        if not tsv_title_principal:
-            return {"error": "No tsv_data provided"}, 400
-
-        return(edit_file("principals", tsv_title_principal, title_principal_types))
+        try:
+            result = edit_file("principals", tsv_title_principal, title_principal_types)
+            return(result)
+        except Exception as e:
+            # Check if the error is related to an unknown column
+            if "Unknown column" in str(e):
+                # Return a custom response with a 400 status code
+                return {"error": "Unknown column in database"}, 400
+            else:
+                # For other errors, return a generic 500 error
+                return {"error": "Internal server error"}, 500
 
 class title_ratings(Resource):
-        def post(self):
-            title_ratings_types = {
-                "tconst": str,
-                "averageRating": float,
-                "numVotes": int
-                }
-            
-            file = request.files.get("tsv_title_ratings")
-            tsv_title_ratings= file.read().decode('utf-8')        
+    def post(self):
+        title_ratings_types = {
+            "tconst": str,
+            "averageRating": float,
+            "numVotes": int
+            }
+        
+        file = request.files.get("tsv_title_ratings")
+        tsv_title_ratings= file.read().decode('utf-8')        
 
-            # Check if tsv_data is provided
-            if not tsv_title_ratings:
-                return {"error": "No tsv_data provided"}, 400
-
-            return(edit_file("ratings", tsv_title_ratings, title_ratings_types))
-
+        try: 
+            result = edit_file("ratings", tsv_title_ratings, title_ratings_types)
+            return(result)
+        except Exception as e:
+            # Check if the error is related to an unknown column
+            if "Unknown column" in str(e):
+                # Return a custom response with a 400 status code
+                return {"error": "Unknown column in database"}, 400
+            else:
+                # For other errors, return a generic 500 error
+                return {"error": "Internal server error"}, 500
 
 class reset_all(Resource):
     def post(self):
-        print(os.listdir('C:/Users/elisa/Coding/Software Engineering/API'))
-        sql_file_path = './API/ntuaflix_insert.sql'  # Path to your SQL file
+        print(os.listdir('C:/Users/elisa/Coding/Software Engineering/back_end'))
+        sql_file_path = './back_end/ntuaflix_insert.sql'  # Path to your SQL file
         try:
             clear_database()
             return execute_sql_file(sql_file_path)
-            #return {"message": "All data reset and repopulated"}, 200
         except Exception as e:
             return {"error": str(e)}, 500
 
@@ -525,7 +557,7 @@ def get_top_10_titles_by_genre():
         return {}
 
     # Split genres field and get unique genres
-    unique_genres = set(genre.strip() for genres_field in all_genres for genre in genres_field['genres'].split(',') if genre.strip())
+    unique_genres = set(genre.strip() for genres_field in all_genres if genres_field['genres'] is not None for genre in genres_field['genres'].split(',') if genre.strip())
     top_titles_by_genre = {}
     for genre in unique_genres:
         search_query = """
