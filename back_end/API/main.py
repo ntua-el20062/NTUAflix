@@ -7,6 +7,9 @@ from back_end.API.classes import *
 
 api = Api(app, prefix='/ntuaflix_api')
 
+@app.errorhandler(404)
+def not_found_error(error):
+    return jsonify({"error": "Not Found"}), 404
 
 #Διαχειριστικά Endpoints
 api.add_resource(health_check, '/admin/healthcheck')
