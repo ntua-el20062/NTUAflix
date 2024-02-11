@@ -3,17 +3,17 @@ import sys
 
 def install_dependencies():
     dependencies = [
-        'pymysql',
-        'sqlparse',
-        'Flask',
-        'Flask-RESTful',
-        'Flask-MySQLdb',
-        'Flask-Login',
-        'Flask-WTF',
-        'Flask-MySQL',
-        'mysqlclient',
-        'PyJWT',
-        'mysql-connector-python',
+        'pymysql == 1.1.0',
+        'sqlparse == 0.4.4',
+        'Flask == 2.3.3',
+        'Flask-RESTful == 0.3.10',
+        'Flask-MySQLdb == 2.2.4',
+        'Flask-Login == 0.6.3',
+        'Flask-WTF == 1.2.1',
+        'Flask-MySQL == 1.5.2',
+        'mysqlclient == 2.2.1',
+        'PyJWT == 2.8.0',
+        'mysql-connector-python == 8.2.0',
     ]
 
     for package in dependencies:
