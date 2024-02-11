@@ -1,0 +1,2515 @@
+{
+	"info": {
+		"_postman_id": "a731ea90-e526-4859-a2ca-e41a1fb117e1",
+		"name": "NTUAFlix API Tests",
+		"description": "Ακολουθεί το API documentation για τις λειτουργίες συστήματος. Επειδή δεν μας επιτρέπεται να αλλάξουμε τη βάση δεν έχουμε status code 204 για κανένα από τα ακόλουθα. Επίσης, δεν υλοποιήσαμε διαπίστευση χρήστη δεν έχουμε προφανώς κανένα status code 401. Τέλος, επειδή το status code 500 δημιουργείται όταν κάτι δεν πήγε καλά γενικά, οπότε δεν μπορούμε να το εξετάσουμε συστηματικά στο testing του Postman.\n\nΑντιστοιχά, για τα διαχειριστικά endpoints το μόνο που αλλάζει είναι ότι έχουμε status code 204 καθώς έχουμε αρκετές post μεθόδους.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32318179"
+	},
+	"item": [
+		{
+			"name": "status200",
+			"item": [
+				{
+					"name": "title_200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876//ntuaflix_api//title/tt0098976",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"",
+								"ntuaflix_api",
+								"",
+								"title",
+								"tt0098976"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchtitle_200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titlePart\": \"Mutterliebe\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876//ntuaflix_api/searchtitle",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"",
+								"ntuaflix_api",
+								"searchtitle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "bygenre_200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"qgenre\": \"Comedy\",\r\n    \"minrating\": \"7\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876//ntuaflix_api/bygenre",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"",
+								"ntuaflix_api",
+								"bygenre"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "bygenre_opt_200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"qgenre\": \"Comedy\",\r\n    \"minrating\": \"7\",\r\n    \"yrFrom\": \"1989\",  \r\n    \"yrTo\": \"1991\"       \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876//ntuaflix_api/bygenre",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"",
+								"ntuaflix_api",
+								"bygenre"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "name_200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:9876//ntuaflix_api/name/nm0000035",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"",
+								"ntuaflix_api",
+								"name",
+								"nm0000035"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchname_200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"namePart\": \"Federico Fellini\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876//ntuaflix_api/searchname",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"",
+								"ntuaflix_api",
+								"searchname"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "top10bygenre_200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:9876//ntuaflix_api/top10bygenre",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"",
+								"ntuaflix_api",
+								"top10bygenre"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "**Success**  \nΕπιτυχής κλήση που επιστρέφει μη κενό φορτίο δεδομένων",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Test if the status code is 200 OK",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Test if the response time is within acceptable limits (e.g., less than 1500ms)",
+							"pm.test(\"Response time is acceptable\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);",
+							"});",
+							"",
+							"// Test if the response is in JSON format",
+							"pm.test(\"Response is in JSON format\", function () {",
+							"    pm.response.to.have.jsonBody();",
+							"});"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "status200admin",
+			"item": [
+				{
+					"name": "healthcheck_200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"// Test if the response time is within acceptable limits (e.g., less than 500ms)\r",
+									"pm.test(\"Response time is acceptable\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"// Test if the response contains the expected keys (e.g., \"status\" and \"database\")\r",
+									"pm.test(\"Response has the expected structure\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('status');\r",
+									"    pm.expect(jsonData).to.have.property('database');\r",
+									"});\r",
+									"\r",
+									"// Test if the response \"status\" key is \"OK\"\r",
+									"pm.test(\"API status is OK\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.status).to.eql(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// Optionally, if the health check includes a database connection check\r",
+									"pm.test(\"Database status is Connected\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.database).to.eql(\"Connected\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/healthcheck",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"healthcheck"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "resetall_200",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/resetall",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"resetall"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titlebasics_200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_basics",
+									"type": "file",
+									"src": "postman-cloud:///1eec5261-a99f-42f0-a9dd-39b34b3b4de0"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titlebasics",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titlebasics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titleakas_200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_aka",
+									"type": "file",
+									"src": "postman-cloud:///1eec5d16-b4dc-4680-b8d4-922cf0fe4157"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titleakas",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titleakas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "namebasics_200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_name_basics",
+									"type": "file",
+									"src": "postman-cloud:///1eec5d4f-a57c-49e0-a596-1ab9d9635907"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/namebasics",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"namebasics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titleprincipals_200",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_principal",
+									"type": "file",
+									"src": "postman-cloud:///1eec6b51-d60a-4fc0-8c37-92218e79f3b9"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titleprincipals",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titleprincipals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titlecrew_200",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_crew",
+									"type": "file",
+									"src": "postman-cloud:///1eec6b5e-4702-48c0-a3a7-86857da8742e"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titlecrew",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titlecrew"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titleepisode_200",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_episode",
+									"type": "file",
+									"src": "postman-cloud:///1eec6bcf-be90-4dd0-a3d3-ea7afb3a857b"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titleepisode",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titleepisode"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titleratings_200",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_ratings",
+									"type": "file",
+									"src": "postman-cloud:///1eec6be2-02ba-4080-a8ac-e57f47a89c39"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titleratings",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titleratings"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "**Success**  \nΕπιτυχής κλήση που επιστρέφει μη κενό φορτίο δεδομένων",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "status204admin",
+			"item": [
+				{
+					"name": "titlebasics_204",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_basics",
+									"type": "file",
+									"src": "postman-cloud:///1eec6bf4-34a9-4ac0-bdc5-f2a9c7215553"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titlebasics",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titlebasics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titleakas_204",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_aka",
+									"type": "file",
+									"src": "postman-cloud:///1eec5d1c-c4ef-4f30-8212-acc6469e60cc"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titleakas",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titleakas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "namebasics_204",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_name_basics",
+									"type": "file",
+									"src": "postman-cloud:///1eec6b3f-3813-4180-957f-01fff1f72efb"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/namebasics",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"namebasics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titleprincipals_204",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_principal",
+									"type": "file",
+									"src": "postman-cloud:///1eec6b57-e132-4c30-b4f8-ab69cc76ae59"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titleprincipals",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titleprincipals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titlecrew_204",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_crew",
+									"type": "file",
+									"src": "postman-cloud:///1eec6b63-17ce-4400-93d2-e5c0b07461ca"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titlecrew",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titlecrew"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titleratings_204",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_ratings",
+									"type": "file",
+									"src": "postman-cloud:///1eec6be6-5a0b-41a0-9d4b-68da68a0bf7f"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titleratings",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titleratings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titleepisode_204",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_episode",
+									"type": "file",
+									"src": "postman-cloud:///1eec6bda-4725-4920-891d-a07aa53515fe"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titleepisode",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titleepisode"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "**No data**\n\nΕπιτυχής κλήση που δεν επιστρέφει δεδομένα (πχ κενή απάντηση)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "status400",
+			"item": [
+				{
+					"name": "searchtitle_400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"noTitlePart\": \"Mutterliebe\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876//ntuaflix_api/searchtitle",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"",
+								"ntuaflix_api",
+								"searchtitle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "bygenre_400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"genre\": \"Comedy\",\r\n    \"minrating\": \"7\",\r\n    \"yrFrom\": \"1989\",  \r\n    \"yrTo\": \"1991\"       \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876//ntuaflix_api/bygenre",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"",
+								"ntuaflix_api",
+								"bygenre"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search_name_400",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"noNamePart\": \"Federico Fellini\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876//ntuaflix_api/searchname",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"",
+								"ntuaflix_api",
+								"searchname"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "**Bad request**\n\nΟι παράμετροι που δίνονται σε μία κλήση δεν είναι έγκυρες",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Test if the status code is 400 Bad Request",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"// Test if the response time is within acceptable limits (e.g., less than 500ms)",
+							"pm.test(\"Response time is acceptable\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"// Test if the response is in JSON format",
+							"pm.test(\"Response is in JSON format\", function () {",
+							"    pm.response.to.have.jsonBody();",
+							"});"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "status400admin",
+			"item": [
+				{
+					"name": "titlebasics_400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_basics",
+									"type": "file",
+									"src": "postman-cloud:///1eec5c47-43ed-4200-b16e-ecef4d194a77"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titlebasics",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titlebasics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titleakas_400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_aka",
+									"type": "file",
+									"src": "postman-cloud:///1eec5d43-4140-4550-a62a-71bdd1d4d40b"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titleakas",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titleakas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "namebasics_400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_name_basics",
+									"type": "file",
+									"src": "postman-cloud:///1eec6b41-dfcb-4e20-a02e-a06d3413a3ae"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/namebasics",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"namebasics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titleprincipals_400",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_principal",
+									"type": "file",
+									"src": "postman-cloud:///1eec6b59-73aa-4fd0-b6cb-cb8f7d942534"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titleprincipals",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titleprincipals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titlecrew_400",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_crew",
+									"type": "file",
+									"src": "postman-cloud:///1eec6b65-2ab2-4740-aa15-e8b5f48cffc5"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titlecrew",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titlecrew"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titleepisode_400",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_episode",
+									"type": "file",
+									"src": "postman-cloud:///1eec6bdb-a5a1-4b10-9690-09961e4581c8"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titleepisode",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titleepisode"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titleratings_400",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_ratings",
+									"type": "file",
+									"src": "postman-cloud:///1eec6be8-0f7b-4f70-a0e5-04767c48efba"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titleratings",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titleratings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "resetall_400",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/resetal",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"resetal"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "**Bad request**\n\nΟι παράμετροι που δίνονται σε μία κλήση δεν είναι έγκυρες",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "status404",
+			"item": [
+				{
+					"name": "title_404",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:9876//ntuaflix_api//title/tt000000",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"",
+								"ntuaflix_api",
+								"",
+								"title",
+								"tt000000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchtitle_404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titlePart\": \"Interstellar\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876//ntuaflix_api/searchtitle",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"",
+								"ntuaflix_api",
+								"searchtitle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "bygenre_404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"qgenre\": \"Comedy\",\r\n    \"minrating\": \"7\",\r\n    \"yrFrom\": \"1970\",  \r\n    \"yrTo\": \"1975\"       \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876//ntuaflix_api/bygenre",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"",
+								"ntuaflix_api",
+								"bygenre"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "name_404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:9876//ntuaflix_api/name/nm0000000",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"",
+								"ntuaflix_api",
+								"name",
+								"nm0000000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchname_404",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"namePart\": \"Dimitra\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876//ntuaflix_api/searchname",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"",
+								"ntuaflix_api",
+								"searchname"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "**Not available**\n\nΔεν υπάρχει η ζητούμενη υπηρεσία",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Test if the status code is 404 Not Found",
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"// Test if the response time is within acceptable limits (e.g., less than 500ms)",
+							"pm.test(\"Response time is acceptable\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"// Test if the response is in JSON format",
+							"pm.test(\"Response is in JSON format\", function () {",
+							"    pm.response.to.have.jsonBody();",
+							"});"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "status404admin",
+			"item": [
+				{
+					"name": "titlebasics_404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_basics",
+									"type": "file",
+									"src": "postman-cloud:///1eec5c3d-a9b7-45e0-99fe-47adebeddca6"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titlebasic",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titlebasic"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titleakas_404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_aka",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titleaka",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titleaka"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titleprincipals_404",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_principal",
+									"type": "file",
+									"src": "postman-cloud:///1eec6b51-d60a-4fc0-8c37-92218e79f3b9"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titleprincipal",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titleprincipal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titlecrew_404",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_crew",
+									"type": "file",
+									"src": "postman-cloud:///1eec6b5e-4702-48c0-a3a7-86857da8742e"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titlecrews",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titlecrews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titleepisode_404",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_episode",
+									"type": "file",
+									"src": "postman-cloud:///1eec6bcf-be90-4dd0-a3d3-ea7afb3a857b"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titleepisodes",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titleepisodes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titleratings_404",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_ratings",
+									"type": "file",
+									"src": "postman-cloud:///1eec6be2-02ba-4080-a8ac-e57f47a89c39"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titlerating",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titlerating"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "namebasics_404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_name_basics",
+									"type": "file",
+									"src": "postman-cloud:///1eec5d4f-a57c-49e0-a596-1ab9d9635907"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/namebasic",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"namebasic"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "**Not available**\n\nΔεν υπάρχει η ζητούμενη υπηρεσία",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "status500admin",
+			"item": [
+				{
+					"name": "healthcheck_500",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/healthcheck",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"healthcheck"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titlebasics_500",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_basics",
+									"type": "file",
+									"src": "postman-cloud:///1eec5261-a99f-42f0-a9dd-39b34b3b4de0"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titlebasics",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titlebasics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titleakas_500",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_aka",
+									"type": "file",
+									"src": "postman-cloud:///1eec5d16-b4dc-4680-b8d4-922cf0fe4157"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titleakas",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titleakas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "namebasics_500",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_aka",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titleakas",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titleakas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titleprincipals_500",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_principal",
+									"type": "file",
+									"src": "postman-cloud:///1eec6b51-d60a-4fc0-8c37-92218e79f3b9"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titleprincipals",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titleprincipals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titlecrew_500",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_crew",
+									"type": "file",
+									"src": "postman-cloud:///1eec6b5e-4702-48c0-a3a7-86857da8742e"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titlecrew",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titlecrew"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titleepisode_500",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_episode",
+									"type": "file",
+									"src": "postman-cloud:///1eec6bcf-be90-4dd0-a3d3-ea7afb3a857b"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titleepisode",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titleepisode"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titleratings_500",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tsv_title_ratings",
+									"type": "file",
+									"src": "postman-cloud:///1eec6be2-02ba-4080-a8ac-e57f47a89c39"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/upload/titleratings",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"upload",
+								"titleratings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "resetall_500",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:9876/ntuaflix_api//admin/resetall",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9876",
+							"path": [
+								"ntuaflix_api",
+								"",
+								"admin",
+								"resetall"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "**Internal server error**\n\nΣε κάθε άλλη περίπτωση σφάλματος",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Internal Server Error\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});",
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
