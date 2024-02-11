@@ -424,9 +424,12 @@ def create_title_object(titleID):
 def create_name_object(nameID):
     contributor_query = "SELECT * FROM namebasics WHERE nconst = %s"
     contributor_rows = execute_query(contributor_query, (nameID,), fetch_data_flag=True, fetch_all_flag=True)
-    contributor_row = contributor_rows[0]
-    if not contributor_row:
+
+    if not contributor_rows:
         return None
+
+    contributor_row = contributor_rows[0]
+
 
     nameObject = {
         "nameID": contributor_row["nconst"],
@@ -557,7 +560,7 @@ def get_top_10_titles_by_genre():
         return {}
 
     # Split genres field and get unique genres
-    unique_genres = set(genre.strip() for genres_field in all_genres if genres_field['genres'] is not None for genre in genres_field['genres'].split(',') if genre.strip())
+    unique_genres = set(genre.strip() for genres_field in all_genres for genre in genres_field['genres'].split(',') if genre.strip())
     top_titles_by_genre = {}
     for genre in unique_genres:
         search_query = """
@@ -577,5 +580,3 @@ class top10_by_genre(Resource):
     def get(self):
         top_titles = get_top_10_titles_by_genre()
         return top_titles, 200 if top_titles else 404
-
-
