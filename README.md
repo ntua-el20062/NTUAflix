@@ -54,9 +54,7 @@ Follow these steps to set up the git repository:
 - The `setup.py` file initializes the database and starts the API server.
 - The `server.py` file in the `front-end` folder launches the front-end server.
 - Ensure to have a stable internet connection during setup to download necessary dependencies.
-
-Feel free to explore the codebase and contribute to the development of NTUAFlix!
-
+  
 For any issues or inquiries, please contact the project maintainers. 
 
 Happy streaming! 🎬🍿
