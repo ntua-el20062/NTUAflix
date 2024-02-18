@@ -41,8 +41,7 @@ Follow these steps to set up the git repository:
 ## Additional Information
 
 - The NTUAFlix application is built using Python and MySQL.
-- The `dependencies.py` file contains all necessary functions for installing dependencies.
-- The `setup.py` file initializes the database and starts the API server.
+- The `setup.py` file installs the dependencies contained in the `dependencies.py` file, initializes the database and starts the API server.
 - The `server.py` file in the `front-end` folder launches the front-end server.
 - Ensure to have a stable internet connection during setup to download necessary dependencies.
   
