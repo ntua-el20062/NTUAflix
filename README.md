@@ -35,6 +35,28 @@ Follow these steps to set up the git repository:
      python server.py
      ```
 
+4. **Running CLI Commands**:
+
+   To run CLI commands in the correct format, follow these steps:
+   
+   1. Create a new file in Notepad.
+   2. Paste the following contents into the file:
+   
+       ```batch
+       @echo off
+       python C:\temp\cli-client\se2305.py %*
+       ```
+   
+   3. Save the file with the extension `.bat`.
+   4. Move the saved file to the directory `C:/Windows/System32`.
+   
+   After completing these steps, you can execute CLI commands using the specified format: 
+   $ se23XX scope --param1 value1 [--param2 value2 ...] --format fff
+
+   Replace `se2305.py` with the appropriate filename if necessary, and ensure that the Python script is located in the specified directory.
+
+
+
 4. **Access the Application**:
    - Once the server is running, you can access the NTUAFlix application at [http://127.0.0.1:5000](http://127.0.0.1:5000) in your web browser.
 
