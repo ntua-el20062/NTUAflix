@@ -2,8 +2,6 @@
 
 NTUA/ECE Software Engineering, 2023-2024
 
-Για να στήσουμε το git repository θα πρέπει αρχικά να το κατεβάσουμε τοπικά στον υπολογιστή μας. Πρέπει να έχουμε εγκαταστημένη mysql και python. Τρέχουμε το αρχείο dependencies.py που βρίσκεται στον φάκελο util και εμπεριέχει όλες τις συναρτήσεις που θα χρησιμοποιήσουμε. Στη συνέχεια, τρέχουμε το αρχείο setup.py, το οποίο είναι ένα top-level αρχείο του repository μας, για την εγκατάσταση της βάσης και την εκκίνηση του API, και τέλος το server.py που βρίσκεται στον φάκελο front-end. Η εφαρμογή μας τώρα τρέχει στη διεύθυνση http://127.0.0.1:5000.
-
 ## Introduction
 
 Welcome to the NTUAFlix application repository! This document provides a guide on setting up the repository locally on your computer and running the application. NTUAFlix is a movie streaming platform developed by the NTUA/ECE Software Engineering team for the academic year 2023-2024.
