@@ -19,7 +19,7 @@ Follow these steps to set up the git repository:
 1. **Clone the Repository**: 
    - Clone the git repository to your local machine using the command:
      ```
-     git clone [https://github.com/ntua/softeng23-05](https://github.com/ntua/softeng23-05)
+     git clone <github-url>
      ```
      
 2. **Database Setup and Dependencies Installation**:
