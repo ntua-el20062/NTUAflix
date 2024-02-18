@@ -51,7 +51,8 @@ Follow these steps to set up the git repository:
    4. Move the saved file to the directory `C:/Windows/System32`.
    
    After completing these steps, you can execute CLI commands using the specified format: 
-   $ se23XX scope --param1 value1 [--param2 value2 ...] --format fff
+
+    $ se23XX scope --param1 value1 [--param2 value2 ...] --format fff
 
    Replace `se2305.py` with the appropriate filename if necessary, and ensure that the Python script is located in the specified directory.
 
