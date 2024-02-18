@@ -19,30 +19,23 @@ Follow these steps to set up the git repository:
 1. **Clone the Repository**: 
    - Clone the git repository to your local machine using the command:
      ```
-     git clone (https://github.com/ntua/softeng23-05)
+     git clone [https://github.com/ntua/softeng23-05](https://github.com/ntua/softeng23-05)
      ```
-   
-2. **Install Dependencies**:
-   - Navigate to the `util` folder and run the `dependencies.py` file to install all necessary dependencies:
-     ```
-     cd util
-     python dependencies.py
-     ```
-
-3. **Database Setup**:
-   - Run the `setup.py` file at the top-level directory of the repository to set up the database and initialize the application:
+     
+2. **Database Setup and Dependencies Installation**:
+   - Run the `setup.py` file at the top-level directory of the repository to install dependencies, set up the database and initialize the application:
      ```
      python setup.py
      ```
 
-4. **Run the Server**:
+3. **Run the Server**:
    - Navigate to the `front-end` folder and run the `server.py` file to start the server:
      ```
      cd front-end
      python server.py
      ```
 
-5. **Access the Application**:
+4. **Access the Application**:
    - Once the server is running, you can access the NTUAFlix application at [http://127.0.0.1:5000](http://127.0.0.1:5000) in your web browser.
 
 ## Additional Information
