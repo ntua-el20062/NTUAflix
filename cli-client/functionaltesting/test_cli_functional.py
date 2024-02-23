@@ -15,7 +15,7 @@ def run_cli_command(command, args):
 #Functional Testing
 
 def test_newtitles_valid_input():
-    args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\title.tsv']
+    args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\title.tsv']
     stdout, _ = run_cli_command('newtitles', args)
     expected_text = "status\": \"titlebasics data added"
     assert expected_text in stdout
@@ -23,16 +23,16 @@ def test_newtitles_valid_input():
 
 
 def test_newtitles_edge_input():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\titles.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\titles.tsv']
         stdout, _, = run_cli_command('newtitles', args)
         expected_text = "status\": \"titlebasics data added"
         assert expected_text in stdout
 
 
 def test_newtitles_invalid_input1():
-    args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\name.tsv']
+    args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\name.tsv']
     stdout, _ = run_cli_command('newtitles', args)
-    expected_text = 'Adding new titlebasics with filename: C:\\temp\\cli-client\\functionaltesting\\name.tsv\nResponse Status Code: 500\nResponse Content: {\n    "this error": "(1054, \\"Unknown column \'nconst\' in \'field list\'\\")"\n}\n\n'
+    expected_text = 'Adding new titlebasics with filename: C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\name.tsv\nResponse Status Code: 400\nResponse Content: {\n    "error": "Unknown column in database"\n}\n\n'
     assert expected_text in stdout
 
     
@@ -50,9 +50,9 @@ def test_newtitles_missing_parametre():
 
 
 def test_newtitles_invalid_input2():
-    args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\title.tsv']
+    args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\title.tsv']
     stdout, stderr = run_cli_command('newtitles', args)
-    expected_error_message = 'Duplicate entry'
+    expected_error_message = 'Adding new titlebasics with filename: C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\title.tsv\nResponse Status Code: 500\nResponse Content: {\n    "error": "Internal server error"\n}\n\n'
     assert expected_error_message in stdout
 
 
@@ -254,184 +254,185 @@ def test_bygenre_invalid_input():
         assert expected_text in stdout
 
 def test_newnames_valid_input():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\name.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\name.tsv']
         stdout, _, = run_cli_command('newnames', args)
         expected_text = "status\": \"namebasics data added"
         assert expected_text in stdout
 
 
 def test_newnames_edge_input():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\names.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\names.tsv']
         stdout, _, = run_cli_command('newnames', args)
         expected_text = "status\": \"namebasics data added"
         assert expected_text in stdout
 
 def test_newnames_invalid_input1():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\title.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\title.tsv']
         stdout, _, = run_cli_command('newnames', args)
-        expected_text = 'Adding new names with filename: C:\\temp\\cli-client\\functionaltesting\\title.tsv\nResponse Status Code: 500\nResponse Content: {\n    "this error": "(1054, \\"Unknown column \'tconst\' in \'field list\'\\")"\n}\n\n'
+        expected_text = 'Adding new names with filename: C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\title.tsv\nResponse Status Code: 400\nResponse Content: {\n    "error": "Unknown column in database"\n}\n\n'
         assert expected_text in stdout
 
 def test_newnames_invalid_input2():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\name.tsv']
-        stdout, _, = run_cli_command('newnames', args)
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\name.tsv']
+        stdout, _, = run_cli_command('newnames', args)       
+
         expected_text = (
-            f'Adding new names with filename: C:\\temp\\cli-client\\functionaltesting\\name.tsv\n'
+            f'Adding new names with filename: C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\name.tsv\n'
             f'Response Status Code: 500\n'
             f'Response Content: {{\n'
-            f'    "this error": "(1062, \\"Duplicate entry \'nm0000000\' for key \'PRIMARY\'\\")"\n'
+            f'    "error": "Internal server error"\n'
             f'}}\n\n'
         )        
         assert expected_text in stdout
 
 def test_newcrew_valid_input():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\crew.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\crew.tsv']
         stdout, _ = run_cli_command('newcrew', args)
         expected_text = "status\": \"crew data added"
         assert expected_text in stdout
 
 def test_newcrew_edge_input():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\crews.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\crews.tsv']
         stdout, _ = run_cli_command('newcrew', args)
         expected_text = "status\": \"crew data added"
         assert expected_text in stdout
 
 def test_newcrew_invalid_input1():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\title.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\title.tsv']
         stdout, _ = run_cli_command('newcrew', args)
-        expected_text = 'Adding new crew with filename: C:\\temp\\cli-client\\functionaltesting\\title.tsv\nResponse Status Code: 500\nResponse Content: {\n    "this error": "(1054, \\"Unknown column \'titleType\' in \'field list\'\\")"\n}\n\n'
+        expected_text = 'Adding new crew with filename: C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\title.tsv\nResponse Status Code: 400\nResponse Content: {\n    "error": "Unknown column in database"\n}\n\n'
         assert expected_text in stdout
 
 def test_newcrew_invalid_input2():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\crew.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\crew.tsv']
         stdout, _ = run_cli_command('newcrew', args)
         expected_text = (
-            f'Adding new crew with filename: C:\\temp\\cli-client\\functionaltesting\\crew.tsv\n'
+            f'Adding new crew with filename: C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\crew.tsv\n'
             f'Response Status Code: 500\n'
             f'Response Content: {{\n'
-            f'    "this error": "(1062, \\"Duplicate entry \'tt0000000\' for key \'PRIMARY\'\\")"\n'
+            f'    "error": "Internal server error"\n'
             f'}}\n\n'
         )        
                 
         assert expected_text in stdout
 
 def test_newakas_valid_input():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\aka.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\aka.tsv']
         stdout, _ = run_cli_command('newakas', args)
         expected_text = "status\": \"akas data added"
         assert expected_text in stdout
 
 
 def test_newakas_edge_input():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\akas.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\akas.tsv']
         stdout, _ = run_cli_command('newakas', args)
         expected_text = "status\": \"akas data added"
         assert expected_text in stdout
     
 def test_newakas_invalid_input1():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\title.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\title.tsv']
         stdout, _ = run_cli_command('newakas', args)
-        expected_text = 'Adding new akas with filename: C:\\temp\\cli-client\\functionaltesting\\title.tsv\nResponse Status Code: 500\nResponse Content: {\n    "this error": "(1054, \\"Unknown column \'tconst\' in \'field list\'\\")"\n}\n\n'
+        expected_text = 'Adding new akas with filename: C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\title.tsv\nResponse Status Code: 400\nResponse Content: {\n    "error": "Unknown column in database"\n}\n\n'
         assert expected_text in stdout
 
 def test_newakas_invalid_input2():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\aka.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\aka.tsv']
         stdout, _ = run_cli_command('newakas', args)
         expected_text = (
-            f'Adding new akas with filename: C:\\temp\\cli-client\\functionaltesting\\aka.tsv\n'
+            f'Adding new akas with filename: C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\aka.tsv\n'
             f'Response Status Code: 500\n'
             f'Response Content: {{\n'
-            f'    "this error": "(1062, \\"Duplicate entry \'tt0000000-1\' for key \'PRIMARY\'\\")"\n'
+            f'    "error": "Internal server error"\n'
             f'}}\n\n'
         )        
         assert expected_text in stdout
         
 def test_newepisode_valid_input():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\episode.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\episode.tsv']
         stdout, _ = run_cli_command('newepisode', args)
         expected_text = "status\": \"episode data added"
         assert expected_text in stdout
 
 def test_newepisode_edge_input():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\episodes.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\episodes.tsv']
         stdout, _ = run_cli_command('newepisode', args)
         expected_text = "status\": \"episode data added"
         assert expected_text in stdout
 
 def test_newepisode_invalid_input1():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\title.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\title.tsv']
         stdout, _ = run_cli_command('newepisode', args)
-        expected_text = 'Adding new episodes with filename: C:\\temp\\cli-client\\functionaltesting\\title.tsv\nResponse Status Code: 500\nResponse Content: {\n    "this error": "(1054, \\"Unknown column \'titleType\' in \'field list\'\\")"\n}\n\n'
+        expected_text = 'Adding new episodes with filename: C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\title.tsv\nResponse Status Code: 400\nResponse Content: {\n    "error": "Unknown column in database"\n}\n\n'
         assert expected_text in stdout
 
 def test_newepisode_invalid_input2():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\episode.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\episode.tsv']
         stdout, _ = run_cli_command('newepisode', args)
         expected_text = (
-            f'Adding new episodes with filename: C:\\temp\\cli-client\\functionaltesting\\episode.tsv\n'
+            f'Adding new episodes with filename: C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\episode.tsv\n'
             f'Response Status Code: 500\n'
             f'Response Content: {{\n'
-            f'    "this error": "(1062, \\"Duplicate entry \'tt0000000\' for key \'PRIMARY\'\\")"\n'
+            f'    "error": "Internal server error"\n'
             f'}}\n\n'
         )        
         assert expected_text in stdout
 
 def test_newratings_valid_input():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\rating.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\rating.tsv']
         stdout, _ = run_cli_command('newratings', args)
         expected_text = "status\": \"ratings data added"
         assert expected_text in stdout
 
 def test_newratings_edge_input():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\ratings.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\ratings.tsv']
         stdout, _ = run_cli_command('newratings', args)
         expected_text = "status\": \"ratings data added"
         assert expected_text in stdout
 
 def test_newratings_invalid_input1():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\title.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\title.tsv']
         stdout, _ = run_cli_command('newratings', args)
-        expected_text = 'Adding new ratings with filename: C:\\temp\\cli-client\\functionaltesting\\title.tsv\nResponse Status Code: 500\nResponse Content: {\n    "this error": "(1054, \\"Unknown column \'titleType\' in \'field list\'\\")"\n}\n\n'
+        expected_text = 'Adding new ratings with filename: C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\title.tsv\nResponse Status Code: 400\nResponse Content: {\n    "error": "Unknown column in database"\n}\n\n'
         assert expected_text in stdout
 
 def test_newratings_invalid_input2():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\rating.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\rating.tsv']
         stdout, _ = run_cli_command('newratings', args)
         expected_text = (
-            f'Adding new ratings with filename: C:\\temp\\cli-client\\functionaltesting\\rating.tsv\n'
+            f'Adding new ratings with filename: C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\rating.tsv\n'
             f'Response Status Code: 500\n'
             f'Response Content: {{\n'
-            f'    "this error": "(1062, \\"Duplicate entry \'tt0000000\' for key \'PRIMARY\'\\")"\n'
+            f'    "error": "Internal server error"\n'
             f'}}\n\n'
         )        
         assert expected_text in stdout
 
 def test_newprincipals_valid_input():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\principal.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\principal.tsv']
         stdout, _ = run_cli_command('newprincipals', args)
         expected_text = "status\": \"principals data added"
         assert expected_text in stdout
 
 def test_newprincipals_edge_input():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\principals.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\principals.tsv']
         stdout, _ = run_cli_command('newprincipals', args)
         expected_text = "status\": \"principals data added"
         assert expected_text in stdout
 
 def test_newprincipals_invalid_input1():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\title.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\title.tsv']
         stdout, _ = run_cli_command('newprincipals', args)
-        expected_text = 'Adding new principals with filename: C:\\temp\\cli-client\\functionaltesting\\title.tsv\nResponse Status Code: 500\nResponse Content: {\n    "this error": "(1054, \\"Unknown column \'titleType\' in \'field list\'\\")"\n}\n\n'
+        expected_text = 'Adding new principals with filename: C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\title.tsv\nResponse Status Code: 400\nResponse Content: {\n    "error": "Unknown column in database"\n}\n\n'
         assert expected_text in stdout
 
 def test_newprincipals_invalid_input2():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\principal.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\principal.tsv']
         stdout, _ = run_cli_command('newprincipals', args)
         expected_text = (
-            f'Adding new principals with filename: C:\\temp\\cli-client\\functionaltesting\\principal.tsv\n'
+            f'Adding new principals with filename: C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\principal.tsv\n'
             f'Response Status Code: 500\n'
             f'Response Content: {{\n'
-            f'    "this error": "(1062, \\"Duplicate entry \'tt0000000-1\' for key \'PRIMARY\'\\")"\n'
+            f'    "error": "Internal server error"\n'
             f'}}\n\n'
         )        
         assert expected_text in stdout
@@ -521,11 +522,11 @@ def test_top10genre():
 
 
 def test_rating_topgenres():
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\newtitle.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\newtitle.tsv']
         stdout, _ = run_cli_command('newtitles', args)
         expected_text = "status\": \"titlebasics data added"
         assert expected_text in stdout
-        args = ['--filename', 'C:\\temp\\cli-client\\functionaltesting\\test_rating_top10genres.tsv']
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\test_rating_top10genres.tsv']
         stdout, _ = run_cli_command('newratings', args)
         expected_text = "status\": \"ratings data added"
         assert expected_text in stdout
