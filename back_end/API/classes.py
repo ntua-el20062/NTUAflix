@@ -358,7 +358,7 @@ class title_ratings(Resource):
 
 class reset_all(Resource):
     def post(self):
-        print(os.listdir('C:/Users/elisa/Coding/Software Engineering/back_end'))
+        print(os.listdir('C:\\temp\\softeng23-05\\softeng23-05\\back_end'))
         sql_file_path = './back_end/ntuaflix_insert.sql'  # Path to your SQL file
         try:
             clear_database()
@@ -477,7 +477,7 @@ def search_titles_by_title_part(titlePart):
 class search_title(Resource):
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
-        self.reqparse.add_argument('titlePart', type=str, required=True, location='json')
+        self.reqparse.add_argument('titlePart', type=str, required=True, location='args')
 
     def get(self):
         args = self.reqparse.parse_args()
@@ -510,10 +510,10 @@ def search_titles_by_genre(qgenre, minrating, yrFrom=None, yrTo=None):
 class by_genre(Resource):
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
-        self.reqparse.add_argument('qgenre', type=str, required=True, location='json')
-        self.reqparse.add_argument('minrating', type=str, required=True, location='json')
-        self.reqparse.add_argument('yrFrom', type=str, location='json')
-        self.reqparse.add_argument('yrTo', type=str, location='json')
+        self.reqparse.add_argument('qgenre', type=str, required=True, location='args')
+        self.reqparse.add_argument('minrating', type=str, required=True, location='args')
+        self.reqparse.add_argument('yrFrom', type=str, location='args')
+        self.reqparse.add_argument('yrTo', type=str, location='args')
 
     def get(self):
         args = self.reqparse.parse_args()
@@ -545,7 +545,7 @@ def search_names_by_name_part(namePart):
 class search_name(Resource):
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
-        self.reqparse.add_argument('namePart', type=str, required=True, location='json')
+        self.reqparse.add_argument('namePart', type=str, required=True, location='args')
 
     def get(self):
         args = self.reqparse.parse_args()
@@ -559,8 +559,13 @@ def get_top_10_titles_by_genre():
     if not all_genres:
         return {}
 
-    # Split genres field and get unique genres
-    unique_genres = set(genre.strip() for genres_field in all_genres for genre in genres_field['genres'].split(',') if genre.strip())
+
+    unique_genres = set(
+        genre.strip()
+        for genres_field in all_genres
+        if genres_field['genres'] is not None  # Add this check
+        for genre in genres_field['genres'].split(',') if genre.strip()
+    )
     top_titles_by_genre = {}
     for genre in unique_genres:
         search_query = """
@@ -580,3 +585,4 @@ class top10_by_genre(Resource):
     def get(self):
         top_titles = get_top_10_titles_by_genre()
         return top_titles, 200 if top_titles else 404
+
