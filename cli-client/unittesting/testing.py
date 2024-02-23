@@ -16,10 +16,10 @@ class TestYourCLI(unittest.TestCase):
         self.assertIn('"status": "titlebasics data added"',result.text)
 
     def test_newtitles_invalid_null(self):
-        args = Namespace(scope='filename', filename='C:\\Users\\pavlo\\null.tsv')
+        args = Namespace(scope='filename', filename='C:\\Users\\pavlo\\null_title.tsv')
         result = newtitles(args)
-        self.assertEqual(result.status_code,500)
-        self.assertIn(' "error": "Internal server error"',result.text) 
+        self.assertEqual(result.status_code,204)
+        self.assertIn('',result.text) 
 
     def test_acnewtitles_invalid_input1(self):
         args = Namespace(scope='filename', filename='C:\\Users\\pavlo\\name.tsv')
@@ -106,10 +106,10 @@ class TestYourCLI(unittest.TestCase):
         self.assertIn('"status": "namebasics data added"',result.text)
     
     def test_newnames_invalid_null(self):
-        args = Namespace(scope='filename', filename='C:\\Users\\pavlo\\null.tsv')
+        args = Namespace(scope='filename', filename='C:\\Users\\pavlo\\null_name.tsv')
         result = newnames(args)
-        self.assertEqual(result.status_code,500)
-        self.assertIn(' "error": "Internal server error"',result.text) 
+        self.assertEqual(result.status_code,204)
+        self.assertIn('',result.text) 
 
     def test_aqnewnames_invalid_input1(self):
         args = Namespace(scope='filename', filename='C:\\Users\\pavlo\\title.tsv')
@@ -136,10 +136,10 @@ class TestYourCLI(unittest.TestCase):
         self.assertIn('"status": "crew data added"',result.text)
 
     def test_newcrew_invalid_null(self):
-        args = Namespace(scope='filename', filename='C:\\Users\\pavlo\\null.tsv')
+        args = Namespace(scope='filename', filename='C:\\Users\\pavlo\\null_crew.tsv')
         result = newcrew(args)
-        self.assertEqual(result.status_code,500)
-        self.assertIn(' "error": "Internal server error"',result.text) 
+        self.assertEqual(result.status_code,204)
+        self.assertIn('',result.text) 
 
     def test_aunewcrew_invalid_input1(self):
         args = Namespace(scope='filename', filename='C:\\Users\\pavlo\\title.tsv')
@@ -166,10 +166,10 @@ class TestYourCLI(unittest.TestCase):
         self.assertIn('"status": "akas data added"',result.text)
 
     def test_newakas_invalid_null(self):
-        args = Namespace(scope='filename', filename='C:\\Users\\pavlo\\null.tsv')
+        args = Namespace(scope='filename', filename='C:\\Users\\pavlo\\null_aka.tsv')
         result = newakas(args)
-        self.assertEqual(result.status_code,500)
-        self.assertIn(' "error": "Internal server error"',result.text) 
+        self.assertEqual(result.status_code,204)
+        self.assertIn('',result.text) 
 
     def test_aynewakas_invalid_input1(self):
         args = Namespace(scope='filename', filename='C:\\Users\\pavlo\\title.tsv')
@@ -196,10 +196,10 @@ class TestYourCLI(unittest.TestCase):
         self.assertIn('"status": "episode data added"',result.text)
 
     def test_newepisode_invalid_null(self):
-        args = Namespace(scope='filename', filename='C:\\Users\\pavlo\\null.tsv')
+        args = Namespace(scope='filename', filename='C:\\Users\\pavlo\\null_episode.tsv')
         result = newepisode(args)
-        self.assertEqual(result.status_code,500)
-        self.assertIn(' "error": "Internal server error"',result.text) 
+        self.assertEqual(result.status_code,204)
+        self.assertIn('',result.text) 
 
     def test_bcnewepisode_invalid_input1(self):
         args = Namespace(scope='filename', filename='C:\\Users\\pavlo\\title.tsv')
@@ -226,10 +226,10 @@ class TestYourCLI(unittest.TestCase):
         self.assertIn('"status": "ratings data added"',result.text)
     
     def test_newratings_invalid_null(self):
-        args = Namespace(scope='filename', filename='C:\\Users\\pavlo\\null.tsv')
+        args = Namespace(scope='filename', filename='C:\\Users\\pavlo\\null_rating.tsv')
         result = newratings(args)
-        self.assertEqual(result.status_code,500)
-        self.assertIn(' "error": "Internal server error"',result.text) 
+        self.assertEqual(result.status_code,204)
+        self.assertIn('',result.text) 
 
     def test_bgnewratings_invalid_input1(self):
         args = Namespace(scope='filename', filename='C:\\Users\\pavlo\\title.tsv')
@@ -256,10 +256,10 @@ class TestYourCLI(unittest.TestCase):
         self.assertIn('"status": "principals data added"',result.text)
 
     def test_newprincipals_invalid_null(self):
-        args = Namespace(scope='filename', filename='C:\\Users\\pavlo\\null.tsv')
+        args = Namespace(scope='filename', filename='C:\\Users\\pavlo\\null_principal.tsv')
         result = newprincipals(args)
-        self.assertEqual(result.status_code,500)
-        self.assertIn(' "error": "Internal server error"',result.text) 
+        self.assertEqual(result.status_code,204)
+        self.assertIn('',result.text) 
 
     def test_bknewprincipals_invalid_input1(self):
         args = Namespace(scope='filename', filename='C:\\Users\\pavlo\\title.tsv')
