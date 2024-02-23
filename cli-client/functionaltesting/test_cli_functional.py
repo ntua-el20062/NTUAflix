@@ -20,6 +20,11 @@ def test_newtitles_valid_input():
     expected_text = "status\": \"titlebasics data added"
     assert expected_text in stdout
 
+def test_newtitles_valid_input1():
+    args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\title_null.tsv']
+    stdout, _ = run_cli_command('newtitles', args)
+    expected_text = "Response Status Code: 204\nResponse Content: \n"
+    assert expected_text in stdout
 
 
 def test_newtitles_edge_input():
@@ -259,6 +264,12 @@ def test_newnames_valid_input():
         expected_text = "status\": \"namebasics data added"
         assert expected_text in stdout
 
+def test_newnames_valid_input1():
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\name_null.tsv']
+        stdout, _, = run_cli_command('newnames', args)
+        expected_text = "Response Status Code: 204\nResponse Content: \n"
+        assert expected_text in stdout
+
 
 def test_newnames_edge_input():
         args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\names.tsv']
@@ -289,6 +300,12 @@ def test_newcrew_valid_input():
         args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\crew.tsv']
         stdout, _ = run_cli_command('newcrew', args)
         expected_text = "status\": \"crew data added"
+        assert expected_text in stdout
+
+def test_newcrew_valid_input1():
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\crew_null.tsv']
+        stdout, _ = run_cli_command('newcrew', args)
+        expected_text = "Response Status Code: 204\nResponse Content: \n"
         assert expected_text in stdout
 
 def test_newcrew_edge_input():
@@ -322,6 +339,12 @@ def test_newakas_valid_input():
         expected_text = "status\": \"akas data added"
         assert expected_text in stdout
 
+def test_newakas_valid_input1():
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\aka_null.tsv']
+        stdout, _ = run_cli_command('newakas', args)
+        expected_text = "Response Status Code: 204\nResponse Content: \n"
+        assert expected_text in stdout
+
 
 def test_newakas_edge_input():
         args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\akas.tsv']
@@ -351,6 +374,12 @@ def test_newepisode_valid_input():
         args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\episode.tsv']
         stdout, _ = run_cli_command('newepisode', args)
         expected_text = "status\": \"episode data added"
+        assert expected_text in stdout
+
+def test_newepisode_valid_input1():
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\episode_null.tsv']
+        stdout, _ = run_cli_command('newepisode', args)
+        expected_text = "Response Status Code: 204\nResponse Content: \n"
         assert expected_text in stdout
 
 def test_newepisode_edge_input():
@@ -383,6 +412,12 @@ def test_newratings_valid_input():
         expected_text = "status\": \"ratings data added"
         assert expected_text in stdout
 
+def test_newratings_valid_input1():
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\rating_null.tsv']
+        stdout, _ = run_cli_command('newratings', args)
+        expected_text = "Response Status Code: 204\nResponse Content: \n"
+        assert expected_text in stdout
+
 def test_newratings_edge_input():
         args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\ratings.tsv']
         stdout, _ = run_cli_command('newratings', args)
@@ -411,6 +446,12 @@ def test_newprincipals_valid_input():
         args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\principal.tsv']
         stdout, _ = run_cli_command('newprincipals', args)
         expected_text = "status\": \"principals data added"
+        assert expected_text in stdout
+
+def test_newprincipals_valid_input1():
+        args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\principal_null.tsv']
+        stdout, _ = run_cli_command('newprincipals', args)
+        expected_text = "Response Status Code: 204\nResponse Content: \n"
         assert expected_text in stdout
 
 def test_newprincipals_edge_input():
