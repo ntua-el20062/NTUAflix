@@ -67,7 +67,7 @@ Follow these steps to set up the git repository:
 - The `setup.py` file installs the dependencies contained in the `dependencies.py` file, initializes the database and starts the API server.
 - The `server.py` file in the `front-end` folder launches the front-end server.
 - Ensure to have a stable internet connection during setup to download necessary dependencies.
-- As for CLI testing, the path used to locate the .csv files utilized for testing may need to be changed. During the application build, in our local environment, this path was set to "C:/temp"; however, this may vary depending on the folder used for local storage of the application.
+- When running the application locally, its source code was located in the path C:\temp\new_folder\softeng23-05; however, this may vary depending on the folder used for local storage of the application.
   
 For any issues or inquiries, please contact the project maintainers. 
 
