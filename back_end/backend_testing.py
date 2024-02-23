@@ -114,45 +114,46 @@ if __name__ == "__main__":
     LIMIT 10;
     """
     complex_query2 = """
-    WITH RankedMovies AS (
-        SELECT
-            tb.tconst,
-            tb.primaryTitle,
-            tb.startYear,
-            tb.genres,
-            ratings.averageRating,
-        ROW_NUMBER() OVER(PARTITION BY tb.genres ORDER BY ratings.averageRating DESC) AS genre_rank
-        FROM
-            titlebasics tb
-        JOIN ratings ON tb.tconst = ratings.tconst
-        WHERE
-            tb.titleType = 'movie'
-        AND tb.startYear BETWEEN 1991 AND 2022
-    ),
-    GenreStats AS (
-        SELECT
-            genres,
-            COUNT(*) AS num_movies
-        FROM
-            RankedMovies
-        GROUP BY
-            genres
-        HAVING
-            COUNT(*) > 1
-    )
+   WITH RankedMovies AS (
     SELECT
-        rm.tconst,
-        rm.primaryTitle,
-        rm.startYear,
-        rm.genres,
-        rm.averageRating
+        tb.tconst,
+        tb.primaryTitle,
+        tb.startYear,
+        tb.genres,
+        ratings.averageRating,
+        ROW_NUMBER() OVER(PARTITION BY tb.genres ORDER BY ratings.averageRating DESC, tb.primaryTitle) AS genre_rank
     FROM
-        RankedMovies rm
-    JOIN GenreStats gs ON rm.genres = gs.genres
+        titlebasics tb
+    JOIN ratings ON tb.tconst = ratings.tconst
     WHERE
-        rm.genre_rank = 1
-    ORDER BY
-        rm.genres, rm.averageRating DESC, rm.primaryTitle ASC;
+        tb.titleType = 'movie'
+    AND tb.startYear BETWEEN 1991 AND 2022
+),
+GenreStats AS (
+    SELECT
+        genres,
+        COUNT(*) AS num_movies
+    FROM
+        RankedMovies
+    GROUP BY
+        genres
+    HAVING
+        COUNT(*) > 1
+)
+SELECT
+    rm.tconst,
+    rm.primaryTitle,
+    rm.startYear,
+    rm.genres,
+    rm.averageRating
+FROM
+    RankedMovies rm
+JOIN GenreStats gs ON rm.genres = gs.genres
+WHERE
+    rm.genre_rank = 1
+ORDER BY
+    rm.genres, rm.averageRating DESC, rm.primaryTitle ASC;
+
     """
     complex_query3 = """
         WITH top_directors AS (
@@ -242,7 +243,7 @@ if __name__ == "__main__":
         ('tt0095469', 'King of Stanley Market', 1998, 'Comedy', 6.5), 
         ('tt0084015', 'Goodbye Paradise', 1991, 'Drama', 7.3), 
         ('tt0094841', 'The House of Smiles', 1991, 'Drama,Romance', 6.5), 
-        ('tt0097928', 'Murder Blues', 1991, 'Drama,Thriller', 5.0)
+        ('tt0094900', 'Committed', 1991, 'Drama,Thriller', 5.0)
     ]
     expected_results3=[]
 
