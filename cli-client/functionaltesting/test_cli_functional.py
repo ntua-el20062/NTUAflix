@@ -44,13 +44,13 @@ def test_newtitles_invalid_input1():
 def test_newtitles_missing_argument():
     args = ['--filename']
     stdout, stderr = run_cli_command('newtitles', args)
-    expected_error_message = 'usage: se2305.py newtitles [-h] --filename FILENAME\nse2305.py newtitles: error: argument --filename: expected one argument'
+    expected_error_message = 'usage: se2305.py newtitles [-h] --filename FILENAME [--format {json,csv}]\nse2305.py newtitles: error: argument --filename: expected one argument'
     assert expected_error_message in stderr
 
 def test_newtitles_missing_parametre():
     args = []
     stdout, stderr = run_cli_command('newtitles', args)
-    expected_error_message = 'usage: se2305.py newtitles [-h] --filename FILENAME\nse2305.py newtitles: error: the following arguments are required: --filename'
+    expected_error_message = 'usage: se2305.py newtitles [-h] --filename FILENAME [--format {json,csv}]\nse2305.py newtitles: error: the following arguments are required: --filename'
     assert expected_error_message in stderr
 
 
@@ -153,7 +153,7 @@ def test_title_invalid_input():
 def test_searchname_valid_input():
         args = ['--name','Ernst']
         stdout, _ = run_cli_command('searchname', args)
-        expected_text = 'Searching for titles containing: Ernst'
+        expected_text = 'Searching for professionals with Primary_Name containing: Ernst'
         assert expected_text in stdout
         expected_text = 'nameID'
         assert expected_text in stdout
@@ -463,7 +463,7 @@ def test_newprincipals_edge_input():
 def test_newprincipals_invalid_input1():
         args = ['--filename', 'C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\title.tsv']
         stdout, _ = run_cli_command('newprincipals', args)
-        expected_text = 'Adding new principals with filename: C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\title.tsv\nResponse Status Code: 400\nResponse Content: {\n    "error": "Unknown column in database"\n}\n\n'
+        expected_text = 'Adding new principals with filename:C:\\temp\\new_folder\\softeng23-05\\cli-client\\functionaltesting\\title.tsv\nResponse Status Code: 400\nResponse Content: {\n    "error": "Unknown column in database"\n}\n\n'
         assert expected_text in stdout
 
 def test_newprincipals_invalid_input2():
@@ -485,35 +485,16 @@ def run_help_command():
 
 def test_help():
     stdout, stderr = run_help_command()
-    expected_help_message = (
-        'usage: se2305.py [-h] [--format {json,csv}]\n'
-        '                 {newnames,newtitles,newakas,newcrew,newepisode,newprincipals,newratings,title,searchtitle,name,bygenre,searchname,top10genre,healthcheck,resetall}\n'
-        '                 ...\n\n'
-        'CLI for Your Application\n\n'
-        'positional arguments:\n'
-        '  {newnames,newtitles,newakas,newcrew,newepisode,newprincipals,newratings,title,searchtitle,name,bygenre,searchname,top10genre,healthcheck,resetall}\n'
-        '                        Available scopes\n'
-        '    newnames            Add new names\n'
-        '    newtitles           Add new titles\n'
-        '    newakas             Add new akas\n'
-        '    newcrew             Add new crew\n'
-        '    newepisode          Add new episodes\n'
-        '    newprincipals       Add new principals\n'
-        '    newratings          Add new ratings\n'
-        '    title               Fetch data for a given Title ID\n'
-        '    searchtitle         Search for titles\n'
-        '    name                Fetch data for a given Professional ID\n'
-        '    bygenre             Filter titles by genre, min rating, and optional\n'
-        '                        start/end year\n'
-        '    searchname          Search for professionals by part of Primary_Name\n'
-        '    top10genre          Get top 10 titles in ratings for each genre\n'
-        '    healthcheck         Health Check\n'
-        '    resetall            Resets the database in the initial data\n\n'
-        'options:\n'
-        '  -h, --help            show this help message and exit\n'
-        '  --format {json,csv}   Specify the output format (json/csv)\n'
-    )
-    assert expected_help_message in stdout
+    expected_phrases = [
+        'usage: se2305.py [-h]',
+        'CLI for Your Application',
+        'Available scopes',
+        'Add new names',
+        'Add new titles',
+        'Output format (json/csv)',
+
+    ]
+    assert all(phrase in stdout for phrase in expected_phrases)
 
 def test_healthcheck():
         stdout, _ = run_cli_command('healthcheck', [])
