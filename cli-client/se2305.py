@@ -56,6 +56,7 @@ def healthcheck(args):
     else:
         # Default to JSON format
         print(f"Response Content: {response.text}")
+    return response
 
 def resetall(args):
     response = requests.post(f"{BASE_URL}/admin/resetall")
@@ -75,7 +76,7 @@ def resetall(args):
     else:
         # Default to JSON format
         print(f"Response Content: {response.text}")
-
+    return response
 def top10genre(args):
     print("Fetching the top 10 titles in ratings for each genre.")
     response = requests.get(f"{BASE_URL}/top10bygenre")
@@ -95,13 +96,20 @@ def top10genre(args):
     else:
         # Default to JSON format
         print(f"Response Content: {response.text}")
-   
+    return response
 
 
 def searchname(args):
+    #Convert name parameter to JSON
+    name_json = json.dumps({'namePart': args.name})
+
     print(f"Searching for professionals with Primary_Name containing: {args.name}")
-    response = requests.get(f"{BASE_URL}/searchname", params={'namePart': args.name})
+
+    headers = {'Content-Type': 'application/json'}  # Set the content type to JSON
+
+    response = requests.get(f"{BASE_URL}/searchname", data=name_json, headers=headers)
     
+
     # Print the response status code
     print(f"Response Status Code: {response.status_code}")
 
@@ -117,7 +125,7 @@ def searchname(args):
     else:
         # Default to JSON format
         print(f"Response Content: {response.text}")
-    
+    return response
 
 
 def name(args):
@@ -139,21 +147,27 @@ def name(args):
     else:
         # Default to JSON format
         print(f"Response Content: {response.text}")
-   
+    return response
 
     
 
 def bygenre(args):
     print(f"Filtering titles by genre: {args.genre}, min rating: {args.min}, start year: {args.yrFrom}, end year: {args.yrTo}")
-    
-    # Assuming that your API endpoint for by_genre is '/bygenre'
-    response = requests.get(f"{BASE_URL}/bygenre", params={
+    # Convert parameters to JSON
+    genre_json = json.dumps({
         'qgenre': args.genre,
         'minrating': args.min,
         'yrFrom': args.yrFrom,
         'yrTo': args.yrTo
     })
+
+    print(f"Filtering titles by genre: {args.genre}, min rating: {args.min}, start year: {args.yrFrom}, end year: {args.yrTo}")
+
+    headers = {'Content-Type': 'application/json'}  # Set the content type to JSON
+
+    response = requests.get(f"{BASE_URL}/bygenre", data=genre_json, headers=headers)
     
+
     # Print the response status code
     print(f"Response Status Code: {response.status_code}")
 
@@ -169,11 +183,15 @@ def bygenre(args):
     else:
         # Default to JSON format
         print(f"Response Content: {response.text}")
-   
-def searchtitle(args):
+    return response
+def searchtitle(args): 
+    # Convert titlepart parameter to JSON
+    titlepart_json = json.dumps({'titlePart': args.titlepart})
+
     print(f"Searching for titles containing: {args.titlepart}")
-    response = requests.get(f"{BASE_URL}/searchtitle", params={'titlePart': args.titlepart})
-    
+    headers = {'Content-Type': 'application/json'}  # Set the content type to JSON
+
+    response = requests.get(f"{BASE_URL}/searchtitle", data=titlepart_json, headers=headers)
     # Print the response status code
     print(f"Response Status Code: {response.status_code}")
 
@@ -190,7 +208,7 @@ def searchtitle(args):
         # Default to JSON format
         print(f"Response Content: {response.text}")
 
-    return response.text
+    return response
     
 
 def title(args):
@@ -212,7 +230,7 @@ def title(args):
     else:
         # Default to JSON format
         print(f"Response Content: {response.text}")
-
+    return response
     
 def newratings(args):
     print(f"Adding new ratings with filename: {args.filename}")
@@ -239,7 +257,7 @@ def newratings(args):
     else:
         # Default to printing JSON response
         print(f"Response Content: {response.text}")
-
+    return response
 
 
 def newprincipals(args):
@@ -267,7 +285,7 @@ def newprincipals(args):
     else:
         # Default to printing JSON response
         print(f"Response Content: {response.text}")
-    
+    return response
 
 def newepisode(args):
     print(f"Adding new episodes with filename: {args.filename}")
@@ -294,7 +312,7 @@ def newepisode(args):
     else:
         # Default to printing JSON response
         print(f"Response Content: {response.text}")
-
+    return response
 def newcrew(args):
     print(f"Adding new crew with filename: {args.filename}")
 
@@ -320,7 +338,7 @@ def newcrew(args):
     else:
         # Default to printing JSON response
         print(f"Response Content: {response.text}")
-
+    return response
 def newakas(args):
     print(f"Adding new akas with filename: {args.filename}")
 
@@ -346,7 +364,7 @@ def newakas(args):
     else:
         # Default to printing JSON response
         print(f"Response Content: {response.text}")
-
+    return response
 def newtitles(args):
     print(f"Adding new titlebasics with filename: {args.filename}")
 
@@ -372,6 +390,7 @@ def newtitles(args):
     else:
         # Default to printing JSON response
         print(f"Response Content: {response.text}")
+    return response
 def newnames(args):
     print(f"Adding new names with filename: {args.filename}")
 
@@ -397,6 +416,7 @@ def newnames(args):
     else:
         # Default to printing JSON response
         print(f"Response Content: {response.text}")
+    return response
 
 
 def main():
