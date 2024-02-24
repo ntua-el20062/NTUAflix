@@ -3,82 +3,211 @@ import csv
 import mysql.connector
 import codecs
 import requests
+import csv
+import json
+from io import StringIO
 
 BASE_URL = "http://127.0.0.1:9876//ntuaflix_api"
 
-def healthcheck():
-        response = requests.get(f"{BASE_URL}/admin/healthcheck")
-    
-        # Print the response status code and content
-        print(f"Response Status Code: {response.status_code}")
-        print(f"Response Content: {response.text}")
-        return response
+def convert_json_to_csv(json_data):
+    # Assuming json_data is a dictionary or list of dictionaries
+    if isinstance(json_data, list):
+        fieldnames = json_data[0].keys() if json_data else []
+    elif isinstance(json_data, dict):
+        fieldnames = json_data.keys()
+    else:
+        raise ValueError("Invalid JSON data format")
 
-def resetall():
-        response = requests.post(f"{BASE_URL}/admin/resetall")
-    
-        # Print the response status code and content
-        print(f"Response Status Code: {response.status_code}")
-        print(f"Response Content: {response.text}")
-        return response 
+    # Use StringIO to simulate a file for CSV writing
+    csv_buffer = StringIO()
 
-def top10genre():
+    # Create a CSV writer
+    csv_writer = csv.DictWriter(csv_buffer, fieldnames=fieldnames)
+
+    # Write the header
+    csv_writer.writeheader()
+
+    # Write the data
+    if isinstance(json_data, list):
+        csv_writer.writerows(json_data)
+    elif isinstance(json_data, dict):
+        csv_writer.writerow(json_data)
+
+    # Get the CSV content
+    csv_content = csv_buffer.getvalue()
+
+    return csv_content
+
+def healthcheck(args):
+    response = requests.get(f"{BASE_URL}/admin/healthcheck")
+
+    # Print the response status code
+    print(f"Response Status Code: {response.status_code}")
+
+    # Conditionally handle the response based on the format parameter
+    if args.format == 'csv':
+        try:
+            # Attempt to parse the JSON response
+            json_data = json.loads(response.text)
+            csv_data = convert_json_to_csv(json_data)
+            print(csv_data)
+        except json.JSONDecodeError:
+            print("Invalid JSON format. Cannot convert to CSV.")
+    else:
+        # Default to JSON format
+        print(f"Response Content: {response.text}")
+    return response
+
+def resetall(args):
+    response = requests.post(f"{BASE_URL}/admin/resetall")
+    
+    # Print the response status code
+    print(f"Response Status Code: {response.status_code}")
+
+    # Conditionally handle the response based on the format parameter
+    if args.format == 'csv':
+        try:
+            # Attempt to parse the JSON response
+            json_data = json.loads(response.text)
+            csv_data = convert_json_to_csv(json_data)
+            print(csv_data)
+        except json.JSONDecodeError:
+            print("Invalid JSON format. Cannot convert to CSV.")
+    else:
+        # Default to JSON format
+        print(f"Response Content: {response.text}")
+    return response
+def top10genre(args):
     print("Fetching the top 10 titles in ratings for each genre.")
     response = requests.get(f"{BASE_URL}/top10bygenre")
     
-    # Print the response status code and content
+    # Print the response status code
     print(f"Response Status Code: {response.status_code}")
-    print(f"Response Content: {response.text}")
+
+    # Conditionally handle the response based on the format parameter
+    if args.format == 'csv':
+        try:
+            # Attempt to parse the JSON response
+            json_data = json.loads(response.text)
+            csv_data = convert_json_to_csv(json_data)
+            print(csv_data)
+        except json.JSONDecodeError:
+            print("Invalid JSON format. Cannot convert to CSV.")
+    else:
+        # Default to JSON format
+        print(f"Response Content: {response.text}")
     return response
 
 
 def searchname(args):
+    #Convert name parameter to JSON
+    name_json = json.dumps({'namePart': args.name})
+
     print(f"Searching for professionals with Primary_Name containing: {args.name}")
-    print(f"Searching for titles containing: {args.name}")
-    response = requests.get(f"{BASE_URL}/searchname", params={'namePart': args.name})
+
+    headers = {'Content-Type': 'application/json'}  # Set the content type to JSON
+
+    response = requests.get(f"{BASE_URL}/searchname", data=name_json, headers=headers)
     
-        # Print the response status code and content
+
+    # Print the response status code
     print(f"Response Status Code: {response.status_code}")
-    print(f"Response Content: {response.text}")
+
+    # Conditionally handle the response based on the format parameter
+    if args.format == 'csv':
+        try:
+            # Attempt to parse the JSON response
+            json_data = json.loads(response.text)
+            csv_data = convert_json_to_csv(json_data)
+            print(csv_data)
+        except json.JSONDecodeError:
+            print("Invalid JSON format. Cannot convert to CSV.")
+    else:
+        # Default to JSON format
+        print(f"Response Content: {response.text}")
     return response
-    
 
 
 def name(args):
     print(f"Fetching data for Professional ID: {args.nameid}")
     response = requests.get(f"{BASE_URL}/name/{args.nameid}")
     
-        # Print the response status code and content
+    # Print the response status code
     print(f"Response Status Code: {response.status_code}")
-    print(f"Response Content: {response.text}")
-    return response
 
-   
+    # Conditionally handle the response based on the format parameter
+    if args.format == 'csv':
+        try:
+            # Attempt to parse the JSON response
+            json_data = json.loads(response.text)
+            csv_data = convert_json_to_csv(json_data)
+            print(csv_data)
+        except json.JSONDecodeError:
+            print("Invalid JSON format. Cannot convert to CSV.")
+    else:
+        # Default to JSON format
+        print(f"Response Content: {response.text}")
+    return response
 
     
 
 def bygenre(args):
     print(f"Filtering titles by genre: {args.genre}, min rating: {args.min}, start year: {args.yrFrom}, end year: {args.yrTo}")
-    # Assuming that your API endpoint for by_genre is '/bygenre'
-    response = requests.get(f"{BASE_URL}/bygenre", params={
+    # Convert parameters to JSON
+    genre_json = json.dumps({
         'qgenre': args.genre,
         'minrating': args.min,
         'yrFrom': args.yrFrom,
         'yrTo': args.yrTo
     })
+
+    print(f"Filtering titles by genre: {args.genre}, min rating: {args.min}, start year: {args.yrFrom}, end year: {args.yrTo}")
+
+    headers = {'Content-Type': 'application/json'}  # Set the content type to JSON
+
+    response = requests.get(f"{BASE_URL}/bygenre", data=genre_json, headers=headers)
     
-    # Print the response status code and content
+
+    # Print the response status code
     print(f"Response Status Code: {response.status_code}")
-    print(f"Response Content: {response.text}")
+
+    # Conditionally handle the response based on the format parameter
+    if args.format == 'csv':
+        try:
+            # Attempt to parse the JSON response
+            json_data = json.loads(response.text)
+            csv_data = convert_json_to_csv(json_data)
+            print(csv_data)
+        except json.JSONDecodeError:
+            print("Invalid JSON format. Cannot convert to CSV.")
+    else:
+        # Default to JSON format
+        print(f"Response Content: {response.text}")
     return response
-   
-def searchtitle(args):
+def searchtitle(args): 
+    # Convert titlepart parameter to JSON
+    titlepart_json = json.dumps({'titlePart': args.titlepart})
+
     print(f"Searching for titles containing: {args.titlepart}")
-    response = requests.get(f"{BASE_URL}/searchtitle", params={'titlePart': args.titlepart})
-    
-        # Print the response status code and content
+    headers = {'Content-Type': 'application/json'}  # Set the content type to JSON
+
+    response = requests.get(f"{BASE_URL}/searchtitle", data=titlepart_json, headers=headers)
+    # Print the response status code
     print(f"Response Status Code: {response.status_code}")
-    print(f"Response Content: {response.text}")
+
+    # Conditionally handle the response based on the format parameter
+    if args.format == 'csv':
+        try:
+            # Attempt to parse the JSON response
+            json_data = json.loads(response.text)
+            csv_data = convert_json_to_csv(json_data)
+            print(csv_data)
+        except json.JSONDecodeError:
+            print("Invalid JSON format. Cannot convert to CSV.")
+    else:
+        # Default to JSON format
+        print(f"Response Content: {response.text}")
+
     return response
     
 
@@ -86,30 +215,54 @@ def title(args):
     print(f"Fetching data for Title ID: {args.titleID}")
     response = requests.get(f"{BASE_URL}/title/{args.titleID}")
     
-        # Print the response status code and content
+    # Print the response status code
     print(f"Response Status Code: {response.status_code}")
-    print(f"Response Content: {response.text}")
-    return response
 
+    # Conditionally handle the response based on the format parameter
+    if args.format == 'csv':
+        try:
+            # Attempt to parse the JSON response
+            json_data = json.loads(response.text)
+            csv_data = convert_json_to_csv(json_data)
+            print(csv_data)
+        except json.JSONDecodeError:
+            print("Invalid JSON format. Cannot convert to CSV.")
+    else:
+        # Default to JSON format
+        print(f"Response Content: {response.text}")
+    return response
     
 def newratings(args):
     print(f"Adding new ratings with filename: {args.filename}")
 
-     # Assuming args.filename contains the path to the file or the file content
+    # Assuming args.filename contains the path to the file or the file content
     with open(args.filename, 'r', encoding='utf-8') as file:
         tsv_data = file.read()
 
     # Make the POST request
     response = requests.post(f"{BASE_URL}/admin/upload/titleratings", files={"tsv_title_ratings": tsv_data})
 
-    # Print the response status code and content
+    # Print the response status code
     print(f"Response Status Code: {response.status_code}")
-    print(f"Response Content: {response.text}")
+
+    # Conditionally handle the response based on the format parameter
+    if args.format == 'csv':
+        try:
+            # Attempt to parse the JSON response
+            json_data = json.loads(response.text)
+            csv_data = convert_json_to_csv(json_data)
+            print(csv_data)
+        except json.JSONDecodeError:
+            print("Invalid JSON format. Cannot convert to CSV.")
+    else:
+        # Default to printing JSON response
+        print(f"Response Content: {response.text}")
     return response
+
 
 def newprincipals(args):
     print(f"Adding new principals with filename: {args.filename}")
-    
+
     # Assuming args.filename contains the path to the file or the file content
     with open(args.filename, 'r', encoding='utf-8') as file:
         tsv_data = file.read()
@@ -117,14 +270,26 @@ def newprincipals(args):
     # Make the POST request
     response = requests.post(f"{BASE_URL}/admin/upload/titleprincipals", files={"tsv_title_principal": tsv_data})
 
-    # Print the response status code and content
+    # Print the response status code
     print(f"Response Status Code: {response.status_code}")
-    print(f"Response Content: {response.text}")
+
+    # Conditionally handle the response based on the format parameter
+    if args.format == 'csv':
+        try:
+            # Attempt to parse the JSON response
+            json_data = json.loads(response.text)
+            csv_data = convert_json_to_csv(json_data)
+            print(csv_data)
+        except json.JSONDecodeError:
+            print("Invalid JSON format. Cannot convert to CSV.")
+    else:
+        # Default to printing JSON response
+        print(f"Response Content: {response.text}")
     return response
 
 def newepisode(args):
     print(f"Adding new episodes with filename: {args.filename}")
-    
+
     # Assuming args.filename contains the path to the file or the file content
     with open(args.filename, 'r', encoding='utf-8') as file:
         tsv_data = file.read()
@@ -132,58 +297,103 @@ def newepisode(args):
     # Make the POST request
     response = requests.post(f"{BASE_URL}/admin/upload/titleepisode", files={"tsv_title_episode": tsv_data})
 
-    # Print the response status code and content
+    # Print the response status code
     print(f"Response Status Code: {response.status_code}")
-    print(f"Response Content: {response.text}")
-    return response
 
+    # Conditionally handle the response based on the format parameter
+    if args.format == 'csv':
+        try:
+            # Attempt to parse the JSON response
+            json_data = json.loads(response.text)
+            csv_data = convert_json_to_csv(json_data)
+            print(csv_data)
+        except json.JSONDecodeError:
+            print("Invalid JSON format. Cannot convert to CSV.")
+    else:
+        # Default to printing JSON response
+        print(f"Response Content: {response.text}")
+    return response
 def newcrew(args):
     print(f"Adding new crew with filename: {args.filename}")
 
-     # Assuming args.filename contains the path to the file or the file content
+    # Assuming args.filename contains the path to the file or the file content
     with open(args.filename, 'r', encoding='utf-8') as file:
         tsv_data = file.read()
 
     # Make the POST request
     response = requests.post(f"{BASE_URL}/admin/upload/titlecrew", files={"tsv_title_crew": tsv_data})
 
-    # Print the response status code and content
+    # Print the response status code
     print(f"Response Status Code: {response.status_code}")
-    print(f"Response Content: {response.text}")
+
+    # Conditionally handle the response based on the format parameter
+    if args.format == 'csv':
+        try:
+            # Attempt to parse the JSON response
+            json_data = json.loads(response.text)
+            csv_data = convert_json_to_csv(json_data)
+            print(csv_data)
+        except json.JSONDecodeError:
+            print("Invalid JSON format. Cannot convert to CSV.")
+    else:
+        # Default to printing JSON response
+        print(f"Response Content: {response.text}")
     return response
 def newakas(args):
     print(f"Adding new akas with filename: {args.filename}")
 
-     # Assuming args.filename contains the path to the file or the file content
+    # Assuming args.filename contains the path to the file or the file content
     with open(args.filename, 'r', encoding='utf-8') as file:
         tsv_data = file.read()
 
     # Make the POST request
     response = requests.post(f"{BASE_URL}/admin/upload/titleakas", files={"tsv_aka": tsv_data})
 
-    # Print the response status code and content
+    # Print the response status code
     print(f"Response Status Code: {response.status_code}")
-    print(f"Response Content: {response.text}")
-    return response
 
+    # Conditionally handle the response based on the format parameter
+    if args.format == 'csv':
+        try:
+            # Attempt to parse the JSON response
+            json_data = json.loads(response.text)
+            csv_data = convert_json_to_csv(json_data)
+            print(csv_data)
+        except json.JSONDecodeError:
+            print("Invalid JSON format. Cannot convert to CSV.")
+    else:
+        # Default to printing JSON response
+        print(f"Response Content: {response.text}")
+    return response
 def newtitles(args):
     print(f"Adding new titlebasics with filename: {args.filename}")
 
-     # Assuming args.filename contains the path to the file or the file content
+    # Assuming args.filename contains the path to the file or the file content
     with open(args.filename, 'r', encoding='utf-8') as file:
         tsv_data = file.read()
 
     # Make the POST request
     response = requests.post(f"{BASE_URL}/admin/upload/titlebasics", files={"tsv_title_basics": tsv_data})
 
-    # Print the response status code and content
+    # Print the response status code
     print(f"Response Status Code: {response.status_code}")
-    print(f"Response Content: {response.text}")
-    return response
 
+    # Conditionally handle the response based on the format parameter
+    if args.format == 'csv':
+        try:
+            # Attempt to parse the JSON response
+            json_data = json.loads(response.text)
+            csv_data = convert_json_to_csv(json_data)
+            print(csv_data)
+        except json.JSONDecodeError:
+            print("Invalid JSON format. Cannot convert to CSV.")
+    else:
+        # Default to printing JSON response
+        print(f"Response Content: {response.text}")
+    return response
 def newnames(args):
     print(f"Adding new names with filename: {args.filename}")
-    
+
     # Assuming args.filename contains the path to the file or the file content
     with open(args.filename, 'r', encoding='utf-8') as file:
         tsv_data = file.read()
@@ -191,12 +401,27 @@ def newnames(args):
     # Make the POST request
     response = requests.post(f"{BASE_URL}/admin/upload/namebasics", files={"tsv_name_basics": tsv_data})
 
-    # Print the response status code and content
+    # Print the response status code
     print(f"Response Status Code: {response.status_code}")
-    print(f"Response Content: {response.text}")
+
+    # Conditionally handle the response based on the format parameter
+    if args.format == 'csv':
+        try:
+            # Attempt to parse the JSON response
+            json_data = json.loads(response.text)
+            csv_data = convert_json_to_csv(json_data)
+            print(csv_data)
+        except json.JSONDecodeError:
+            print("Invalid JSON format. Cannot convert to CSV.")
+    else:
+        # Default to printing JSON response
+        print(f"Response Content: {response.text}")
     return response
+
+
 def main():
     parser = argparse.ArgumentParser(description='CLI for Your Application')
+    parser.add_argument('--format', choices=['json', 'csv'], default='json', help='Output format (json/csv)')
     subparsers = parser.add_subparsers(dest='scope', help='Available scopes')
 
     # Subparser for 'newnames' scope
@@ -259,7 +484,13 @@ def main():
 
     # Subparser for 'resetall' scope
     resetall_parser = subparsers.add_parser('resetall', help='Resets the database in the initial data')
-    parser.add_argument("--format", choices=["json", "csv"], default="json", help="Specify the output format (json/csv)")
+
+    for subparser in [newnames_parser, newtitles_parser, newakas_parser, newcrew_parser,
+                  newepisode_parser, newprincipals_parser, newratings_parser,
+                  title_parser, searchtitle_parser, name_parser, bygenre_parser,
+                  searchname_parser, top10genre_parser, healthcheck_parser, resetall_parser]:
+        subparser.add_argument('--format', choices=['json', 'csv'], default='json', help='Output format (json/csv)')
+    
 
     args = parser.parse_args()
 
@@ -288,11 +519,11 @@ def main():
     elif args.scope == 'searchname':
         searchname(args)
     elif args.scope == 'top10genre':
-        top10genre()
+        top10genre(args)
     elif args.scope == 'healthcheck':
-        result = healthcheck()
+        result = healthcheck(args)
     elif args.scope == 'resetall':
-        result = resetall()
+        result = resetall(args)
         print(result)
 
 if __name__ == '__main__':
