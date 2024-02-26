@@ -358,7 +358,7 @@ class title_ratings(Resource):
 
 class reset_all(Resource):
     def post(self):
-        print(os.listdir('C:\\temp\\softeng23-05\\softeng23-05\\back_end'))
+        print(os.listdir('C:\\temp\\new_folder\\softeng23-05\\back_end'))
         sql_file_path = './back_end/ntuaflix_insert.sql'  # Path to your SQL file
         try:
             clear_database()
